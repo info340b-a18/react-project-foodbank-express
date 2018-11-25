@@ -11,7 +11,7 @@ def generateRandomFood():
     r.shuffle(imperishable)
     r.shuffle(perishable)
     foods = imperishable[0:25] + perishable[0:9]
-    weights = np.concatenate((np.random.choice(range(4, 21), 24), np.random.choice(range(0, 5), 10))).tolist()
+    weights = np.concatenate((np.random.choice(range(4, 100), 24), np.random.choice(range(0, 5), 10))).tolist()
     return dict(zip(foods, weights))
     
 generateRandomFood()
