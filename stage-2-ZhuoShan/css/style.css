@@ -1,0 +1,386 @@
+body {
+    background-color: white;
+    font-family: 'Roboto Slab', serif;
+    font-size: 12px;
+    margin:0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app-page {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.logo {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    background-position: left;
+    background-image: url("../favicon/favicon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+/* Style the navigation menu */
+.topnav {
+    overflow: hidden;
+    background-color:white;
+    position: relative;
+    width: 100%;
+}
+  
+  /* Hide the links inside the navigation menu (except for logo) */
+.topnav #myLinks {
+    display: none;
+}
+  
+  /* Style navigation menu links */
+.topnav a {
+    color: lightpink;
+    padding: 1rem 1rem;
+    text-decoration: none;
+    font-size: 1.3rem;
+    display: block;
+    width: auto;
+}
+
+#myLinks a {
+    color: lightpink;
+    font-size: 1rem;
+    text-align: left;
+}
+  /* Style the hamburger menu */
+.topnav a.icon {
+    background: white;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+  
+  /* Add a lightpink background color on mouse-over */
+.topnav .list-item a:hover {
+    background-color: lightpink;
+    color: white;
+}
+  
+
+section {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.description p {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.description h1 {
+    text-align: center;
+}
+/* Style for first section (welcome section) of main page */
+.main-page .welcome .welcome-photo img {
+    width: 100%;
+}
+.welcome {
+    position: relative;
+    text-align: left;
+    margin: 0rem;
+    padding-top: 0rem;
+}
+.welcome-text {
+    position: absolute;
+    top: 30%;
+    margin-left: 1rem;    
+    font-size: 1.3rem;
+}
+
+.welcome-text p {
+    background-color: lightpink;
+    color: white;
+    margin: 0.3rem;    
+}
+
+/* Style for introduction section in main page */
+.intro-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.intro-h1 {
+    text-align: center;
+}
+
+.intro-p {
+    text-align: left;
+    
+}
+.intro-card .card img {
+    height: 2rem;
+    width: 2rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+.card {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.card p {
+    font-weight: bold;
+}
+
+/* Style for food waste section of the main page */
+.foodwaste {
+    background: linear-gradient(#b0e0e6, lightpink); 
+    margin-left: 0rem;
+    margin-right: 0rem;
+}
+
+.foodwaste h1 {
+    text-align: center;
+}
+
+.foodwaste .foodwaste-card .card{
+    margin: 1rem 0.5rem;
+}
+.foodwaste .foodwaste-card .card h5 {
+    font-weight: bold;
+}
+.foodwaste .foodwaste-card .card p {
+    font-weight: 300;
+}
+
+/* Style for hunger crisis section of the main page */
+.hunger-img img {
+    width: 100%;
+}
+
+/* Style for food banks section fo the main page */
+.foodbank {
+    margin-left: 0rem;
+    margin-right: 0rem;
+    background: linear-gradient(lightpink, #b0e0e6); 
+}
+
+/* Style for mission section of the main page */
+#mission .mission-img img {
+    width: 100%;
+    margin-top: 2rem;
+}
+.app-button .learnMore-button {
+    margin-left: 0.5rem;
+    width: 30%;
+    background-color: #b0e0e6;
+    color: white;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+/* Style for footer of the main page */
+.footer-container{
+    background-color: lightpink;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-us-container {
+    margin-top: 4rem;
+}
+.about-us-container, .contact-us-container {
+    margin-left: 2rem;
+    text-align: left;
+    color: white;
+}
+.footer-container .row h2 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.footer-container .row p, .footer-container .row address {
+    font-size: 0.75rem;
+    width: 60%;
+}
+address a {
+    color: white;
+}
+.row-bottom {
+    text-align: center;
+    color: white;
+    font-size: 0.75rem;
+    margin-top: 3rem;
+}
+.row {
+    margin-right: 0;
+}
+/* Style for application page input form*/
+form {
+    margin: 2rem;
+    font-size: 0.65rem;
+}
+
+.form-control {
+    color: lightgray;
+}
+
+.btn {
+    background-color: #b0e0e6;
+    border-color: #b0e0e6;
+}
+
+/* style fo map display*/
+#app-map {
+    height: 20rem;
+    width: auto;
+    margin: none;
+}
+@media only screen and (min-width: 598px) {
+    .intro-card, .foodwaste-card {
+        display: flex;
+        flex-direction: row;
+    }
+    .card {
+        flex: 1;
+        margin: 0rem;
+    }   
+}
+
+@media only screen and (min-width: 768px) {
+    .topnav {
+        display: flex;
+        flex-direction: row;
+
+    }
+    .topnav a {
+        flex: 1;
+    }
+
+    .topnav #myLinks {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex:2;
+        justify-content: flex-end;
+    }
+    .topnav a.icon {
+        display: none;
+    }
+    .welcome .welcome-text {
+        font-size: 2rem;
+        top: 50%;
+        margin-left: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .topnav #myLinks {
+        padding-right: 1.5rem;
+    }
+    .introduction, .foodwaste {
+        display: flex;
+        flex-direction: row;
+    }
+    .introduction .intro-logo {
+        flex: 1;
+        margin: auto;
+        text-align: center;
+        
+    }
+  
+    .introduction .intro-content-container {
+        flex: 2;
+        margin-right: 3rem;
+    }
+    .introduction .intro-content-container .intro-h1, .intro-p {
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+    .foodwaste .foodwaste-card {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1;
+        align-items: center;
+        margin-right: 3rem;
+    }
+    .foodwaste .foodwaste-card .card {
+        height: 55%;
+    }
+    .foodwaste .description {
+        flex: 1;
+    }
+    .foodwaste .description h1 {
+        text-align: left;
+        margin-left: 3rem;
+    }
+    .foodwaste .description p {
+        margin-left: 3rem;
+    }
+
+    .hunger-crisis {
+        display: flex;
+        flex-direction: row;
+    }
+    .hunger-crisis .hunger-img {
+        flex: 2;
+        order: 1;
+        margin-left: 3rem;
+    }
+    .hunger-crisis .description {
+        flex: 1;
+        order: 2;
+    }
+    .hunger-crisis .description h1, .description p {
+        text-align: left;
+        margin-left: 0rem;
+        margin-right: 3rem;
+    }
+
+    .foodbank .description p {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+    #mission {
+        display: flex;
+        flex-direction: row;
+    }
+    #mission .mission-content .description h1 {
+        text-align: left;
+        margin-left: 3rem;
+    }
+    #mission .mission-content .description p {
+        margin-left: 3rem;
+    }
+    #mission .mission-content, #mission .mission-img {
+        flex: 1;
+    }
+    #mission .mission-img {
+        margin-right: 3rem; 
+    }
+    .app-button {
+        margin-left: 3rem; 
+    }
+    .footer-container .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .footer-container .about-us-container, .contact-us-container {
+        flex: 1;
+    }
+    .contact-us-container {
+        margin-top: 4rem;
+    }
+    .about-us-container {
+        margin-left: 5rem;
+    }
+}
