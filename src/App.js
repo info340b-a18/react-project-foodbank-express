@@ -11,19 +11,40 @@ import numberTwo from './img/number-two.png';
 import numberThree from './img/number-three.png';
 import numberFour from './img/number-four.png';
 import { render } from 'react-dom';
+import ScrollableAnchor from 'react-scrollable-anchor'
 import WordCloud from 'react-d3-cloud';
 import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
-import { Dropdown, UncontrolledDropdown, Container, DropdownToggle, DropdownMenu, Button, DropdownItem } from 'reactstrap';
+
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import WordCloudApp from './WordCloudApp.js'
 
 class App extends Component {
     render() {
         return (
             <div>
-                <header>
-                    <NavMenu />
-                </header>
+                <Router>
+                    <div>
+                        <header>
+                            <NavMenu />
+                        </header>
 
+                        <Route exact path='/' component={HomePage} />
+                        <Route path='/app' render={(routerProps) => (
+                            <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
+                        )} />
+                    </div>
+                </Router>
+                
+            </div>
+        );
+    }
+}
+
+class HomePage extends Component {
+    render() {
+        return (
+            <div>
                 <main>
                     <div className="main-page">
                         <section className="welcome">
@@ -86,7 +107,7 @@ class NavMenu extends Component {
         return (
             <div className="main_menu">
                 <div className="topnav">
-                    <a  id="nav-title">
+                    <a id="nav-title">
                         <span className="logo" aria-hidden="true">&nbsp;</span>
                         FoodBank Express
                     </a>
@@ -94,16 +115,17 @@ class NavMenu extends Component {
                     <div id="myLinks" ref={this.myLinks}>
                     {/* <div id="myLinks"> */}
                         <div className="list-item">    
-                        <a id="active" >Home</a>
+                            <Link to='/' id="active">Home</Link>
                         </div>
 
                         <div className="list-item">
-                        <a >App</a>
+                            <Link to='/app' >App</Link>
                         </div>
 
                         <div className="list-item">
-                        <a>Mission</a>
+                            <a href='#mission'>Mission</a>
                         </div>
+
                     </div>
 
                     <a href="javascript:void(0);" className="icon" onClick={this.mobileMenu}>
@@ -288,21 +310,23 @@ class FoodBankDescription extends Component {
 class MissionStatement extends Component {
     render() {
         return(
-            <div className="mission-content">
-                <div className="description">
-                    <h1>Our Mission</h1>
-                    <p>Our mission is to help the people who want to contribute to the effort and donate surplus food, 
-                        but don't know where to start. With our joint efforts, hopefully there will be less children going to bed with an empty stomach.</p>
-                    <p>FoodBank Express will inform you which nearby local food banks have demand for what kinds of food. 
-                        And we will let you know how you can easily donate your extra food based on your location and time constraints.</p>
+            <ScrollableAnchor id={"mission"}>
+                <div className="mission-content">
+                    <div className="description">
+                        <h1>Our Mission</h1>
+                        <p>Our mission is to help the people who want to contribute to the effort and donate surplus food, 
+                            but don't know where to start. With our joint efforts, hopefully there will be less children going to bed with an empty stomach.</p>
+                        <p>FoodBank Express will inform you which nearby local food banks have demand for what kinds of food. 
+                            And we will let you know how you can easily donate your extra food based on your location and time constraints.</p>
+                    </div>
+                    <div className="app-button">
+                        <Link to='/app' className="learnMore-button" >Learn More</Link>
+                    </div>
+                    <div className="mission-img">
+                        <img src={homelessfood} alt="people eating food" />
+                    </div> 
                 </div>
-                <div className="app-button">
-                    <a className="learnMore-button" >Learn More</a>
-                </div>
-                <div className="mission-img">
-                    <img src={homelessfood} alt="people eating food" />
-                </div> 
-            </div>
+            </ScrollableAnchor>
         )
     }
 }
@@ -399,71 +423,6 @@ class Footer extends Component {
         )
     }
 }
-
-
-// const fontSizeMapper = word => Math.log2(word.value) * 10;
-// const rotate = word => word.value % -10;
-
-// class App extends Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {banks: props.banks, bank_words: props.bank_words, bank: props.bank};
-//   }
-
-//   changeWordBank(bank) {
-//     var bank_words = data[bank];
-//     this.setState({bank_words: convertWords(bank_words), bank: bank});
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <header className="jumbotron jumbotron-fluid py-4">
-//           <div className="container">
-//             <h1>{this.state.bank}</h1>
-//           </div>
-//         </header>
-
-//         <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate} />
-//         <BankList changeWordBankCallback={(bank) => this.changeWordBank(bank)} banks = {this.props.banks}/>
-//       </div>
-//     );
-//   }
-// }
-
-// class BankButton extends Component {
-//   render() {
-//     return (
-//       <li>
-//         <Button onClick={() => this.props.changeWordBankCallback(this.props.bank)} className="card">
-//           {this.props.bank}
-//         </Button>
-//       </li>
-//     )
-//   }
-// }
-
-// class BankList extends Component {
-//   render() {
-//     var bankList = this.props.banks.map(bank => {
-//       return <BankButton changeWordBankCallback={this.props.changeWordBankCallback} bank={bank}/>;
-//     })
-//     return (
-//       <div id="petList" className="col-9">
-//         <h2>Available Banks</h2>
-//         <UncontrolledDropdown>
-//           <DropdownToggle caret>
-//             Dropdown
-//           </DropdownToggle>
-//           <DropdownMenu>
-//             {bankList}
-//           </DropdownMenu>
-//         </UncontrolledDropdown>
-//       </div>
-//     )
-//   }
-// }
 
 // class DropDown extends React.Component {
 //   constructor(props) {
