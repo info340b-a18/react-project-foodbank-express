@@ -237,11 +237,16 @@ form {
     border-color: #b0e0e6;
 }
 
-/* style fo map display*/
+/* style for map display*/
 #app-map {
     height: 20rem;
     width: auto;
     margin: none;
+}
+
+/* style for map marker.*/
+#markerHead, #markerAddress {
+    font-size: 1rem;
 }
 @media only screen and (min-width: 598px) {
     .intro-card, .foodwaste-card {

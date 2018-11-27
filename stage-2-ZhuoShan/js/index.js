@@ -4,7 +4,7 @@
 //It keeps track of current user information and scheduled tasks
 let state = {
   userInfo: {},
-  scheduleList: [],
+  foodbankList: [],
 };
 
 
@@ -13,18 +13,13 @@ let state = {
 let submitUserInfo = document.querySelector('#submit-button');
 submitUserInfo.addEventListener('click', function() {
   let addressInput = document.querySelector('#address-input').value;
-  let city = document.querySelector('#city-input').value;
-  let addressState = document.querySelector('#state-input').value;
-  let date = document.querySelector('#date-input').value;
-  let time = document.querySelector('#time-input').value;
-  if (addressInput == "" || city == "" || addressState == "" || date == "" || time == "") {
+  let radius = document.querySelector('#radius-input').value;
+  if (addressInput == "" || radius == "") {
     renderError(new Error("Fill in all fields!"));
   } else {
     document.querySelector('#error-display').innerHTML = '';
-    console.log('clik');
-    state.userInfo = {'address':addressInput, 'city':city, 'state':addressState, 
-    'date':date, 'time':time};
-    getUserGeoLocation(addressInput);
+    state.userInfo = {'address':addressInput, 'radius':radius};
+    getUserAndBankLocation(addressInput);
   }
 });
 
@@ -32,7 +27,6 @@ submitUserInfo.addEventListener('click', function() {
 //Will display error message if called
 function renderError(error) {
   document.querySelector('#error-display').innerHTML = '';
-  console.log('render');
   let errorMessage = $("<p></p>").text(error.message);
   errorMessage.addClass("alert alert-danger");
   $("#error-display").append(errorMessage);
@@ -40,11 +34,11 @@ function renderError(error) {
 
 //Initialize map display and load Seattle's map in the webpage
 let map = new google.maps.Map(document.getElementById('app-map'), {
-    zoom:11,
+    zoom:8,
     center:{lat:47.6062, lng:-122.3321}
 });
 
-function getUserGeoLocation(address) {
+function getUserAndBankLocation(address) {
   let addressArray = address.split(" ");
   let url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[0] + "+" + ",+Seattle,+WA&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE";
   let position = 58;
@@ -61,16 +55,59 @@ function getUserGeoLocation(address) {
           return response.json();
         })
         .then(function(myJson) {
-          //document.querySelector('#error-display').innerHTML = '';
-          console.log(JSON.stringify(myJson));
-          console.log('fetch');
           updateUserGeo(myJson.results[0].geometry.location);
-        })
-        .catch(renderError(new Error("Input valid address!")));
+          getNearbyFoodbank();
+        });
+        
 }
 //let request = {}
 function updateUserGeo(geoInfo) {
   state.userInfo.geoLocation = {'lat':geoInfo.lat, 'lng':geoInfo.lng};
+}
+
+function getNearbyFoodbank() {
+  let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+state.userInfo.geoLocation.lat+","+state.userInfo.geoLocation.lng+"&radius="+(state.userInfo.radius*1609.344)+"&keyword=foodbank&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE"
+  return fetch(url)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          //document.querySelector('#error-display').innerHTML = '';
+          //console.log(JSON.stringify(myJson));
+          //updateUserGeo(myJson.results[0].geometry.location);
+          myJson.results.forEach(element => {
+            state.foodbankList.push({'name':element.name, 'lat':element.geometry.location.lat, 'lng':element.geometry.location.lng, 'place_id':element.place_id, 'address':element.vicinity});
+            addMarker();
+          });
+        });
+
+}
+
+function addMarker() {
+  let newMap = new google.maps.Map(document.getElementById('app-map'), {
+    zoom:12,
+    center:{lat:state.userInfo.geoLocation.lat, lng:state.userInfo.geoLocation.lng},
+  });
+  let marker = new google.maps.Marker({
+    position:{lat:state.userInfo.geoLocation.lat, lng:state.userInfo.geoLocation.lng},
+    icon: "img/blueDot.png",
+    map:newMap
+  });
+  state.foodbankList.forEach(element => {
+    let marker = new google.maps.Marker({
+      position:{lat:element.lat, lng:element.lng}, 
+      map:newMap
+    });
+    let contentString = '<h1 id="markerHead">'+element.name+'</h1>'+
+    '<p id="markerAddress"><b>Address</b>'+element.address+'<p>';
+    let infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+    });
+  
 }
 //Toggle between showing and hiding the navigation menu links 
 //when the user clicks on the hamburger menu / bar icon 
