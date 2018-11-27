@@ -18,6 +18,9 @@ submitUserInfo.addEventListener('click', function() {
     renderError(new Error("Fill in all fields!"));
   } else {
     document.querySelector('#error-display').innerHTML = '';
+    document.querySelector('#help-message').innerHTML = '';
+    let message = $("<p></p>").text('*Click on pins to see more details or submit again.');
+    $("#help-message").append(message);
     state.userInfo = {'address':addressInput, 'radius':radius};
     getUserAndBankLocation(addressInput);
   }
@@ -38,6 +41,8 @@ let map = new google.maps.Map(document.getElementById('app-map'), {
     center:{lat:47.6062, lng:-122.3321}
 });
 
+//Fetch user's geolocation and nearby foodbank results based on the radius chosen
+//by using Google Map API amd Places library.
 function getUserAndBankLocation(address) {
   let addressArray = address.split(" ");
   let url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[0] + "+" + ",+Seattle,+WA&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE";
@@ -60,11 +65,13 @@ function getUserAndBankLocation(address) {
         });
         
 }
-//let request = {}
+
+//Update and store user's geolocation.
 function updateUserGeo(geoInfo) {
   state.userInfo.geoLocation = {'lat':geoInfo.lat, 'lng':geoInfo.lng};
 }
 
+//Fetch nearby food bank information.
 function getNearbyFoodbank() {
   let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+state.userInfo.geoLocation.lat+","+state.userInfo.geoLocation.lng+"&radius="+(state.userInfo.radius*1609.344)+"&keyword=foodbank&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE"
   return fetch(url)
@@ -72,17 +79,30 @@ function getNearbyFoodbank() {
           return response.json();
         })
         .then(function(myJson) {
-          //document.querySelector('#error-display').innerHTML = '';
-          //console.log(JSON.stringify(myJson));
-          //updateUserGeo(myJson.results[0].geometry.location);
           myJson.results.forEach(element => {
-            state.foodbankList.push({'name':element.name, 'lat':element.geometry.location.lat, 'lng':element.geometry.location.lng, 'place_id':element.place_id, 'address':element.vicinity});
-            addMarker();
-          });
+            let url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + element.place_id + "&fields=opening_hours,formatted_phone_number&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE";
+            let hours, phone = "";
+            return fetch(url)
+                  .then(function(response) {
+                    return response.json();
+                  })
+                  .then(function(myJson) {
+                    try {
+                      hours = myJson.result.opening_hours.weekday_text;
+                    } catch(exception) {
+                      hours = "";
+                    }
+                    phone = myJson.result.formatted_phone_number;
+                  }).then(function() {
+                    state.foodbankList.push({'name':element.name, 'lat':element.geometry.location.lat, 'lng':element.geometry.location.lng, 'place_id':element.place_id, 'address':element.vicinity
+                    , 'hours':hours, 'phone':phone});
+                    addMarker();
+                  });
         });
-
+  });
 }
 
+// Add marker on the map by using Google Map API.
 function addMarker() {
   let newMap = new google.maps.Map(document.getElementById('app-map'), {
     zoom:12,
@@ -98,8 +118,18 @@ function addMarker() {
       position:{lat:element.lat, lng:element.lng}, 
       map:newMap
     });
+    let hoursContent = '<b>Opening Hours: </b><br>';
+    if (element.hours != '') {
+      element.hours.forEach(day => {
+        hoursContent = hoursContent + day + '<br>';
+      });
+    } else {
+      hoursContent = '';
+    }
     let contentString = '<h1 id="markerHead">'+element.name+'</h1>'+
-    '<p id="markerAddress"><b>Address</b>'+element.address+'<p>';
+    '<p id="markerAddress"><b>Address: </b>'+element.address+ 
+    '<br><b>Contact: </b>'+element.phone+'<br>';
+    contentString = contentString + hoursContent + '</p>';
     let infowindow = new google.maps.InfoWindow({
       content: contentString
     });
