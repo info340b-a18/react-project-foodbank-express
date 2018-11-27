@@ -7,7 +7,8 @@ const AnyReactComponent = ({ text }) => <div>{ text }</div>;
 class MapApp extends Component {
     constructor(props) {
         super(props);
-        this.state = {bankNames: props.banks};   
+        this.state = {bankNames: props.banks, bankDetails:null};   
+
     }
 
     getBankDetail(index) {
@@ -60,13 +61,12 @@ class MapApp extends Component {
                 index++;
             });
         });
-        //console.log(curBanks);
-        this.setState({bankNames:curBanks}, () => {
-            console.log(this.state);
-        });
+        console.log(curBanks);
+        this.setState({bankDetails:curBanks});
     }
 
     render() {
+        console.log(this.state.bankDetails);
         return (
             <div> I am the MapApp.</div>
         )
