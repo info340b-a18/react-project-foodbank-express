@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import grocery from './img/grocery.jpg';
+import './css/animate.css';
+import 'reactstrap';
 import logo from './favicon/favicon.png';
 import groceryIcon from './img/groceryIcon.png';
 import foodwaste from './img/foodwaste.png';
@@ -10,11 +12,14 @@ import numberOne from './img/number-one.png';
 import numberTwo from './img/number-two.png';
 import numberThree from './img/number-three.png';
 import numberFour from './img/number-four.png';
-import { render } from 'react-dom';
 import ScrollableAnchor from 'react-scrollable-anchor'
-import WordCloud from 'react-d3-cloud';
 import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
+import {Animated} from 'react-animated-css';
+import Waypoint from 'react-waypoint';
+import staggeredAnimationBox from './utils/main.js';
+import Fade from 'react-reveal/Fade';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import WordCloudApp from './WordCloudApp.js'
@@ -179,41 +184,49 @@ class Introduction extends Component {
     render() {
         return (
             <div>
-                <div className="intro-logo">
-                    <img src={logo} alt="foodBank logo" />
-                </div>
-
                 <div className="intro-content-container">
-                    <div className="intro-h1">
-                        <h1>Welcome to FoodBank Express</h1>
-                    </div>
-                    <div className="intro-p">
-                        <p>
-                            We are FoodBank Express, an online platform that connects everyone to local foodbanks.
-                            We want you to help us make sure that everyone has access to healthy food options
-                            and fight against food waste and hunger!
-                        </p>
-                    </div>    
-                    <div className="intro-card">
-                        <div className="card">
-                            <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
-                            <div className="card-body">
-                                <p className="card-text">Provide Healthy Food</p>
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="400">
+                        <div>
+                            <div className="intro-logo animate-box">
+                                <img src={logo} alt="foodBank logo" />
                             </div>
+
+                            <div className="intro-h1 animate-box">
+                                <h1>Welcome to FoodBank Express</h1>
+                            </div>
+
+                            <div className="intro-p animate-box">
+                                <p>
+                                    We are FoodBank Express, an online platform that connects everyone to local foodbanks.
+                                    We want you to help us make sure that everyone has access to healthy food options
+                                    and fight against food waste and hunger!
+                                </p>
+                            </div> 
                         </div>
-                        <div className="card">
-                            <img className="card-img-top" src={foodwaste} alt="food waste" />
-                            <div className="card-body">
-                                <p className="card-text">Reduce Food Waste</p>
+                    </ScrollAnimation>
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <div className="intro-card">
+                            <div className="card">
+                                <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
+                                <div className="card-body">
+                                    <p className="card-text">Provide Healthy Food</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src={connect} alt="connect" />
-                            <div className="card-body">
-                                <p className="card-text">Minimize Donation Gap</p>
+                            <div className="card">
+                                <img className="card-img-top" src={foodwaste} alt="food waste" />
+                                <div className="card-body">
+                                    <p className="card-text">Reduce Food Waste</p>
+                                </div>
                             </div>
-                        </div> 
-                    </div>       
+                        
+                            <div className="card">
+                                <img className="card-img-top" src={connect} alt="connect" />
+                                <div className="card-body">
+                                    <p className="card-text">Minimize Donation Gap</p>
+                                </div>
+                            </div> 
+                        </div>     
+                    </ScrollAnimation>  
                 </div>
             </div>
         )
@@ -223,40 +236,47 @@ class Introduction extends Component {
 class FoodWaste extends Component {
     render() {
         return (
-            <div>
-                <div className="description">
-                    <h1>Food Waste Problem</h1>
-                    <p>Between <b><a href="https://www.usda.gov/oce/foodwaste/faqs.htm">30-55%</a></b> of all food produced globally is never eaten, and the value of 
-                    this wasted food is worth over <b><a href="http://www.fao.org/save-food/resources/keyfindings/en/">1 trillion dollar</a></b>. Food waste is a massive market inefficiency.</p>
-                    <p>Meanwhile, approximately <b><a href="https://www.npr.org/sections/thesalt/2013/06/06/189192870/when-you-waste-food-youre-wasting-tons-of-water-too">25%</a></b> of all fresh water consumption globally goes to the production of wasted food.
-                        Not only are all the resources went into creating the uneaten food wasted, but the decomposition of food waste
-                        creates massive amount of air pollution.
-                    </p>
-                    <p>It is easy for many people to dismiss food waste as someone else's problem as they argue that they do not waste food.
-                        However, The reality is that in the developed contries, more than <b><a href="http://www.fao.org/save-food/resources/keyfindings/en/">40%</a></b> of food waste takes place in our homes.
-                    </p>
-                </div>
-                
-                <div className="foodwaste-card">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">1/3</h5>
-                            <p className="card-text">of all food produced globally goes to waste</p>
+            <div>            
+                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="700">
+                    <div>
+                        <div className="description">
+                            <h1>Food Waste Problem</h1>
+                            <p>Between <b><a href="https://www.usda.gov/oce/foodwaste/faqs.htm">30-55%</a></b> of all food produced globally is never eaten, and the value of 
+                            this wasted food is worth over <b><a href="http://www.fao.org/save-food/resources/keyfindings/en/">1 trillion dollar</a></b>. Food waste is a massive market inefficiency.</p>
+                            <p>Meanwhile, approximately <b><a href="https://www.npr.org/sections/thesalt/2013/06/06/189192870/when-you-waste-food-youre-wasting-tons-of-water-too">25%</a></b> of all fresh water consumption globally goes to the production of wasted food.
+                                Not only are all the resources went into creating the uneaten food wasted, but the decomposition of food waste
+                                creates massive amount of air pollution.
+                            </p>
+                            <p>It is easy for many people to dismiss food waste as someone else's problem as they argue that they do not waste food.
+                                However, The reality is that in the developed contries, more than <b><a href="http://www.fao.org/save-food/resources/keyfindings/en/">40%</a></b> of food waste takes place in our homes.
+                            </p>
                         </div>
                     </div>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">1.3 billion tonnes</h5>
-                            <p className="card-text">of food are thrown away without being eaten every year</p>
+                </ScrollAnimation>
+                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <div>
+                        <div className="foodwaste-card">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">1/3</h5>
+                                    <p className="card-text">of all food produced globally goes to waste</p>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">1.3 billion tonnes</h5>
+                                    <p className="card-text">of food are thrown away without being eaten every year</p>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">The 3rd largest</h5>
+                                    <p className="card-text">emitter of greenhouse gases is food waste</p>
+                                </div>
+                            </div>     
                         </div>
                     </div>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">The 3rd largest</h5>
-                            <p className="card-text">emitter of greenhouse gases is food waste</p>
-                        </div>
-                    </div>     
-                </div>
+                </ScrollAnimation>
             </div>
         ) 
     }
@@ -265,21 +285,27 @@ class FoodWaste extends Component {
 class HungerCrisis extends Component {
     render() {
         return(
-            <div>
-                <div className="description">
-                    <h1>Hunger Crisis</h1>    
-                    <p>In addition to the world-wide food waste problem, food insecurity is a way of life for almost <b><a href="https://olioex.com/food-waste/the-problem-of-food-waste/">800 million</a></b> people.
-                        That is 1 in 9 human beings on the planet who are going to bed with an empty stomach every night.
-                    </p>
-                    <p>In the US only, esitemated <b><a href="https://www.cnn.com/2017/06/09/health/champions-for-change-child-hunger-in-america/index.html">13.1 million</a></b> children live in food insecure households.
-                        Southern area has more percentage of households suffering from food insecurity. In some are, the percentage of households do not 
-                        have food security is as high as 20%.
-                    </p>
+            
+                <div>
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <div className="description">
+                            <h1>Hunger Crisis</h1>    
+                            <p>In addition to the world-wide food waste problem, food insecurity is a way of life for almost <b><a href="https://olioex.com/food-waste/the-problem-of-food-waste/">800 million</a></b> people.
+                                That is 1 in 9 human beings on the planet who are going to bed with an empty stomach every night.
+                            </p>
+                            <p>In the US only, estimated <b><a href="https://www.cnn.com/2017/06/09/health/champions-for-change-child-hunger-in-america/index.html">13.1 million</a></b> children live in food insecure households.
+                                Southern area has more percentage of households suffering from food insecurity. In some are, the percentage of households do not 
+                                have food security is as high as 20%.
+                            </p>
+                        </div>
+                    </ScrollAnimation>
+
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <div className="hunger-img">
+                            <img src={foodInsecurity} alt="food insecurity percentage"/>
+                        </div>
+                    </ScrollAnimation>
                 </div>
-                <div className="hunger-img">
-                    <img src={foodInsecurity} alt="food insecurity percentage"/>
-                </div>
-            </div>
         )
     }
 }
@@ -287,22 +313,24 @@ class HungerCrisis extends Component {
 class FoodBankDescription extends Component {
     render() {
         return (
-            <div className="description">
-                <h1>Food Banks</h1>
-                <p>Food banks are at the forefront of the day-to-day fight against food waste. For more than 30 years, European food banks have
-                    provided, and continue to provide, solutions to solve poverty, hunger and food waste challenges. 
-                </p>
-                <p>Food banks collect edible food from companies, including manufacturers, retailers, as well as individuals. The food is then stored and sorted 
-                    to prepare nutritionally balanced mean packages. 
-                </p>
-                <p>Thanks to food donations, a large quantity of edible food that would have gone to a landfill, creating emissions
-                     and wasting water and energy, is now being consumed by thoes most in need. 
-                </p>
-                <p>However, many local food banks are experiencing low volume of donations. And food donations, in general, have been 
-                    declining. One of the primary sources of food donation has gone down over the year. Food donations that come in 
-                    via the postal service have been on the decline. Local food banks in Washington State cannot keep up the demand.
-                </p>
-            </div>
+            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                <div className="description">
+                    <h1>Food Banks</h1>
+                    <p>Food banks are at the forefront of the day-to-day fight against food waste. For more than 30 years, European food banks have
+                        provided, and continue to provide, solutions to solve poverty, hunger and food waste challenges. 
+                    </p>
+                    <p>Food banks collect edible food from companies, including manufacturers, retailers, as well as individuals. The food is then stored and sorted 
+                        to prepare nutritionally balanced mean packages. 
+                    </p>
+                    <p>Thanks to food donations, a large quantity of edible food that would have gone to a landfill, creating emissions
+                        and wasting water and energy, is now being consumed by thoes most in need. 
+                    </p>
+                    <p>However, many local food banks are experiencing low volume of donations. And food donations, in general, have been 
+                        declining. One of the primary sources of food donation has gone down over the year. Food donations that come in 
+                        via the postal service have been on the decline. Local food banks in Washington State cannot keep up the demand.
+                    </p>
+                </div>
+            </ScrollAnimation>
         )
     }
 }
@@ -310,7 +338,7 @@ class FoodBankDescription extends Component {
 class MissionStatement extends Component {
     render() {
         return(
-            <ScrollableAnchor id={"mission"}>
+            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
                 <div className="mission-content">
                     <div className="description">
                         <h1>Our Mission</h1>
@@ -326,7 +354,7 @@ class MissionStatement extends Component {
                         <img src={homelessfood} alt="people eating food" />
                     </div> 
                 </div>
-            </ScrollableAnchor>
+            </ScrollAnimation>
         )
     }
 }
@@ -334,64 +362,75 @@ class MissionStatement extends Component {
 class Steps extends Component {
     render() {
         return(
-            <div className="app-page">
-                <section className="introduction"> 
-                    <div className="intro-logo">
-                        <img src={numberOne} alt="number one" />
-                    </div>
-                    <div className="intro-content-container">
-                    <div className="intro-h1">
-                        <h1>Step 1:  Input Information</h1>
-                    </div>
-                    <div className="intro-p">
-                        <p>First, you will type in all the information needed for us to look for a list of matching locations</p>
-                        <p>The information include user name, zip code, type of food, expiration date, radius, methods of donation and estimated arriving date.</p>
-                    </div>    
-                    </div>
-                </section>
-                <section className="introduction">    
-                    <div className="intro-logo">
-                        <img src={numberTwo} alt="number two" />
-                    </div>
-                    <div className="intro-content-container">
-                    <div className="intro-h1">
-                        <h1>Step 2:  Select Location</h1>
-                    </div>
-                    <div className="intro-p">
-                        <p>After receiving your information, we will compile a list of matching food banks location accordingly. We will also provide all the information about matching locations.</p>
-                        <p>Then, you can select your ideal location and method of donations.</p>
-                    </div>    
-                    </div>
-                </section>
-                <section className="introduction">    
-                    <div className="intro-logo">
-                            <img src={numberThree} alt="number three" />
-                        </div>
-                        <div className="intro-content-container">
-                        <div className="intro-h1">
-                            <h1>Step 3:  Reserve Timeslot</h1>
-                        </div>
-                        <div className="intro-p">
-                            <p>After being selected, the food bank will receive your information about food donation.</p>
-                            <p>Then, you will receive the confirmation email and your travel information or select postal service will be sent to you.</p>
-                        </div>    
-                        </div>                         
-                </section>
-                <section className="introduction">
-                    <div className="intro-logo">
-                            <img src={numberFour} alt="number four" />
-                        </div>
-                        <div className="intro-content-container">
-                        <div className="intro-h1">
-                            <h1>Step 4:  Reschedule Appointment</h1>
-                        </div>
-                        <div className="intro-p">
-                            <p>You will also have the option of rescheduling with the same location.</p>
-                            <p>Or, set up a monthly reservation with your choice.</p>
-                        </div>    
-                        </div>
-                </section>
-            </div>
+                <div className="app-page">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <section className="introduction"> 
+                            <div className="intro-logo">
+                                <img src={numberOne} alt="number one" />
+                            </div>
+                            <div className="intro-content-container">
+                            <div className="intro-h1">
+                                <h1>Step 1:  Input Information</h1>
+                            </div>
+                            <div className="intro-p">
+                                <p>First, you will type in all the information needed for us to look for a list of matching locations</p>
+                                <p>The information include user name, zip code, type of food, expiration date, radius, methods of donation and estimated arriving date.</p>
+                            </div>    
+                            </div>
+                        </section>
+                    </ScrollAnimation>
+
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <section className="introduction">    
+                            <div className="intro-logo">
+                                <img src={numberTwo} alt="number two" />
+                            </div>
+                            <div className="intro-content-container">
+                            <div className="intro-h1">
+                                <h1>Step 2:  Select Location</h1>
+                            </div>
+                            <div className="intro-p">
+                                <p>After receiving your information, we will compile a list of matching food banks location accordingly. We will also provide all the information about matching locations.</p>
+                                <p>Then, you can select your ideal location and method of donations.</p>
+                            </div>    
+                            </div>
+                        </section>
+                    </ScrollAnimation>
+
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <section className="introduction">    
+                            <div className="intro-logo">
+                                    <img src={numberThree} alt="number three" />
+                                </div>
+                                <div className="intro-content-container">
+                                <div className="intro-h1">
+                                    <h1>Step 3:  Reserve Timeslot</h1>
+                                </div>
+                                <div className="intro-p">
+                                    <p>After being selected, the food bank will receive your information about food donation.</p>
+                                    <p>Then, you will receive the confirmation email and your travel information or select postal service will be sent to you.</p>
+                                </div>    
+                                </div>                         
+                        </section>
+                    </ScrollAnimation>
+                    
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                        <section className="introduction">
+                            <div className="intro-logo">
+                                    <img src={numberFour} alt="number four" />
+                                </div>
+                                <div className="intro-content-container">
+                                <div className="intro-h1">
+                                    <h1>Step 4:  Reschedule Appointment</h1>
+                                </div>
+                                <div className="intro-p">
+                                    <p>You will also have the option of rescheduling with the same location.</p>
+                                    <p>Or, set up a monthly reservation with your choice.</p>
+                                </div>    
+                                </div>
+                        </section>
+                    </ScrollAnimation>
+                </div>
         )
     }
 }
@@ -399,27 +438,29 @@ class Steps extends Component {
 class Footer extends Component {
     render() {
         return(
-            <div className="footer-container">
-                <div className="row">
-                    <div className="about-us-container">
-                        <h2>ABOUT US</h2>
-                        <p>We are FoodBank Express, an online platform that connects food donors with food banks.
-                        We believe in healthy food for all!</p>
+            <Fade>
+                <div className="footer-container">
+                    <div className="row">
+                        <div className="about-us-container">
+                            <h2>ABOUT US</h2>
+                            <p>We are FoodBank Express, an online platform that connects food donors with food banks.
+                            We believe in healthy food for all!</p>
+                        </div>
+                        <div className="contact-us-container">
+                            <h2>CONTACT US</h2>
+                            <address>
+                                    <a href="mailto:me@here.com">contact@foodbankexpress.com</a><br/>
+                                    <a href="tel:555-123-4567">(555)123-4567</a>
+                            </address>
+                        </div>
                     </div>
-                    <div className="contact-us-container">
-                        <h2>CONTACT US</h2>
-                        <address>
-                                <a href="mailto:me@here.com">contact@foodbankexpress.com</a><br/>
-                                <a href="tel:555-123-4567">(555)123-4567</a>
-                        </address>
+                    <div className="row-bottom">
+                        <p>
+                            Copyright ©2018 All rights reserved | This webpage is made with <i className="fa fa-heart-o" aria-hidden="true"></i> by Zhuo Shan
+                        </p>
                     </div>
                 </div>
-                <div className="row-bottom">
-                    <p>
-                        Copyright ©2018 All rights reserved | This webpage is made with <i className="fa fa-heart-o" aria-hidden="true"></i> by Zhuo Shan
-                    </p>
-                </div>
-            </div>
+            </Fade>
         )
     }
 }
