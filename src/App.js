@@ -10,11 +10,11 @@ import numberOne from './img/number-one.png';
 import numberTwo from './img/number-two.png';
 import numberThree from './img/number-three.png';
 import numberFour from './img/number-four.png';
-import { render } from 'react-dom';
 import ScrollableAnchor from 'react-scrollable-anchor'
-import WordCloud from 'react-d3-cloud';
 import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
+import {Animated} from 'react-animated-css';
+import ScrollEffect from 'react-scroll-effects';
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import WordCloudApp from './WordCloudApp.js'
@@ -179,28 +179,33 @@ class Introduction extends Component {
     render() {
         return (
             <div>
-                <div className="intro-logo">
-                    <img src={logo} alt="foodBank logo" />
-                </div>
-
                 <div className="intro-content-container">
-                    <div className="intro-h1">
-                        <h1>Welcome to FoodBank Express</h1>
-                    </div>
-                    <div className="intro-p">
-                        <p>
-                            We are FoodBank Express, an online platform that connects everyone to local foodbanks.
-                            We want you to help us make sure that everyone has access to healthy food options
-                            and fight against food waste and hunger!
-                        </p>
-                    </div>    
-                    <div className="intro-card">
-                        <div className="card">
-                            <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
-                            <div className="card-body">
-                                <p className="card-text">Provide Healthy Food</p>
-                            </div>
+                    <ScrollEffect animate="fadeInUp">
+                        <div className="intro-logo">
+                            <img src={logo} alt="foodBank logo" />
                         </div>
+
+                        <div className="intro-h1">
+                            <h1>Welcome to FoodBank Express</h1>
+                        </div>
+
+                        <div className="intro-p">
+                            <p>
+                                We are FoodBank Express, an online platform that connects everyone to local foodbanks.
+                                We want you to help us make sure that everyone has access to healthy food options
+                                and fight against food waste and hunger!
+                            </p>
+                        </div>  
+                    </ScrollEffect>
+                    <div className="intro-card">
+                        <Animated animationIn="fadeInUp" isVisible={true}>
+                            <div className="card">
+                                <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
+                                <div className="card-body">
+                                    <p className="card-text">Provide Healthy Food</p>
+                                </div>
+                            </div>
+                        </Animated>
                         <div className="card">
                             <img className="card-img-top" src={foodwaste} alt="food waste" />
                             <div className="card-body">

@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import './css/style.css';
+import './css/animate.css';
 import './App.css';
+// import './utils/main.js'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import data from './make-data/bank_words.json'
