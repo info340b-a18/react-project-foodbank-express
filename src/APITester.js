@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import MapContainer from './MapContainer';
+import convertWords from './utils/convertWords';
+import {Map, GoogleApiWrapper, GoogleMap, Marker, InfoWindow} from 'google-maps-react';
+import MapAppTest from './MapContainer';
 
-class MapApp extends Component {
+class APITester extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,6 +33,7 @@ class MapApp extends Component {
                         fetch("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + curPlaceID + "&fields=opening_hours,formatted_phone_number,address_components,geometry,name&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
                         .then(placeResponse => {
                             return placeResponse.json();
+                            //promises.push(placeResponse.json());
                         }).catch(err => {
                             console.log(err);
                         }).then((data) => {
@@ -41,14 +44,27 @@ class MapApp extends Component {
                     }
                 })
         });
+
+        //this.setState({bankDetails:bankDetails});
+
+        /*fetch("https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
+            .then(response => response.json())
+            .then((data) => {
+                //console.log(data);
+                this.setState({curName:data})
+            });*/
+        //console.log(promises); 
+        
     }
 
     render() {
+        //console.log(this.state);
+        //this.state.bankDetails ? console.log(this.state.bankDetails) : console.log('error')
         return(
             <div>
                 <div>
                 {this.state.bankDetails.length == 22 &&                      
-                    <MapContainer  bankLists = {this.state.bankDetails}
+                    <MapAppTest  bankLists = {this.state.bankDetails}
                     zipGeo={{lat:47.6062, lng:-122.3321}}
                     zoom={12} />
                 }
@@ -58,4 +74,6 @@ class MapApp extends Component {
     }
 }
 
-export default MapApp
+export default APITester
+
+/*{this.state.curName ? <div>{this.state.curName.result.name}</div> : <div />}*/

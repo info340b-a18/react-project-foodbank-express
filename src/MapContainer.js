@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
 const mapStyles = {
-  width: '100%',
-  height: '100%'
+  width: '80%',
+  height: '80%'
 };
 
-export class MapAppTest extends Component {
+export class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,54 +34,65 @@ export class MapAppTest extends Component {
         });
       }
     };
-      render() {
-        //console.log(this.state.bankLists);
-        //console.log(Object.keys(this.state.bankLists)[0]);
-        /*let markerL =         <MarkerPoint markerPosition={this.state.bankLists[Object.keys(this.state.bankLists)[0]].location}
-        markerName={Object.keys(this.state.bankLists)[0]} />;*/
+    render() {
+        var markers = [];
+        var key = 0;
+        console.log(this.state);
         
-    
-    var markers = [];
-    var key = 0;
-    for (let i=0; i<Object.keys(this.state.bankLists).length; i++) {
-        let curMarker = <Marker key = {key}
-        position={this.state.bankLists[Object.keys(this.state.bankLists)[i]].location}
-        onClick={this.onMarkerClick}
-        name={Object.keys(this.state.bankLists)[i]}
-      />;
-        let curInfoWin = <InfoWindow key={key+1}
-        marker={this.state.activeMarker}
-        visible={this.state.showingInfoWindow}
-        onClose={this.onClose}
-      >
-        <div>
-          <h4>{this.state.selectedPlace.name}</h4>
-        </div>
-      </InfoWindow>;
-        markers.push(curMarker);
-        markers.push(curInfoWin);
-        key+=2;
-    }
-    return (
-        <div style={mapStyles} className="map-div">
-        <Map
-        google={this.props.google}
-        zoom={this.state.zoom}
-        initialCenter={{
-         lat: this.state.zipGeo.lat,
-         lng: this.state.zipGeo.lng
-        }}
+        for (let i=0; i<Object.keys(this.state.bankLists).length; i++) {
+            let curHours, curMon, curTue, curWed, curThu, curFri, curSat, CurSun = "";
+            if(this.state.bankLists[i].result['opening_hours']) {
+                curHours = 'Opening Hours: <br/>';
+                this.state.bankLists[i].result['opening_hours']['weekday_text'].forEach(element => {
+                    curHours = curHours + element + '<br/>';
+                });
+        
+            }
+
+            let curAddress
+            let curMarker = <Marker key = {key}
+            position={this.state.bankLists[Object.keys(this.state.bankLists)[i]].result.geometry.location}
+            onClick={this.onMarkerClick}
+            name={this.state.bankLists[i].result.name}
+            hours={curHours}
+        />;
+            let curInfoWin = <InfoWindow key={key+1}
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
         >
-        {markers}
-        </Map>
-        </div>
-    );
+            <div>
+            <h3>{this.state.selectedPlace.name} <br />
+            {this.state.selectedPlace.hours}
+            </h3>
+            </div>
+        </InfoWindow>;
+            markers.push(curMarker);
+            markers.push(curInfoWin);
+            key+=2;
+        }
+        //console.log(this.state);
+        return (
+                <div>
+                <Map
+                google={this.props.google}
+                zoom={this.state.zoom}
+                style={mapStyles}
+                initialCenter={{
+                lat: this.state.zipGeo.lat,
+                lng: this.state.zipGeo.lng
+                }}
+                >
+                    {markers}
+                </Map>
+                </div>
+        );
   }
 }
 
 export default GoogleApiWrapper({
     apiKey:("AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
-})(MapAppTest)
+})(MapContainer)
 
 /*
         <InfoWindow
@@ -122,4 +133,6 @@ export default GoogleApiWrapper({
         <h4>{this.state.selectedPlace.name}</h4>
       </div>
     </InfoWindow>;
+                <h3>{this.state.bankLists[this.state.selectedPlace.index].result.opening_hours.weekday_text}</h3>
+
         */
