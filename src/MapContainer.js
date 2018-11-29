@@ -37,10 +37,10 @@ export class MapContainer extends Component {
     render() {
         var markers = [];
         var key = 0;
-        console.log(this.state);
+        //console.log(this.state.bankLists[0].result['address_components']);
         
         for (let i=0; i<Object.keys(this.state.bankLists).length; i++) {
-            let curHours, curMon, curTue, curWed, curThu, curFri, curSat, CurSun = "";
+            let curHours = "";
             if(this.state.bankLists[i].result['opening_hours']) {
                 curHours = 'Opening Hours: <br/>';
                 this.state.bankLists[i].result['opening_hours']['weekday_text'].forEach(element => {
@@ -48,13 +48,16 @@ export class MapContainer extends Component {
                 });
         
             }
+            let curAddress = 'Address: ';
+            curAddress = curAddress + this.state.bankLists[i].result['address_components'][0]['long_name'] + " " +
+              this.state.bankLists[i].result['address_components'][1]['long_name'] + ", Seattle, WA "+this.state.bankLists[i].result['address_components'][7]['long_name']
 
-            let curAddress
             let curMarker = <Marker key = {key}
             position={this.state.bankLists[Object.keys(this.state.bankLists)[i]].result.geometry.location}
             onClick={this.onMarkerClick}
             name={this.state.bankLists[i].result.name}
             hours={curHours}
+            address={curAddress}
         />;
             let curInfoWin = <InfoWindow key={key+1}
             marker={this.state.activeMarker}
@@ -63,7 +66,8 @@ export class MapContainer extends Component {
         >
             <div>
             <h3>{this.state.selectedPlace.name} <br />
-            {this.state.selectedPlace.hours}
+            {this.state.selectedPlace.hours} <br />
+            {this.state.selectedPlace.address}
             </h3>
             </div>
         </InfoWindow>;
