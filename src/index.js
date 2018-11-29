@@ -4,13 +4,17 @@ import './css/style.css';
 import './App.css';
 import App from './App';
 import MapApp from './MapApp';
+import MapAppTest from './MapAppTest';
+
 import * as serviceWorker from './serviceWorker';
 import data from './make-data/bank_words.json'
 import convertWords from './utils/convertWords'
 
 //ReactDOM.render(<App banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"}/>, document.getElementById('root'));
 
-ReactDOM.render(<MapApp banks={Object.keys(data)}/>, document.getElementById('root'));
+//ReactDOM.render(<MapApp banks={Object.keys(data)} />, document.getElementById('root'));
+ReactDOM.render(<MapAppTest bankLists={{"Ballard Food Bank":{location:{lat:47.665569, lng:-122.380203}},
+"University Food Bank":{location:{lat:47.680191, lng:-122.317436}}}}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

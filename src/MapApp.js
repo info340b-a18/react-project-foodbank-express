@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import convertWords from './utils/convertWords';
-import GoogleMapReact from 'google-map-react';
+import {Map, GoogleApiWrapper, GoogleMap, Marker, InfoWindow} from 'google-maps-react';
 const AnyReactComponent = ({ text }) => <div>{ text }</div>;
 
 
 class MapApp extends Component {
     constructor(props) {
         super(props);
-        this.state = {bankNames: props.banks, bankDetails:null};   
-
+        this.state = {bankNames: props.banks, bankDetails:{'Ballard Food Bank':{result:{geometry:{location:{lat:47.6062, lng:-122.3321}}}}}};   
     }
 
     getBankDetail(index) {
@@ -25,7 +24,7 @@ class MapApp extends Component {
             .then(function(myJson) {
                 try {
                 let placeID = myJson.candidates[0].place_id;  
-                return fetch("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&fields=opening_hours,formatted_phone_number,address_components&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
+                return fetch("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&fields=opening_hours,formatted_phone_number,address_components,geometry&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
                     .then(function(placeResponse) {
                         return placeResponse.json();
                     })
@@ -44,7 +43,6 @@ class MapApp extends Component {
                         this.setState({bank:myJson.candidates[0].name, address:myJson.candidates[0].formatted_address, geoLocation:myJson.candidates[0].geometry, opening:hours, phoneNumber:phone});
                     })*/
             })
-        
 }
     componentDidMount() {
         let curBanks = {};
@@ -61,18 +59,55 @@ class MapApp extends Component {
                 index++;
             });
         });
-        console.log(curBanks);
         this.setState({bankDetails:curBanks});
     }
+    onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
 
+  onClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  };
     render() {
-        console.log(this.state.bankDetails);
+        console.log(this.state);
+        //console.log(this.state.bankDetails["Ballard Food Bank"]);
+        /*if(Object.keys(this.state.bankDetails).length >1 ){
+        }*/
         return (
-            <div> I am the MapApp.</div>
-        )
+            <div>
+  
+            
+            <Map google={this.props.google} center={{lat:47.6062,lng:-122.3321}} zoom={12}>
+           <Marker
+                name={'test'}
+                position={{lat:47.6062,lng:-122.3321}} 
+                onClick={this.onMarkerClick}
+            />
+            <InfoWindow
+                marker={this.state.activeMarker}
+                visible={this.state.showingInfoWindow}
+                onClose={this.onClose}
+            >
+            <div>
+                <h4>{this.state.selectedPlace.name}</h4>
+            </div>
+            </InfoWindow>
+            </Map>
+            </div>
+        );
     }
 }
 
 
 
-export default MapApp
+export default GoogleApiWrapper({
+    apiKey:("AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
+})(MapApp)
