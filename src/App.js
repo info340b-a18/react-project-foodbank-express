@@ -40,7 +40,6 @@ class App extends Component {
                         )} />
                     </div>
                 </Router>
-                
             </div>
         );
     }
@@ -127,10 +126,6 @@ class NavMenu extends Component {
                             <Link to='/app' >App</Link>
                         </div>
 
-                        <div className="list-item">
-                            <a href='#mission'>Mission</a>
-                        </div>
-
                     </div>
 
                     <a href="javascript:void(0);" className="icon" onClick={this.mobileMenu}>
@@ -142,27 +137,6 @@ class NavMenu extends Component {
         )
     }
 }
-
-// class WelcomePicture extends Component {
-//     render() {
-//         return(
-//             <div className="welcome-photo">
-//                 <img src={grocery} />
-//             </div>
-//         ) 
-//     }
-// }
-
-// class Welcome extends Component {
-//     render() {
-//         return (
-//                 <div className="welcome-text">
-//                     <p>Providing Healthy Groceries</p>
-//                     <p>for Our Neighbors</p>
-//                 </div>
-//         ); 
-//     }
-// }
 
 class Welcome extends Component {
     render() {
