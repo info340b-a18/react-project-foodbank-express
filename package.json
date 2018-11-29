@@ -1,9 +1,11 @@
 {
   "name": "react-project-foodbank-express-master",
   "version": "0.1.0",
+  "homepage": "https://info340b-a18.github.io/react-project-foodbank-express/",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.3",
+    "gh-pages": "^2.0.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.5",
     "react": "^16.6.3",
@@ -21,6 +23,8 @@
     "waypoints": "^4.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

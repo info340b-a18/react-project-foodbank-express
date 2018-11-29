@@ -33,7 +33,7 @@ class App extends Component {
                         <header>
                             <NavMenu />
                         </header>
-
+                        <Route exact path='/react-project-foodbank-express/' component={HomePage} />
                         <Route exact path='/' component={HomePage} />
                         <Route path='/app' render={(routerProps) => (
                             <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
