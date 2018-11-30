@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Dropdown, UncontrolledDropdown, Container, DropdownToggle, DropdownMenu, Button, DropdownItem } from 'reactstrap';
 import { render } from 'react-dom';
 import WordCloud from 'react-d3-cloud';
 import data from './make-data/bank_words.json';
@@ -31,42 +30,8 @@ class WordCloudApp extends Component {
         </header>
 
         <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate} />
-        <BankList changeWordBankCallback={(bank) => this.changeWordBank(bank)} banks = {this.props.banks}/>
       </div>
     );
-  }
-}
-
-class BankButton extends Component {
-  render() {
-    return (
-      <li>
-        <Button onClick={() => this.props.changeWordBankCallback(this.props.bank)} className="card">
-          {this.props.bank}
-        </Button>
-      </li>
-    )
-  }
-}
-
-class BankList extends Component {
-  render() {
-    var bankList = this.props.banks.map(bank => {
-      return <BankButton changeWordBankCallback={this.props.changeWordBankCallback} bank={bank}/>;
-    })
-    return (
-      <div id="petList" className="col-9">
-        <h2>Available Banks</h2>
-        <UncontrolledDropdown>
-          <DropdownToggle caret>
-            Dropdown
-          </DropdownToggle>
-          <DropdownMenu>
-            {bankList}
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </div>
-    )
   }
 }
 

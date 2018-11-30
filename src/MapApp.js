@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
 
+
 class MapApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             //bankNames: props.banks, 
-            bankDetails:[],
-
+            bankDetails:[]
 
         };
     }
 
-    componentDidMount() {
+    changeMapBank(bank) {
+        this.setState({banks: bank})
+    }
 
-        let promises = [];
+    componentDidMount() {
         this.props.banks.forEach(element => {
             let bankName = element.split(" ");
             let bankNameStr = bankName[0];
@@ -26,7 +28,6 @@ class MapApp extends Component {
                 .then(response => response.json())
                 .then((myJson) => {
                     if(myJson.candidates[0]) {
-
                         let curPlaceID = myJson.candidates[0].place_id;
                         fetch("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + curPlaceID + "&fields=opening_hours,formatted_phone_number,address_components,geometry,name&key=AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
                         .then(placeResponse => {
@@ -47,8 +48,10 @@ class MapApp extends Component {
         return(
             <div>
                 <div>
-                {this.state.bankDetails.length == 22 &&                      
+                {this.state.bankDetails.length === 22 &&                      
                     <MapContainer  bankLists = {this.state.bankDetails}
+                    banks = {this.props.banks}
+                    activeBanks = {this.state.bankDetails}
                     zipGeo={{lat:47.6062, lng:-122.3321}}
                     zoom={12} />
                 }

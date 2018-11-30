@@ -12,12 +12,8 @@ import numberOne from './img/number-one.png';
 import numberTwo from './img/number-two.png';
 import numberThree from './img/number-three.png';
 import numberFour from './img/number-four.png';
-import ScrollableAnchor from 'react-scrollable-anchor'
 import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
-import {Animated} from 'react-animated-css';
-import Waypoint from 'react-waypoint';
-import staggeredAnimationBox from './utils/main.js';
 import Fade from 'react-reveal/Fade';
 import ScrollAnimation from 'react-animate-on-scroll';
 
