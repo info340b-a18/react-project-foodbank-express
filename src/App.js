@@ -16,6 +16,7 @@ import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
 import Fade from 'react-reveal/Fade';
 import ScrollAnimation from 'react-animate-on-scroll';
+import MapApp from './MapApp.js'
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import WordCloudApp from './WordCloudApp.js'
@@ -32,7 +33,8 @@ class App extends Component {
 
                         <Route exact path='/' component={HomePage} />
                         <Route path='/app' render={(routerProps) => (
-                            <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
+                            <MapApp banks={Object.keys(data)} />
+                            // <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
                         )} />
                     </div>
                 </Router>
@@ -96,7 +98,6 @@ class NavMenu extends Component {
 
     mobileMenu() {
         var x = this.myLinks.current;
-        console.log(x);
         if (x.style.display === "block") {
           x.style.display = "none";
         } else {
@@ -181,7 +182,7 @@ class Introduction extends Component {
         return (
             <div>
                 <div className="intro-content-container">
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="400">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={400}>
                         <div>
                             <div className="intro-logo animate-box">
                                 <img src={logo} alt="foodBank logo" />
@@ -200,7 +201,7 @@ class Introduction extends Component {
                             </div> 
                         </div>
                     </ScrollAnimation>
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <div className="intro-card">
                             <div className="card">
                                 <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
@@ -233,7 +234,7 @@ class FoodWaste extends Component {
     render() {
         return (
             <div>            
-                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="700">
+                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={700}>
                     <div>
                         <div className="description">
                             <h1>Food Waste Problem</h1>
@@ -249,7 +250,7 @@ class FoodWaste extends Component {
                         </div>
                     </div>
                 </ScrollAnimation>
-                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                     <div>
                         <div className="foodwaste-card">
                             <div className="card">
@@ -283,7 +284,7 @@ class HungerCrisis extends Component {
         return(
             
                 <div>
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <div className="description">
                             <h1>Hunger Crisis</h1>    
                             <p>In addition to the world-wide food waste problem, food insecurity is a way of life for almost <b><a href="https://olioex.com/food-waste/the-problem-of-food-waste/">800 million</a></b> people.
@@ -296,7 +297,7 @@ class HungerCrisis extends Component {
                         </div>
                     </ScrollAnimation>
 
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <div className="hunger-img">
                             <img src={foodInsecurity} alt="food insecurity percentage"/>
                         </div>
@@ -309,7 +310,7 @@ class HungerCrisis extends Component {
 class FoodBankDescription extends Component {
     render() {
         return (
-            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                 <div className="description">
                     <h1>Food Banks</h1>
                     <p>Food banks are at the forefront of the day-to-day fight against food waste. For more than 30 years, European food banks have
@@ -334,7 +335,7 @@ class FoodBankDescription extends Component {
 class MissionStatement extends Component {
     render() {
         return(
-            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+            <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                 <div className="mission-content">
                     <div className="description">
                         <h1>Our Mission</h1>
@@ -359,7 +360,7 @@ class Steps extends Component {
     render() {
         return(
                 <div className="app-page">
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <section className="introduction"> 
                             <div className="intro-logo">
                                 <img src={numberOne} alt="number one" />
@@ -376,7 +377,7 @@ class Steps extends Component {
                         </section>
                     </ScrollAnimation>
 
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <section className="introduction">    
                             <div className="intro-logo">
                                 <img src={numberTwo} alt="number two" />
@@ -393,7 +394,7 @@ class Steps extends Component {
                         </section>
                     </ScrollAnimation>
 
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <section className="introduction">    
                             <div className="intro-logo">
                                     <img src={numberThree} alt="number three" />
@@ -410,7 +411,7 @@ class Steps extends Component {
                         </section>
                     </ScrollAnimation>
                     
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset="600">
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <section className="introduction">
                             <div className="intro-logo">
                                     <img src={numberFour} alt="number four" />
