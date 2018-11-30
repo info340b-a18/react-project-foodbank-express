@@ -4,7 +4,7 @@ import './css/style.css';
 import './App.css';
 import App from './App';
 import MapApp from './MapApp';
-import MapAppTest from './MapContainer';
+import MapAppTest, { MapContainer } from './MapContainer';
 import APITester from './APITester';
 import FormApp from './FormApp'
 
@@ -17,7 +17,7 @@ import convertWords from './utils/convertWords'
 //ReactDOM.render(<MapApp banks={Object.keys(data)} />, document.getElementById('root'));
 //ReactDOM.render(<MapAppTest bankLists={{"Ballard Food Bank":{result:{geometry:{location:{lat:47.665569, lng:-122.380203}}}},
 //"University Food Bank":{result:{geometry:{location:{lat:47.6655423, lng:-122.3200282}}}}}} zipGeo={{lat:47.665050, lng:-122.312790}} zoom={15} />, document.getElementById('root'));
-ReactDOM.render(<APITester banks={Object.keys(data)} />, document.getElementById('root'));
+ReactDOM.render(<MapApp banks={Object.keys(data)} />, document.getElementById('root'));
 //ReactDOM.render(<FormApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

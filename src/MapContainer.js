@@ -15,7 +15,7 @@ export class MapContainer extends Component {
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
             bankLists: props.bankLists,
             zipGeo: props.zipGeo,
-            zoom: props.zoom
+            zoom: props.zoom,
         };
     }
     
@@ -75,13 +75,12 @@ export class MapContainer extends Component {
             markers.push(curInfoWin);
             key+=2;
         }
-        //console.log(this.state);
+        console.log(this.state.zoom);
         return (
                 <div>
                 <Map
                 google={this.props.google}
                 zoom={this.state.zoom}
-                style={mapStyles}
                 initialCenter={{
                 lat: this.state.zipGeo.lat,
                 lng: this.state.zipGeo.lng

@@ -66,7 +66,7 @@ class APITester extends Component {
                 {this.state.bankDetails.length == 22 &&                      
                     <MapAppTest  bankLists = {this.state.bankDetails}
                     zipGeo={{lat:47.6062, lng:-122.3321}}
-                    zoom={12} />
+                    zoom={15} />
                 }
             </div>
             </div>
