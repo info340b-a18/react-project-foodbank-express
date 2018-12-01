@@ -54,20 +54,14 @@ class MapApp extends Component {
     render() {
         return(
             <div>
-                <div>
+             
                     <MapContainer  bankLists = {this.state.bankDetails}
                         banks = {this.props.banks}
                         activeBanks = {this.state.bankDetails}
                         zipGeo={{lat:47.6062, lng:-122.3321}}
                         zoom={12} />
-                {/* {this.state.bankDetails.length === 22 &&                      
-                    <MapContainer  bankLists = {this.state.bankDetails}
-                    banks = {this.props.banks}
-                    activeBanks = {this.state.bankDetails}
-                    zipGeo={{lat:47.6062, lng:-122.3321}}
-                    zoom={12} />
-                } */}
-            </div>
+              
+         
             </div>
         );
     }

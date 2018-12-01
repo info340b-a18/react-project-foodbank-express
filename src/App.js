@@ -16,6 +16,7 @@ import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
 import Fade from 'react-reveal/Fade';
 import ScrollAnimation from 'react-animate-on-scroll';
+import { HashLink as NavLink } from 'react-router-hash-link';
 import MapApp from './MapApp.js'
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
@@ -36,6 +37,9 @@ class App extends Component {
                             <MapApp banks={Object.keys(data)} />
                             // <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
                         )} />
+                        <footer>
+                            <Footer />
+                        </footer>
                     </div>
                 </Router>
                 
@@ -124,10 +128,6 @@ class NavMenu extends Component {
                             <Link to='/app' >App</Link>
                         </div>
 
-                        <div className="list-item">
-                            <a href='#mission'>Mission</a>
-                        </div>
-
                     </div>
 
                     <a href="javascript:void(0);" className="icon" onClick={this.mobileMenu}>
@@ -139,27 +139,6 @@ class NavMenu extends Component {
         )
     }
 }
-
-// class WelcomePicture extends Component {
-//     render() {
-//         return(
-//             <div className="welcome-photo">
-//                 <img src={grocery} />
-//             </div>
-//         ) 
-//     }
-// }
-
-// class Welcome extends Component {
-//     render() {
-//         return (
-//                 <div className="welcome-text">
-//                     <p>Providing Healthy Groceries</p>
-//                     <p>for Our Neighbors</p>
-//                 </div>
-//         ); 
-//     }
-// }
 
 class Welcome extends Component {
     render() {
@@ -261,8 +240,8 @@ class FoodWaste extends Component {
                             </div>
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">1.3 billion tonnes</h5>
-                                    <p className="card-text">of food are thrown away without being eaten every year</p>
+                                    <h5 className="card-title">1.3 billion tons</h5>
+                                    <p className="card-text">of food are thrown away without being eaten</p>
                                 </div>
                             </div>
                             <div className="card">
@@ -411,22 +390,6 @@ class Steps extends Component {
                         </section>
                     </ScrollAnimation>
                     
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
-                        <section className="introduction">
-                            <div className="intro-logo">
-                                    <img src={numberFour} alt="number four" />
-                                </div>
-                                <div className="intro-content-container">
-                                <div className="intro-h1">
-                                    <h1>Step 4:  Reschedule Appointment</h1>
-                                </div>
-                                <div className="intro-p">
-                                    <p>You will also have the option of rescheduling with the same location.</p>
-                                    <p>Or, set up a monthly reservation with your choice.</p>
-                                </div>    
-                                </div>
-                        </section>
-                    </ScrollAnimation>
                 </div>
         )
     }

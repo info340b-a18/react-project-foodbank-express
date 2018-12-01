@@ -7,8 +7,9 @@ import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
 
 const mapStyles = {
-  width: '80%',
-  height: '80%'
+  width: '100%',
+  height: '100%',
+  position: 'relative'
 };
 
 const fontSizeMapper = word => Math.log2(word.value) * 10;
@@ -50,25 +51,25 @@ export class MapContainer extends Component {
     });
 
     resetMapDropdown(bank, bankLists) {
-      console.log(bank);
       var bank_words = data[bank];
-      console.log(bank_words);
       bankLists.forEach(b => {
         if (b.result.name === bank) {
-          this.setState({activeBanks: [b], bank_words: convertWords(bank_words)});
+          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14});
         }
       });
     }
 
     resetMapZipcode(e, bankList) {
       e.preventDefault();
-      let matchedBanks = []
+      let matchedBanks = [];
+      let updatedGeo;
       bankList.forEach(b => {
         if (b.result.address_components[7].long_name === this.state.zipcode) {
           matchedBanks.push(b);
+          updatedGeo = b.result.geometry.location;
         }
       });
-      this.setState({activeBanks: matchedBanks});
+      this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
   }
   
     onClose = props => {
@@ -127,22 +128,30 @@ export class MapContainer extends Component {
                       <Button type="submit" color="primary">Submit</Button>
                     </Form>
                  
-                    <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
-                  </div>
-                  <div className="cloud">
-                    <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
                   </div>
                   <div className="map">
                     <Map
                       google={this.props.google}
                       zoom={this.state.zoom}
-                      style={mapStyles}
-                      initialCenter={{
+                      containerStyle={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'relative'
+                      }}
+                      center={{
                         lat: this.state.zipGeo.lat,
                         lng: this.state.zipGeo.lng
                       }} >
                         {markers}
                     </Map>
+                  </div>
+                  <div className="drop-list">
+                  <div className="bankDropList">
+                    <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
+                  </div>
+                  <div className="cloud">
+                    <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                  </div>
                   </div>
                 </div>
         );
@@ -167,13 +176,13 @@ class BankList extends Component {
       return <BankButton resetMapDropdownCallback={this.props.resetMapDropdownCallback} bank={bank}/>;
     })
     return (
-      <div id="petList" className="col-9">
-        <h2>Available Banks</h2>
+      <div id="foodbankList" className="col-9">
+        <h2>Select Bank to See its Most Wanted Food</h2>
         <UncontrolledDropdown>
           <DropdownToggle caret>
-            Dropdown
+            Select
           </DropdownToggle>
-          <DropdownMenu>
+          <DropdownMenu className="dropdownlists">
             {bankList}
           </DropdownMenu>
         </UncontrolledDropdown>

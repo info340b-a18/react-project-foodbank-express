@@ -29,7 +29,7 @@ class WordCloudApp extends Component {
           </div>
         </header>
 
-        <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate} />
+        <WordCloud width={600} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate} />
       </div>
     );
   }
