@@ -3,12 +3,12 @@ import MapContainer from './MapContainer';
 
 
 class MapApp extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             //bankNames: props.banks, 
-            bankDetails:[]
-
+            bankDetails:[],
         };
     }
 
@@ -16,7 +16,8 @@ class MapApp extends Component {
         this.setState({banks: bank})
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        this._isMounted = true;
         this.props.banks.forEach(element => {
             let bankName = element.split(" ");
             let bankNameStr = bankName[0];
@@ -36,25 +37,36 @@ class MapApp extends Component {
                             console.log(err);
                         }).then((data) => {
                             let currentArr = this.state.bankDetails;
-                            currentArr.push(data)
-                            this.setState({bankDetails:currentArr});
+                            currentArr.push(data);
+                            if (this._isMounted) {
+                                this.setState({bankDetails:currentArr});
+                            }
                         })
                     }
                 })
         });
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     render() {
         return(
             <div>
                 <div>
-                {this.state.bankDetails.length === 22 &&                      
+                    <MapContainer  bankLists = {this.state.bankDetails}
+                        banks = {this.props.banks}
+                        activeBanks = {this.state.bankDetails}
+                        zipGeo={{lat:47.6062, lng:-122.3321}}
+                        zoom={12} />
+                {/* {this.state.bankDetails.length === 22 &&                      
                     <MapContainer  bankLists = {this.state.bankDetails}
                     banks = {this.props.banks}
                     activeBanks = {this.state.bankDetails}
                     zipGeo={{lat:47.6062, lng:-122.3321}}
                     zoom={12} />
-                }
+                } */}
             </div>
             </div>
         );

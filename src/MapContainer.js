@@ -26,11 +26,16 @@ export class MapContainer extends Component {
             bankLists: props.bankLists,
             bank_words: [],
             zipcode: "",
+            isMounted: false,
             banks: props.banks,
             activeBanks: props.bankLists,
             zipGeo: props.zipGeo,
             zoom: props.zoom
         };
+    }
+
+    componentDidMount() {
+      this.setState({isMounted: true});
     }
 
     handleZipChange(e) {
@@ -123,7 +128,10 @@ export class MapContainer extends Component {
                     </Form>
                  
                     <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
-                   </div>
+                  </div>
+                  <div className="cloud">
+                    <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                  </div>
                   <div className="map">
                     <Map
                       google={this.props.google}
@@ -135,9 +143,6 @@ export class MapContainer extends Component {
                       }} >
                         {markers}
                     </Map>
-                  </div>
-                  <div className="cloud">
-                    <WordCloud data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
                   </div>
                 </div>
         );
