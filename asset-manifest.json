@@ -1,7 +1,7 @@
 {
-  "main.css": "/react-project-foodbank-express/static/css/main.1c0a3a03.chunk.css",
-  "main.js": "/react-project-foodbank-express/static/js/main.58f26a3c.chunk.js",
-  "main.js.map": "/react-project-foodbank-express/static/js/main.58f26a3c.chunk.js.map",
+  "main.css": "/react-project-foodbank-express/static/css/main.4f4e74b8.chunk.css",
+  "main.js": "/react-project-foodbank-express/static/js/main.a0c35183.chunk.js",
+  "main.js.map": "/react-project-foodbank-express/static/js/main.a0c35183.chunk.js.map",
   "static/js/1.368e5f6d.chunk.js": "/react-project-foodbank-express/static/js/1.368e5f6d.chunk.js",
   "static/js/1.368e5f6d.chunk.js.map": "/react-project-foodbank-express/static/js/1.368e5f6d.chunk.js.map",
   "runtime~main.js": "/react-project-foodbank-express/static/js/runtime~main.1ef362a8.js",
@@ -11,8 +11,8 @@
   "static/media/food-insecurity-percent.png": "/react-project-foodbank-express/static/media/food-insecurity-percent.daf56bcb.png",
   "static/media/homelessfood.jpg": "/react-project-foodbank-express/static/media/homelessfood.edf562a6.jpg",
   "static/media/groceryIcon.png": "/react-project-foodbank-express/static/media/groceryIcon.aa9c69ef.png",
-  "static/css/main.1c0a3a03.chunk.css.map": "/react-project-foodbank-express/static/css/main.1c0a3a03.chunk.css.map",
+  "static/css/main.4f4e74b8.chunk.css.map": "/react-project-foodbank-express/static/css/main.4f4e74b8.chunk.css.map",
   "index.html": "/react-project-foodbank-express/index.html",
-  "precache-manifest.5ed426362ffae5291004924efd6ed5aa.js": "/react-project-foodbank-express/precache-manifest.5ed426362ffae5291004924efd6ed5aa.js",
+  "precache-manifest.396b8d3e4903149962b755f1d337b6f7.js": "/react-project-foodbank-express/precache-manifest.396b8d3e4903149962b755f1d337b6f7.js",
   "service-worker.js": "/react-project-foodbank-express/service-worker.js"
 }
