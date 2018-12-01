@@ -302,18 +302,12 @@ form {
 }
 
 
-.map-list {
-    display: flex;
-    flex-direction: column;
-}
+
 .map {
-    height: 50rem;
+    height: 40rem;
     width: 100%;
-    flex: 1;
 }
-.drop-list {
-    flex: 1;
-}
+
 .mapApp {
     display: flex;
     flex-direction: column;
@@ -322,14 +316,26 @@ form label {
     font-size: 1rem;
     font-family: 'Roboto Slab', serif;
 }
+
 form button {
     margin-top: 1rem;
-    font-family: 'Roboto Slab', serif;
-    background: #b0e0e6;
+}
+
+#zipcodeInput {
+    width: 50%;
 }
 
 #foodbankList {
     margin-top: 1rem;
+}
+.drop-list {
+    margin-left: 1rem;
+}
+.infowindow h1{
+    font-size: 1rem;
+}
+.infoTitle {
+    font-weight: bold;
 }
 @media only screen and (min-width: 598px) {
     .intro-card, .foodwaste-card {
@@ -349,7 +355,25 @@ form button {
     body ,.main-page{
         font-size: 1.5rem;
     }
-  
+    .cloud {
+        margin-top: 2rem;
+    }
+    .mapApp {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2rem;
+    }
+    .mapApp .form-dropdown {
+        flex: 1;
+        
+    }
+    .mapApp .map {
+        flex: 10;
+        margin-right: 2rem;
+    }
+    #zipcodeInput {
+        width: 30%;
+    }
     .topnav {
         display: flex;
         flex-direction: row;

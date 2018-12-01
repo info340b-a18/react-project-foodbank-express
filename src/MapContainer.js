@@ -85,14 +85,18 @@ export class MapContainer extends Component {
         var markers = [];
         var key = 0;
         for (let i=0; i<Object.keys(this.state.activeBanks).length; i++) {
-            let curHours = "";
+            let opening, curMon, curTue, curWed, curThu, curFri, curSat, curSun = "";
             if(this.state.activeBanks[i].result['opening_hours']) {
-                curHours = 'Opening Hours: <br/>';
-                this.state.activeBanks[i].result['opening_hours']['weekday_text'].forEach(element => {
-                    curHours = curHours + element + '<br/>';
-                });
+                curMon = this.state.activeBanks[i].result['opening_hours']['weekday_text'][0];
+                curTue = this.state.activeBanks[i].result['opening_hours']['weekday_text'][1];
+                curWed = this.state.activeBanks[i].result['opening_hours']['weekday_text'][2];
+                curThu = this.state.activeBanks[i].result['opening_hours']['weekday_text'][3];
+                curFri = this.state.activeBanks[i].result['opening_hours']['weekday_text'][4];
+                curSat = this.state.activeBanks[i].result['opening_hours']['weekday_text'][5];
+                curSun = this.state.activeBanks[i].result['opening_hours']['weekday_text'][6];
+                opening = "Hours: "
             }
-            let curAddress = 'Address: ';
+            let curAddress="";
             curAddress = curAddress + this.state.activeBanks[i].result['address_components'][0]['long_name'] + " " +
               this.state.activeBanks[i].result['address_components'][1]['long_name'] + ", Seattle, WA "+this.state.activeBanks[i].result['address_components'][7]['long_name']
 
@@ -100,7 +104,14 @@ export class MapContainer extends Component {
             position={this.state.activeBanks[Object.keys(this.state.activeBanks)[i]].result.geometry.location}
             onClick={this.onMarkerClick}
             name={this.state.activeBanks[i].result.name}
-            hours={curHours}
+            opening={opening}
+            monHour={curMon}
+            tueHour={curTue}
+            wedHour={curWed}
+            thuHour={curThu}
+            friHour={curFri}
+            satHour={curSat}
+            sunHour={curSun}
             address={curAddress}
         />;
             let curInfoWin = <InfoWindow key={key+1}
@@ -108,11 +119,20 @@ export class MapContainer extends Component {
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
         >
-            <div>
-            <h3>{this.state.selectedPlace.name} <br />
-            {this.state.selectedPlace.hours} <br />
-            {this.state.selectedPlace.address}
-            </h3>
+            <div className='infowindow'>
+            <h1>{this.state.selectedPlace.name} </h1>
+            <p><span className='infoTitle'>Address:</span><br />
+            {this.state.selectedPlace.address}<br />
+            <span className='infoTitle'>{this.state.selectedPlace.opening}</span><br />
+            {this.state.selectedPlace.monHour}<br />
+            {this.state.selectedPlace.tueHour}<br />
+            {this.state.selectedPlace.wedHour}<br />
+            {this.state.selectedPlace.thuHour}<br />
+            {this.state.selectedPlace.friHour}<br />
+            {this.state.selectedPlace.satHour}<br />
+            {this.state.selectedPlace.sunHour}
+            </p>
+           
             </div>
         </InfoWindow>;
             markers.push(curMarker);
@@ -121,13 +141,22 @@ export class MapContainer extends Component {
         }
         return (
                 <div className="mapApp">
+                <div className="form-dropdown">
                   <div className="mapForm">
                     <Form onSubmit={(e) => this.resetMapZipcode(e, this.state.bankLists)}>
                       <Label for="zipcodeInput">Zipcode</Label>
                       <Input type="text" name="zipcode" value={this.state.zipcode} onChange={this.handleZipChange} id="zipcodeInput" placeholder="eg. 98105" />
                       <Button type="submit" color="primary">Submit</Button>
                     </Form>
-                 
+                  </div>
+                  <div className="drop-list">
+                  <div className="bankDropList">
+                    <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
+                  </div>
+                  <div className="cloud">
+                    <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                  </div>
+                  </div>
                   </div>
                   <div className="map">
                     <Map
@@ -144,14 +173,6 @@ export class MapContainer extends Component {
                       }} >
                         {markers}
                     </Map>
-                  </div>
-                  <div className="drop-list">
-                  <div className="bankDropList">
-                    <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
-                  </div>
-                  <div className="cloud">
-                    <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
-                  </div>
                   </div>
                 </div>
         );
