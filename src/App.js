@@ -15,6 +15,7 @@ import numberFour from './img/number-four.png';
 import ScrollableAnchor from 'react-scrollable-anchor'
 import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
+import MapApp from './MapApp'
 import {Animated} from 'react-animated-css';
 import Waypoint from 'react-waypoint';
 import staggeredAnimationBox from './utils/main.js';
@@ -36,7 +37,8 @@ class App extends Component {
 
                         <Route exact path='/' component={HomePage} />
                         <Route path='/app' render={(routerProps) => (
-                            <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
+                            <MapApp banks={Object.keys(data)} />
+                            // <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
                         )} />
                     </div>
                 </Router>

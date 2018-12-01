@@ -7,13 +7,10 @@ class MapApp extends Component {
         this.state = {
             //bankNames: props.banks, 
             bankDetails:[],
-
-
         };
     }
 
     componentDidMount() {
-
         let promises = [];
         this.props.banks.forEach(element => {
             let bankName = element.split(" ");
@@ -52,9 +49,9 @@ class MapApp extends Component {
                 <div>
                 {this.state.bankDetails.length == 22 &&                      
                     <MapContainer  bankLists = {this.state.bankDetails}
+                    activeBanks = {this.state.bankDetails}
                     zipGeo={{lat:47.6062, lng:-122.3321}}
-                    zoom={17}
-                
+                    zoom={14}
                     />
                 }
                 </div>
