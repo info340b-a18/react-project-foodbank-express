@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
+import Footer from './App';
 
 
 class MapApp extends Component {
@@ -60,8 +61,6 @@ class MapApp extends Component {
                         activeBanks = {this.state.bankDetails}
                         zipGeo={{lat:47.6062, lng:-122.3321}}
                         zoom={12} />
-              
-         
             </div>
         );
     }

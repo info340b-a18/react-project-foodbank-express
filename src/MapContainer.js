@@ -26,7 +26,7 @@ export class MapContainer extends Component {
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
             bankLists: props.bankLists,
             bank_words: [],
-            zipcode: "",
+            zipcode: "98105",
             isMounted: false,
             banks: props.banks,
             activeBanks: props.bankLists,
@@ -50,7 +50,8 @@ export class MapContainer extends Component {
         showingInfoWindow: true
     });
 
-    resetMapDropdown(bank, bankLists) {
+    resetMapDropdown(e, bank, bankLists) {
+      e.preventDefault();
       var bank_words = data[bank];
       bankLists.forEach(b => {
         if (b.result.name === bank) {
@@ -82,6 +83,7 @@ export class MapContainer extends Component {
     };
 
     render() {
+        console.log(this.state.zipcode);
         var markers = [];
         var key = 0;
         for (let i=0; i<Object.keys(this.state.activeBanks).length; i++) {
@@ -141,22 +143,22 @@ export class MapContainer extends Component {
         }
         return (
                 <div className="mapApp">
-                <div className="form-dropdown">
-                  <div className="mapForm">
-                    <Form onSubmit={(e) => this.resetMapZipcode(e, this.state.bankLists)}>
-                      <Label for="zipcodeInput">Zipcode</Label>
-                      <Input type="text" name="zipcode" value={this.state.zipcode} onChange={this.handleZipChange} id="zipcodeInput" placeholder="eg. 98105" />
-                      <Button type="submit" color="primary">Submit</Button>
-                    </Form>
-                  </div>
-                  <div className="drop-list">
-                  <div className="bankDropList">
-                    <BankList resetMapDropdownCallback={(bank) => this.resetMapDropdown(bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
-                  </div>
-                  <div className="cloud">
-                    <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
-                  </div>
-                  </div>
+                  <div className="form-dropdown">
+                    <div className="mapForm">
+                      <Form onSubmit={(e) => this.resetMapZipcode(e, this.state.bankLists)}>
+                        <Label for="zipcodeInput">Zipcode</Label>
+                        <Input type="text" name="zipcode" value={this.state.zipcode} onChange={this.handleZipChange} id="zipcodeInput" placeholder="eg. 98105" />
+                        <Button type="submit" color="primary">Submit</Button>
+                      </Form>
+                    </div>
+                    <div className="drop-list">
+                      <div className="bankDropList">
+                        <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
+                      </div>
+                      <div className="cloud">
+                        <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                      </div>
+                    </div>
                   </div>
                   <div className="map">
                     <Map
@@ -183,7 +185,7 @@ class BankButton extends Component {
   render() {
     return (
       <li>
-        <Button onClick={() => this.props.resetMapDropdownCallback(this.props.bank)} className="card">
+        <Button onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
           {this.props.bank}
         </Button>
       </li>
