@@ -19,29 +19,29 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import { HashLink as NavLink } from 'react-router-hash-link';
 import MapApp from './MapApp.js'
 
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import WordCloudApp from './WordCloudApp.js'
+import {Route, Link, Switch, Redirect} from 'react-router-dom'
 
 class App extends Component {
     render() {
         return (
             <div>
-                <Router>
-                    <div>
-                        <header>
-                            <NavMenu />
-                        </header>
+                <div>
+                    <header>
+                        <NavMenu />
+                    </header>
 
+                    <Switch>
                         <Route exact path='/' component={HomePage} />
                         <Route path='/app' render={(routerProps) => (
                             <MapApp banks={Object.keys(data)} />
-                            // <WordCloudApp {...routerProps} banks={Object.keys(data)} bank_words={convertWords(data["Rainier Valley Food Bank"])} bank={"Rainier Valley Food Bank"} />
                         )} />
-                        <footer>
-                            <Footer />
-                        </footer>
-                    </div>
-                </Router>
+                        <Redirect to='/'/>
+                    </Switch>
+                </div>
+
+                <footer>
+                    <Footer />
+                </footer>
                 
             </div>
         );
@@ -84,9 +84,7 @@ class HomePage extends Component {
                     </div>
                 </main>
 
-                <footer>
-                    <Footer />
-                </footer>
+
             </div>
         );
     }

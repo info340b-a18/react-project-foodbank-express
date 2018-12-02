@@ -32,6 +32,7 @@ body {
     background-color:white;
     position: relative;
     width: 100%;
+    border-bottom: 3px solid lightpink;
 }
   
   /* Hide the links inside the navigation menu (except for logo) */
@@ -47,6 +48,10 @@ body {
     font-size: 1.3rem;
     display: block;
     width: auto;
+}
+
+.cloud {
+    border: 2px solid black;
 }
 
 #nav-title {
@@ -287,6 +292,7 @@ form {
     height: 20rem;
     width: auto;
     margin: none;
+    margin-left: 4px;
 }
 
 /* style for map marker.*/
