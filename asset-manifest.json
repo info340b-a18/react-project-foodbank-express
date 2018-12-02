@@ -1,9 +1,9 @@
 {
-  "main.css": "/react-project-foodbank-express/static/css/main.4f4e74b8.chunk.css",
-  "main.js": "/react-project-foodbank-express/static/js/main.a0c35183.chunk.js",
-  "main.js.map": "/react-project-foodbank-express/static/js/main.a0c35183.chunk.js.map",
-  "static/js/1.368e5f6d.chunk.js": "/react-project-foodbank-express/static/js/1.368e5f6d.chunk.js",
-  "static/js/1.368e5f6d.chunk.js.map": "/react-project-foodbank-express/static/js/1.368e5f6d.chunk.js.map",
+  "main.css": "/react-project-foodbank-express/static/css/main.aafb3bb0.chunk.css",
+  "main.js": "/react-project-foodbank-express/static/js/main.0a25a95d.chunk.js",
+  "main.js.map": "/react-project-foodbank-express/static/js/main.0a25a95d.chunk.js.map",
+  "static/js/1.13cd85b9.chunk.js": "/react-project-foodbank-express/static/js/1.13cd85b9.chunk.js",
+  "static/js/1.13cd85b9.chunk.js.map": "/react-project-foodbank-express/static/js/1.13cd85b9.chunk.js.map",
   "runtime~main.js": "/react-project-foodbank-express/static/js/runtime~main.1ef362a8.js",
   "runtime~main.js.map": "/react-project-foodbank-express/static/js/runtime~main.1ef362a8.js.map",
   "static/media/grocery.jpg": "/react-project-foodbank-express/static/media/grocery.fb0cf60b.jpg",
@@ -11,8 +11,8 @@
   "static/media/food-insecurity-percent.png": "/react-project-foodbank-express/static/media/food-insecurity-percent.daf56bcb.png",
   "static/media/homelessfood.jpg": "/react-project-foodbank-express/static/media/homelessfood.edf562a6.jpg",
   "static/media/groceryIcon.png": "/react-project-foodbank-express/static/media/groceryIcon.aa9c69ef.png",
-  "static/css/main.4f4e74b8.chunk.css.map": "/react-project-foodbank-express/static/css/main.4f4e74b8.chunk.css.map",
+  "static/css/main.aafb3bb0.chunk.css.map": "/react-project-foodbank-express/static/css/main.aafb3bb0.chunk.css.map",
   "index.html": "/react-project-foodbank-express/index.html",
-  "precache-manifest.396b8d3e4903149962b755f1d337b6f7.js": "/react-project-foodbank-express/precache-manifest.396b8d3e4903149962b755f1d337b6f7.js",
+  "precache-manifest.3e5a2608b7160173ee82c06a3dc9c8b4.js": "/react-project-foodbank-express/precache-manifest.3e5a2608b7160173ee82c06a3dc9c8b4.js",
   "service-worker.js": "/react-project-foodbank-express/service-worker.js"
 }
