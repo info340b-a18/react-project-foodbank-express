@@ -1,4 +1,5 @@
-
+//Converts a list of words to fit the format 
+//necessary for input into WordCloud
 export default function convertWords(words) {
     var newWords = []
     Object.keys(words).map(function(keyName, keyIndex) {

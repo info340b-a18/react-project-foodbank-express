@@ -15,23 +15,25 @@ const mapStyles = {
 const fontSizeMapper = word => Math.log2(word.value) * 10;
 const rotate = word => word.value % -10;
 
+// MapContainer actually renders and creates the Map 
+// Also handles much of the user interaction with the Map
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.handleZipChange = this.handleZipChange.bind(this);
         this.resetMapZipcode = this.resetMapZipcode.bind(this);
         this.state = {
-            showingInfoWindow: false,  //Hides or the shows the infoWindow
-            activeMarker: {},          //Shows the active marker upon click
+            showingInfoWindow: false,   //Hides or the shows the infoWindow
+            activeMarker: {},           //Shows the active marker upon click
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
-            bankLists: props.bankLists,
-            bank_words: [],
-            zipcode: "98105",
-            isMounted: false,
-            banks: props.banks,
-            activeBanks: props.bankLists,
-            zipGeo: props.zipGeo,
-            zoom: props.zoom
+            bankLists: props.bankLists, //Json file containing information about the foodBanks
+            bank_words: [],             //Current words to create word cloud from
+            zipcode: "98105",           //Default zipcode to search for in the map
+            isMounted: false,           //Check if Mounted
+            banks: props.banks,         //List of all banks rendered
+            activeBanks: props.bankLists, //A copy of banklists that displays all the banks rendered with their relevant json information
+            zipGeo: props.zipGeo,       //Coordinates for the current zipcode
+            zoom: props.zoom            //Zoom for the map
         };
     }
 
@@ -39,10 +41,12 @@ export class MapContainer extends Component {
       this.setState({isMounted: true});
     }
 
+    //Changes the zip code whenver the user types in a new value
     handleZipChange(e) {
       this.setState({zipcode: e.target.value});
     }
     
+    //Displays the information window when you click the marker
     onMarkerClick = (props, marker, e) =>
       this.setState({
         selectedPlace: props,
@@ -50,6 +54,8 @@ export class MapContainer extends Component {
         showingInfoWindow: true
     });
 
+    //When a button in dropdown is clicked, reset the map and filter 
+    //activeBanks to list only that bank which is clicked
     resetMapDropdown(e, bank, bankLists) {
       e.preventDefault();
       var bank_words = data[bank];
@@ -60,6 +66,8 @@ export class MapContainer extends Component {
       });
     }
 
+    //Reset the map and filter the activeBanks to list
+    //only those banks with the current zipcode in state
     resetMapZipcode(e, bankList) {
       e.preventDefault();
       let matchedBanks = [];
@@ -71,8 +79,10 @@ export class MapContainer extends Component {
         }
       });
       this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
-  }
-  
+    }
+    
+    //Remove the information window when the close button is
+    //clicked
     onClose = props => {
       if (this.state.showingInfoWindow) {
         this.setState({
@@ -83,11 +93,14 @@ export class MapContainer extends Component {
     };
 
     render() {
-        console.log(this.state.zipcode);
         var markers = [];
         var key = 0;
+        //For all banks in activeBanks retrieve their necessary information 
+        //and render them on the map and store the information from activeBanks
+        //in the information window
         for (let i=0; i<Object.keys(this.state.activeBanks).length; i++) {
             let opening, curMon, curTue, curWed, curThu, curFri, curSat, curSun = "";
+            //Get the opening hours of the bank if it has any
             if(this.state.activeBanks[i].result['opening_hours']) {
                 curMon = this.state.activeBanks[i].result['opening_hours']['weekday_text'][0];
                 curTue = this.state.activeBanks[i].result['opening_hours']['weekday_text'][1];
@@ -98,10 +111,13 @@ export class MapContainer extends Component {
                 curSun = this.state.activeBanks[i].result['opening_hours']['weekday_text'][6];
                 opening = "Hours: "
             }
+
+            //Get the address of the bank if it has any
             let curAddress="";
             curAddress = curAddress + this.state.activeBanks[i].result['address_components'][0]['long_name'] + " " +
               this.state.activeBanks[i].result['address_components'][1]['long_name'] + ", Seattle, WA "+this.state.activeBanks[i].result['address_components'][7]['long_name']
 
+            //Create the marker on the map and store the collected information
             let curMarker = <Marker key = {key}
             position={this.state.activeBanks[Object.keys(this.state.activeBanks)[i]].result.geometry.location}
             onClick={this.onMarkerClick}
@@ -116,11 +132,13 @@ export class MapContainer extends Component {
             sunHour={curSun}
             address={curAddress}
         />;
+            //Create the information window
             let curInfoWin = <InfoWindow key={key+1}
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
         >
+            {/* Put relevant information into the information window */}
             <div className='infowindow'>
             <h1>{this.state.selectedPlace.name} </h1>
             <p><span className='infoTitle'>Address:</span><br />
@@ -137,6 +155,8 @@ export class MapContainer extends Component {
            
             </div>
         </InfoWindow>;
+
+            //Store the current markers and their information window
             markers.push(curMarker);
             markers.push(curInfoWin);
             key+=2;
@@ -181,6 +201,8 @@ export class MapContainer extends Component {
   }
 }
 
+//An individual button in the dropdown list
+//Calls the resetMapDropdown when clicked
 class BankButton extends Component {
   render() {
     return (
@@ -193,6 +215,7 @@ class BankButton extends Component {
   }
 }
 
+//Dropdown list of all banks in dataset
 class BankList extends Component {
   render() {
     var bankList = this.props.banks.map(bank => {
@@ -217,45 +240,3 @@ class BankList extends Component {
 export default GoogleApiWrapper({
     apiKey:("AIzaSyA3-dO5SwXlolulr_KzS2rxXU2IUas_YjE")
 })(MapContainer)
-/*
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-
-            var x = <Marker
-        position={this.state.bankLists[Object.keys(this.state.bankLists)[0]].location}
-        onClick={this.onMarkerClick}
-        name={Object.keys(this.state.bankLists)[0]}
-      />;
-          var y = <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>;
-        var z=<Marker
-        position={this.state.bankLists[Object.keys(this.state.bankLists)[1]].location}
-        onClick={this.onMarkerClick}
-        name={Object.keys(this.state.bankLists)[1]}
-      />;
-      var e = <InfoWindow
-      marker={this.state.activeMarker}
-      visible={this.state.showingInfoWindow}
-      onClose={this.onClose}
-    >
-      <div>
-        <h4>{this.state.selectedPlace.name}</h4>
-      </div>
-    </InfoWindow>;
-                <h3>{this.state.bankLists[this.state.selectedPlace.index].result.opening_hours.weekday_text}</h3>
-
-        */

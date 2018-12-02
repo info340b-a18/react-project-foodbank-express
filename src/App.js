@@ -48,6 +48,8 @@ class App extends Component {
     }
 }
 
+// The homepage of our application, contains all the necessary 
+// welcome, introduction, and reasons why we are making this application.
 class HomePage extends Component {
     render() {
         return (
@@ -90,6 +92,8 @@ class HomePage extends Component {
     }
 }
 
+// Topbar nav menu, allows user to navigate via the 
+// home and app buttons
 class NavMenu extends Component {
 
     constructor(props) {
@@ -117,7 +121,6 @@ class NavMenu extends Component {
                     </a>
                     
                     <div id="myLinks" ref={this.myLinks}>
-                    {/* <div id="myLinks"> */}
                         <div className="list-item">    
                             <Link to='/' id="active">Home</Link>
                         </div>
@@ -129,7 +132,6 @@ class NavMenu extends Component {
                     </div>
 
                     <a href="javascript:void(0);" className="icon" onClick={this.mobileMenu}>
-                    {/* <a href="javascript:void(0);" className="icon"> */}
                         <i className="fa fa-bars"></i>
                     </a>
                 </div>
@@ -138,6 +140,7 @@ class NavMenu extends Component {
     }
 }
 
+//Opening title and photo
 class Welcome extends Component {
     render() {
         return (
@@ -154,11 +157,13 @@ class Welcome extends Component {
     }
 }
 
+//Introduction to our app
 class Introduction extends Component {
     render() {
         return (
             <div>
                 <div className="intro-content-container">
+                    {/* Animate when the user scrolls nearby */}
                     <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={400}>
                         <div>
                             <div className="intro-logo animate-box">
@@ -207,6 +212,7 @@ class Introduction extends Component {
     }
 }
 
+//The section on FoodWaste
 class FoodWaste extends Component {
     render() {
         return (
@@ -256,6 +262,7 @@ class FoodWaste extends Component {
     }
 }
 
+//Section discussing the current HungerCrisis
 class HungerCrisis extends Component {
     render() {
         return(
@@ -284,6 +291,7 @@ class HungerCrisis extends Component {
     }
 }
 
+//Section describing what FoodBanks are
 class FoodBankDescription extends Component {
     render() {
         return (
@@ -309,6 +317,7 @@ class FoodBankDescription extends Component {
     }
 }
 
+//The mission statement of FoodBank express
 class MissionStatement extends Component {
     render() {
         return(
@@ -333,6 +342,7 @@ class MissionStatement extends Component {
     }
 }
 
+//Steps of the FoodBank express application
 class Steps extends Component {
     render() {
         return(
@@ -393,6 +403,7 @@ class Steps extends Component {
     }
 }
 
+//final Footer of the application
 class Footer extends Component {
     render() {
         return(
@@ -422,82 +433,4 @@ class Footer extends Component {
         )
     }
 }
-
-// class DropDown extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.toggle = this.toggle.bind(this);
-//     this.state = {
-//       dropdownOpen: false
-//     };
-//   }
-
-//   toggle() {
-//     this.setState(prevState => ({
-//       dropdownOpen: !prevState.dropdownOpen
-//     }));
-//   }
-
-//   render() {
-//     return (
-//       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-//         <DropdownToggle caret>
-//           Dropdown
-//         </DropdownToggle>
-//         <DropdownMenu>
-//           <DropdownItem header>Header</DropdownItem>
-//           <DropdownItem>West Seattle Food Bank</DropdownItem>
-//           <DropdownItem divider />
-//           <DropdownItem>Rainier Valley Food Bank</DropdownItem>
-//         </DropdownMenu>
-//       </Dropdown>
-//     );
-//   }
-// }
-
-// class DropDown extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.toggle = this.toggle.bind(this);
-//     this.select = this.select.bind(this);
-//     this.state = {
-//       dropdownOpen: false,
-//       value : "Home"
-//     };
-//   }
-  
-//   toggle() {
-//     this.setState({
-//       dropdownOpen: !this.state.dropdownOpen
-//     });
-//   }
-
-//   select(event) {
-//     this.setState({
-//       dropdownOpen: !this.state.dropdownOpen,
-//       value: event.target.innerText
-//     });
-//   }
-  
-//   render() {
-//     return (
-//       <Container className="py-4">
-//         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-//         <span
-//           onClick={this.toggle}
-//           data-toggle="dropdown"
-//           aria-haspopup="true"
-//           aria-expanded={this.state.dropdownOpen}
-//         >{this.state.value}
-//         </span>
-//         <DropdownMenu>
-//           <div onClick={this.select}>Work</div>
-//           <div onClick={this.select}>Contact</div>
-//         </DropdownMenu>
-//       </Dropdown>
-//       </Container>
-//     );
-//   }
-// }
 export default App;
