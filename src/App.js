@@ -16,8 +16,9 @@ import data from './make-data/bank_words.json';
 import convertWords from './utils/convertWords';
 import Fade from 'react-reveal/Fade';
 import ScrollAnimation from 'react-animate-on-scroll';
-import { HashLink as NavLink } from 'react-router-hash-link';
-import MapApp from './MapApp.js'
+import MapApp from './MapApp.js';
+import SignInApp from './SignInApp';
+import SignUpapp from './SignUpApp';
 
 import {Route, Link, Switch, Redirect} from 'react-router-dom'
 
@@ -35,6 +36,8 @@ class App extends Component {
                         <Route path='/app' render={(routerProps) => (
                             <MapApp banks={Object.keys(data)} />
                         )} />
+                        <Route path='/signup' component={SignUpapp} />
+                        <Route path='/signin' component={SignInApp} />
                         <Redirect to='/'/>
                     </Switch>
                 </div>
@@ -126,7 +129,15 @@ class NavMenu extends Component {
                         </div>
 
                         <div className="list-item">
-                            <Link to='/app' >App</Link>
+                            <Link to='/app' >Find</Link>
+                        </div>
+
+                        <div className="list-item">
+                            <Link to='/signup' >Sign Up</Link>
+                        </div>
+
+                        <div className="list-item">
+                            <Link to='/signin' >Sign In</Link>
                         </div>
 
                     </div>
