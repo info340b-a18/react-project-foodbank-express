@@ -207,7 +207,7 @@ class BankButton extends Component {
   render() {
     return (
       <li>
-        <Button onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
+        <Button key={this.props.bank} onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
           {this.props.bank}
         </Button>
       </li>
@@ -219,7 +219,7 @@ class BankButton extends Component {
 class BankList extends Component {
   render() {
     var bankList = this.props.banks.map(bank => {
-      return <BankButton resetMapDropdownCallback={this.props.resetMapDropdownCallback} bank={bank}/>;
+      return <BankButton resetMapDropdownCallback={this.props.resetMapDropdownCallback} bank={bank} key={this.props.bank}/>;
     })
     return (
       <div id="foodbankList" className="col-9">

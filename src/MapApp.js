@@ -11,7 +11,8 @@ class MapApp extends Component {
         super(props);
         this.state = {
             //bankNames: props.banks, 
-            bankDetails:[],
+            loading: true,
+            bankDetails:[]
         };
     }
 
@@ -54,6 +55,7 @@ class MapApp extends Component {
                     }
                 })
         });
+        this.setState({loading: false});
     }
 
     //Unmount the map application
@@ -62,15 +64,24 @@ class MapApp extends Component {
     }
 
     render() {
-        return(
-            <div>
-                <MapContainer  bankLists = {this.state.bankDetails}
-                    banks = {this.props.banks}
-                    activeBanks = {this.state.bankDetails}
-                    zipGeo={{lat:47.6062, lng:-122.3321}}
-                    zoom={12} />
-            </div>
-        );
+        if (this.state.loading) {
+            console.log('loading');
+            return (
+              <div className="text-center">
+                  <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+              </div>
+            )
+        } else {
+            return(
+                <div>
+                    <MapContainer  bankLists = {this.state.bankDetails}
+                        banks = {this.props.banks}
+                        activeBanks = {this.state.bankDetails}
+                        zipGeo={{lat:47.6062, lng:-122.3321}}
+                        zoom={12} />
+                </div>
+            );
+        }
     }
 }
 
