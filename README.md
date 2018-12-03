@@ -15,6 +15,7 @@ Contributions:
     * Create user inputs 
     * Filter current map as according to user input
     * Generate word cloud based on User Input
+    * Handle user authentication
 2. Stanley
     * Create the functioning Google Map
     * Retrieve information from Google Map API for list of banks
@@ -22,6 +23,8 @@ Contributions:
     * Create the pop up information window
     * Style the application window
     * Included overall html/css, google maps window, and zipcode from stage-2
+3. Yodae
+4. Naved
 
 Libraries used:
 * https://www.npmjs.com/package/react-d3-cloud
