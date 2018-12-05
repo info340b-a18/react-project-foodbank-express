@@ -35,11 +35,12 @@ class FoodInventoryList extends Component{
         let quantity = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
         quantity.set(new Food(name, n));
     }
-    /*
+
+    /* sort by date? or 
     sort(){
 
     }*/
-
+    
     //add sort functions by quantity, and food name
     //we can add a filter function here as well
     render(){
