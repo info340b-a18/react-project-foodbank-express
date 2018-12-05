@@ -25,15 +25,15 @@ class FoodInventoryList extends Component{
         });
     }
 
-    deleteFoodItem(foodid){
-        this.foodsRef.child(foodid).push(null);
+    deleteFoodItem = (foodid) => {
+        let food = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
+        food.set(null);
+
     }
 
-    updateQuantity(name, foodid, n){
-        this.deleteFoodItem(foodid);
-        this.foodsRef.push(
-            new Food(name, n)
-        );
+    updateQuantity = (name, foodid, n) => {
+        let quantity = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
+        quantity.set(new Food(name, n));
     }
     /*
     sort(){
@@ -56,8 +56,8 @@ class FoodInventoryList extends Component{
         let foodItems = foodObjects.map((obj)=>{
             return(
                 <FoodItem key={obj.id} food={obj} 
-                update={()=>this.updateQuantity}
-                delete={()=>this.deleteFoodItem}
+                update={this.updateQuantity}
+                delete={this.deleteFoodItem}
                 currentUser={this.props.currentUser}/>
             );
         })
@@ -86,7 +86,9 @@ class FoodItem extends Component {
         this.props.delete(this.props.food.id);
     }
     postUpdatedQuantity(e){
-        this.props.update(this.props.food.id);
+        console.log("updating quantity", this.props.food, this.state.updateQuantity);
+        console.log(this.props.food.text);
+        this.props.update(this.props.food.text, this.props.food.id, this.state.updateQuantity);
     }
 
     render() {
