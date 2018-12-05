@@ -8,6 +8,7 @@ import MapAppTest from './MapContainer';
 import { BrowserRouter} from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth'; 
+import 'font-awesome/css/font-awesome.min.css'
 
 
 import * as serviceWorker from './serviceWorker';

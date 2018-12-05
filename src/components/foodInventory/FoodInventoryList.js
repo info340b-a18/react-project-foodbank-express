@@ -26,11 +26,11 @@ class FoodInventoryList extends Component{
     //add sort functions by quantity, and food name
     //we can add a filter function here as well
     render(){
-        if(!this.state.chirps) return null; //if no chirps, don't display
+        if(!this.state.foods) return null; //if no chirps, don't display
 
         /* TODO: produce a list of `<ChirpItems>` to render */
         let foodObjects = Object.keys(this.state.foods).map((key) => {
-            let foodObj = this.state.chirps[key];
+            let foodObj = this.state.foods[key];
             foodObj.id = key;
             return foodObj;
         });
@@ -39,7 +39,7 @@ class FoodInventoryList extends Component{
 
         let foodItems = foodObjects.map((obj)=>{
             return(
-                <FoodItem key={obj.id} chirp={obj} currentUser={this.props.currentUser}/>
+                <FoodItem key={obj.id} food={obj} currentUser={this.props.currentUser}/>
             );
         })
 
@@ -78,14 +78,13 @@ class FoodItem extends Component {
             <div className="food">{food.foodName}</div>
             <div className="foodQuantity">          
               <small>{food.quantity}</small>
-              <small>{food.units}</small>
             </div>
                 <input type="number" className="" placeholder="new #"
                     value={this.state.updateQuantity}
                     onChange={(e) => this.updateNewQuantity(e)}
                 />
-                <button onClick={(e) => this.postUpdatedQuantity(e)}><i class="fas fa-paper-plane"></i></button>
-                <button onClick={(e) => this.deleteFoodItem(e)}><i class="icon-remove"></i></button>
+                <button onClick={(e) => this.postUpdatedQuantity(e)}><i className="fas fa-paper-plane"></i></button>
+                <button onClick={(e) => this.deleteFoodItem(e)}><i className="icon-remove"></i></button>
           </div>
         </div>      
       );
