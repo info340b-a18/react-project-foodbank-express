@@ -26,14 +26,19 @@ class FoodInventoryList extends Component{
     }
 
     deleteFoodItem(foodid){
-        this.foodsRef.child(foodid).set(null);
+        this.foodsRef.child(foodid).push(null);
     }
 
     updateQuantity(name, foodid, n){
-        this.foodsRef.child(foodid).set(
+        this.deleteFoodItem(foodid);
+        this.foodsRef.push(
             new Food(name, n)
         );
     }
+    /*
+    sort(){
+
+    }*/
 
     //add sort functions by quantity, and food name
     //we can add a filter function here as well
@@ -77,6 +82,7 @@ class FoodItem extends Component {
     }
 
     deleteFoodItem(e){
+        console.log("deleting", this.props.food.id);
         this.props.delete(this.props.food.id);
     }
     postUpdatedQuantity(e){
