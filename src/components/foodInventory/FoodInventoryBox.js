@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import Food from './Food'
 //should we download module specific css?
 
 class FoodInventoryBox extends Component{
@@ -18,18 +19,15 @@ class FoodInventoryBox extends Component{
   }
   
   updateInitialInventory(event) {
-    this.setState({quantitiy: event.target.value});
+    this.setState({initialInventory: event.target.value});
   }
 
   //post a new chirp to the database
   postFood(event){
     event.preventDefault(); //don't submit
-    let newFood = {
-        foodName: this.state.foodName,
-        quantitiy: this.state.initialInventory,
-    }
-    firebase.database().ref(`${this.props.currentUser.displayName}`)//need to update this with the right path
-    .push(newFood)
+    let newFood = new Food(this.state.foodName, this.state.initialInventory);
+    firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods`)//need to update this with the right path
+    .push(newFood);
     this.setState({
         foodName:'',
         initialInventory: 0,
@@ -77,5 +75,8 @@ class FoodInventoryBox extends Component{
     );
   }
 }
+
+
+
 
 export default FoodInventoryBox;
