@@ -36,6 +36,42 @@ class FoodInventoryList extends Component{
         let quantity = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
         quantity.set(new Food(name, n));
     }
+    
+    updateSort = (type) => {
+        let array = [...this.state.foods];
+
+        if(style === this.state.sortStyle){
+            //this.setState({best: !this.state.best});
+            array.reverse();
+            this.setState({
+                foods: array,
+                best: !this.state.best
+            });
+        }
+        else{
+            switch(this.state.sortStyle){
+                case "quantity":
+                    array.sort((a,b)=> (a.num - b.num))
+                    break;
+                case "alphabetically":
+                    array.sort(function(a, b){
+                        if(a.text < b.text) { return -1; }
+                        if(a.text > b.text) { return 1; }
+                    return 0;
+                    })
+                    break;
+                default:
+                    alert("unknown sort");
+
+            }
+        }
+        this.setState({
+            foods: array,
+            sortStyle: style, 
+            best: true
+        });
+
+    }
 
     /* sort by date? or 
     sort(){
@@ -65,7 +101,9 @@ class FoodInventoryList extends Component{
         })
 
         return (
+
         <div className="container">
+            {/*}<SortBar updateSort = {this.}</SortBar>{*/}
             {foodItems}
         </div>);
     }
