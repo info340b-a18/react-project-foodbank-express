@@ -4,7 +4,9 @@ import FoodInventoryBox from './components/foodInventory/FoodInventoryBox';
 import FoodInventoryList from './components/foodInventory/FoodInventoryList';
 import Food from './components/foodInventory/Food';
 import 'firebase/database';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import firebase from 'firebase/app';
+
 
 class FoodInventory extends Component{
     constructor(props){
@@ -26,14 +28,13 @@ class FoodInventory extends Component{
             let keys = Object.keys(snapShotVal);
             for(let i = 0; i < keys.length; i++){
                 if(snapShotVal[keys[i]].bankInfo.handle === this.props.currentUser.displayName){
-                    console.log(keys[i]);
                     this.bankKey = (keys[i]);
                     break;
                 }
             }
             if(this.bankKey === ""){
                 throw new Error("no bank key?");
-            }else{
+            } else {
                 this.foodsRef = firebase.database().ref(`banks/${this.bankKey}/foods`);
                 this.foodsRef.on("value", (snapshot)=>{
                     let snapShotVal = snapshot.val()

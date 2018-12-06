@@ -107,7 +107,6 @@ export class MapContainer extends Component {
     render() {
         var markers = [];
         var key = 0;
-        console.log(this.state.activeBanks);
         //For all banks in activeBanks retrieve their necessary information 
         //and render them on the map and store the information from activeBanks
         //in the information window

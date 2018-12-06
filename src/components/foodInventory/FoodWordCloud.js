@@ -11,6 +11,9 @@ export default class FoodWordCloud extends Component {
           <div className="d-flex justify-content-center">
             <div style={{width: 600, height: 400}}>
               <ReactWordCloud
+                scales={'sqrt'}
+                spiral={'rectangular'}
+                tooltipEnabled={true}
                 words={this.props.foods}
                 wordCountKey={"num"}
                 wordKey={"text"}

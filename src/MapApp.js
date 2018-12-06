@@ -140,7 +140,6 @@ class MapApp extends Component {
     }
 
     render() {
-        console.log(this.state.bankDetails);
         return(
             <div>
                 {/* <MapContainer  bankLists = {this.bankDetails}

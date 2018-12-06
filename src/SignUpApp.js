@@ -5,6 +5,10 @@ import 'firebase/auth';
 import 'firebase/database';
 import WelcomeHeader from './components/WelcomeHeader';
 import FoodInventory from './FoodInventory.js';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
+import { Jumbotron, Container } from 'reactstrap';
+
+
 
 
 // import ChirpBox from './components/chirper/ChirpBox';
@@ -52,15 +56,15 @@ class SignUpApp extends Component {
             this.setState({errorMessage: error.message});
             console.log(error.message);
           });
-          bankInfo = {
-            id: user.uid,
-            handle: handle,
-            email: email
-          };
         });
 
-      let banksRef = firebase.database().ref('banks');
-      banksRef.push({bankInfo});
+        var bankInfo = {
+          handle: handle,
+          email: email
+        };
+
+        let banksRef = firebase.database().ref('banks');
+        banksRef.push({bankInfo});
     }
   
     //A callback function for logging in existing users
@@ -91,42 +95,38 @@ class SignUpApp extends Component {
               <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
           </div>
         )
-      }
-  
-      if(!this.state.user) { //if logged out, show signup form
-        content = (
-          <div className="container">
-            <h1>Sign Up</h1>
-            <SignUpForm 
-              signUpCallback={(e,p,h,a) => this.handleSignUp(e,p,h,a)} 
-            />
+      } else {
+        if(!this.state.user) { //if logged out, show signup form
+          content = (
+            <div className="container">
+              <h1>Sign Up</h1>
+              <SignUpForm 
+                signUpCallback={(e,p,h,a) => this.handleSignUp(e,p,h,a)} 
+              />
+            </div>
+          );
+        } 
+        else { //if logged in, show welcome message
+          console.log(this.state.user);
+          content = (
+              <div>
+                <Jumbotron fluid>
+                  <Container fluid>
+                    <h1 className="display-3">You have been signed up!</h1>
+                  </Container>
+                </Jumbotron>
+              </div>
+          );
+        }
+        return (
+          <div>
+            {this.state.errorMessage &&
+              <p className="alert alert-danger">{this.state.errorMessage}</p>
+            }
+            {content}
           </div>
         );
-      } 
-      else { //if logged in, show welcome message
-        content = (
-            <div>
-                <WelcomeHeader user={this.state.user}>
-                    {/* log out button is child element */}
-                    {this.state.user &&
-                    <button className="btn btn-warning" 
-                            onClick={() => this.handleSignOut()}>
-                        Log Out {this.state.user.displayName}
-                    </button>
-                    }
-                </WelcomeHeader>
-                <FoodInventory currentUser={this.state.user} />
-          </div>
-        );
       }
-      return (
-        <div>
-          {this.state.errorMessage &&
-            <p className="alert alert-danger">{this.state.errorMessage}</p>
-          }
-          {content}
-        </div>
-      );
     }
   }
   

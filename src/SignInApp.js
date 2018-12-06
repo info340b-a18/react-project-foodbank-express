@@ -72,7 +72,7 @@ class SignInApp extends Component {
       else { //if logged in, show welcome message
         content = (
             <div>
-                <WelcomeHeader user={this.state.user}>
+                <WelcomeHeader user={this.state.user} isUserView={false}>
                     {/* log out button is child element */}
                     {this.state.user &&
                     <button className="btn btn-warning" 
