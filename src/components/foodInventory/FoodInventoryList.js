@@ -11,11 +11,10 @@ class FoodInventoryList extends Component{
         this.state = {
             foods:[],
             ascending: true,
-            sortedFoods: [],
-            sortStyle: "null",
-            filtered: false,
-            filteredFoods: []
+            sortStyle: "none",
         };
+        this.sorted = false;
+        this.filtered = false;
     }
 
     componentDidMount(){
@@ -26,19 +25,21 @@ class FoodInventoryList extends Component{
                 let foodObj = snapShotVal[key];
                 foodObj.id = key;
                 return foodObj;
-            }); 
+            });
+            this.sorted = false; 
             this.setState({foods: foods});
         });
     }
     
     componentWillUnmount(){
-        this.foodsRef.on("value", (snapshot)=>{
+        this.foodsRef.off("value", (snapshot)=>{
             let snapShotVal = snapshot.val()
             let foods = Object.keys(snapShotVal).map((key) => {
                 let foodObj = snapShotVal[key];
                 foodObj.id = key;
                 return foodObj;
-            }); 
+            });
+            this.sorted = false; 
             this.setState({foods: foods});
         });
     }
@@ -55,8 +56,7 @@ class FoodInventoryList extends Component{
     
     updateSort = (style) => {
         let array = [...this.state.foods];
-
-        if(style === this.state.sortStyle){
+        if(style === this.state.sortStyle && this.sorted){
             //this.setState({best: !this.state.best});
             array.reverse();
             this.setState({
@@ -65,6 +65,9 @@ class FoodInventoryList extends Component{
             });
         }else{
             switch(style){
+                case "none":
+                    console.log("none sort");
+                    break;
                 case "quantity":
                     array.sort((a,b)=> (a.num - b.num))
                     break;
@@ -80,6 +83,7 @@ class FoodInventoryList extends Component{
                     console.log(style);
             }
         }
+        this.sorted = true;
         this.setState({
             foods: array,
             sortStyle: style, 
@@ -91,6 +95,9 @@ class FoodInventoryList extends Component{
     //add sort functions by quantity, and food name
     //we can add a filter function here as well
     render(){
+        if(!this.sorted){
+            this.updateSort(this.state.sortStyle);
+        }
         if(!this.state.foods) return null; //if no chirps, don't display
         /* TODO: produce a list of `<ChirpItems>` to render */
         //foodObjects.sort((itemA, itemB)=> itemB.quantity - itemA.time);
@@ -123,7 +130,9 @@ class FoodItem extends Component {
     }
 
     updateNewQuantity(event){
-        this.setState({updateQuantity: event.target.value});
+        this.setState({
+            updateQuantity: event.target.value,
+        });
     }
 
     deleteFoodItem(e){
@@ -131,8 +140,6 @@ class FoodItem extends Component {
         this.props.delete(this.props.food.id);
     }
     postUpdatedQuantity(e){
-        console.log("updating quantity", this.props.food, this.state.updateQuantity);
-        console.log(this.props.food.text);
         this.props.update(this.props.food.text, this.props.food.id, this.state.updateQuantity);
     }
 
