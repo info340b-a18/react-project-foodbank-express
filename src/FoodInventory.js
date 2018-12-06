@@ -16,24 +16,42 @@ class FoodInventory extends Component{
         };
         this.sorted = false;
         this.filtered = false;
+        this.bankKey = "";
     }
 
     componentDidMount(){
-        this.foodsRef = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods`);
+        this.foodsRef = firebase.database().ref(`banks/`);
         this.foodsRef.on("value", (snapshot)=>{
             let snapShotVal = snapshot.val()
-            if(snapShotVal === null){
-                this.setState({foods: []});
+            let keys = Object.keys(snapShotVal);
+            for(let i = 0; i < keys.length; i++){
+                if(snapShotVal[keys[i]].bankInfo.handle === this.props.currentUser.displayName){
+                    console.log(keys[i]);
+                    this.bankKey = (keys[i]);
+                    break;
+                }
+            }
+            if(this.bankKey === ""){
+                throw new Error("no bank key?");
             }else{
-                let foods = Object.keys(snapShotVal).map((key) => {
-                    let foodObj = snapShotVal[key];
-                    foodObj.id = key;
-                    return foodObj;
+                this.foodsRef = firebase.database().ref(`banks/${this.bankKey}/foods`);
+                this.foodsRef.on("value", (snapshot)=>{
+                    let snapShotVal = snapshot.val()
+                    if(snapShotVal === null){
+                        this.setState({foods: []});
+                    }else{
+                        let foods = Object.keys(snapShotVal).map((key) => {
+                            let foodObj = snapShotVal[key];
+                            foodObj.id = key;
+                            return foodObj;
+                        });
+                        this.sorted = false; 
+                        this.setState({foods: foods});
+                    }
                 });
-                this.sorted = false; 
-                this.setState({foods: foods});
             }
             
+                
         });
     }
 
@@ -42,12 +60,12 @@ class FoodInventory extends Component{
     }
 
     deleteFoodItem = (foodid) => {
-        let food = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
+        let food = firebase.database().ref(`banks/${this.bankKey}/foods/${foodid}`);
         food.set(null);
     }
 
     updateQuantity = (name, foodid, n) => {
-        let quantity = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
+        let quantity = firebase.database().ref(`banks/${this.bankKey}/foods/${foodid}`);
         quantity.set(new Food(name, n));
     }
     
@@ -94,12 +112,13 @@ class FoodInventory extends Component{
             this.updateSort(this.state.sortStyle);
         }
         return(
+
             <div>
                 <FoodWordCloud
                     foods={this.state.foods}
                     currentUser={this.props.currentUser}
                     />
-                <FoodInventoryBox currentUser={this.props.currentUser}/>
+                <FoodInventoryBox bankKey={this.bankKey}/>
                 <FoodInventoryList foods={this.state.foods}
                     sortStyle={this.state.sortStyle}
                     ascending={this.state.ascending} 

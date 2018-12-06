@@ -25,7 +25,7 @@ class FoodInventoryBox extends Component{
   postFood(event){
     event.preventDefault(); //don't submit
     let newFood = new Food(this.state.foodName, this.state.initialInventory);
-    firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods`)//need to update this with the right path
+    firebase.database().ref(`banks/${this.props.bankKey}/foods`)//need to update this with the right path
     .push(newFood);
     this.setState({
         foodName:'',
@@ -36,8 +36,6 @@ class FoodInventoryBox extends Component{
 
   //You do not need to modify this method!
   render() {
-    let user = this.props.currentUser; //the current user (convenience)
-
     return (
       <div className="container-fluid">
         <div className="row py-3">
