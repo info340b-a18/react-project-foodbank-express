@@ -45,16 +45,17 @@ class MapApp extends Component {
 
         if (!this.state.loading) {
             this.bankDetails = [];
-            
             let banksKeys = Object.keys(this.state.bankNames);
             let bankNames = banksKeys.map((key) => {
                 let bank = this.state.bankNames[key];
                 bank.key = key;
+
                 return bank.bankInfo.handle;
             });
 
-            console.log(bankNames);
-            bankNames.forEach(element => {
+            for (var i=0; i < bankNames.length; i++) {
+                let key = banksKeys[i];
+                let element = bankNames[i];
                 let bankName = element.split(" ");
                 let bankNameStr = bankName[0];
                 for(let j=1; j<bankName.length; j++) {
@@ -75,6 +76,7 @@ class MapApp extends Component {
                                 console.log(err);
                             }).then((data) => {
                                 let currentArr = this.bankDetails;
+                                data.key = key;
                                 currentArr.push(data);
                                 if (this._isMounted) {
                                     this.bankDetails = currentArr;
@@ -82,8 +84,7 @@ class MapApp extends Component {
                             })
                         }
                     })
-            });
-            console.log(this.bankDetails);
+            }
 
             return(
                 <div>

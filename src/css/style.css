@@ -322,6 +322,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+
 form label {
     font-size: 1rem;
     font-family: 'Roboto Slab', serif;
@@ -332,7 +333,7 @@ form button {
 }
 
 #zipcodeInput {
-    width: 50%;
+    width: 100%;
 }
 
 #foodbankList {
@@ -382,7 +383,7 @@ form button {
         margin-right: 2rem;
     }
     #zipcodeInput {
-        width: 30%;
+        width: 50%;
     }
     .topnav {
         display: flex;

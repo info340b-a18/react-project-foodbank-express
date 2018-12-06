@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, Button} from 'reactstrap';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import getBankNames from './utils/getBankNames';
 import WordCloud from 'react-d3-cloud/lib/WordCloud';
 import data from './make-data/bank_words.json';
@@ -170,6 +171,7 @@ export class MapContainer extends Component {
             markers.push(curMarker);
             markers.push(curInfoWin);
             key+=2;
+            console.log(this.state.activeBanks[0]);
         }
         return (
                 <div className="mapApp">
@@ -185,10 +187,14 @@ export class MapContainer extends Component {
                       <div className="bankDropList">
                         <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
                       </div>
-                      <div className="check">
+                      {/* <div className="check">
                         <Button outline color="info">
                           Check what they need
                         </Button>
+                      </div> */}
+
+                      <div>
+                        <InfoButton bank={this.state.activeBanks[0]}/>
                       </div>
 
                       {/* <div className="cloud">
@@ -251,6 +257,31 @@ class BankList extends Component {
       </div>
     )
   }
+}
+
+class InfoButton extends Component {
+  constructor(props){
+    super(props);
+    this.state = {redirect: false};
+  }
+
+  handleClick() {
+    this.setState({redirect: true});
+  }
+
+  render() {
+      let bank = this.props.bank;
+      if (this.state.redirect) {
+        return <Redirect push to={'/info/'+ bank.key} />
+      }
+      return (
+        <div className="check" onClick={() => this.handleClick()}>
+          <Button outline color="info">
+            Check what they need
+          </Button>
+        </div>
+      );
+    }
 }
 
 export default GoogleApiWrapper({

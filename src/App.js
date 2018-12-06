@@ -19,10 +19,12 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import MapApp from './MapApp.js';
 import SignInApp from './SignInApp';
 import SignUpapp from './SignUpApp';
+import UserBankInfoPage from './UserBankInfoPage';
 
 
 
 import {Route, Link, Switch, Redirect} from 'react-router-dom'
+import WelcomeHeader from './components/WelcomeHeader';
 
 class App extends Component {
     constructor(props) {
@@ -46,6 +48,7 @@ class App extends Component {
                         )} />
                         <Route path='/signup' component={SignUpapp} />
                         <Route path='/signin' component={SignInApp} />
+                        <Route path='/info/:foodBank' component={UserBankInfoPage} />
                         <Redirect to='/'/>
                     </Switch>
                 </div>
