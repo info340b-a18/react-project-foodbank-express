@@ -38,16 +38,7 @@ class FoodInventory extends Component{
     }
 
     componentWillUnmount(){
-        this.foodsRef.off("value", (snapshot)=>{
-            let snapShotVal = snapshot.val()
-            let foods = Object.keys(snapShotVal).map((key) => {
-                let foodObj = snapShotVal[key];
-                foodObj.id = key;
-                return foodObj;
-            });
-            this.sorted = false; 
-            this.setState({foods: foods});
-        });
+        this.foodsRef.off();
     }
 
     deleteFoodItem = (foodid) => {
