@@ -22,7 +22,6 @@ class FoodInventoryBox extends Component{
     this.setState({initialInventory: event.target.value});
   }
 
-  //post a new chirp to the database
   postFood(event){
     event.preventDefault(); //don't submit
     let newFood = new Food(this.state.foodName, this.state.initialInventory);
@@ -32,6 +31,7 @@ class FoodInventoryBox extends Component{
         foodName:'',
         initialInventory: 0,
     }); //empty out post for next time
+
   }
 
   //You do not need to modify this method!
@@ -54,7 +54,7 @@ class FoodInventoryBox extends Component{
               }
               
               <input type="number"  className="form-control mb-2" placeholder="What's the quantity?"
-                value={this.initialInventory}
+                value={this.state.initialInventory}
                 onChange={(e) => this.updateInitialInventory(e)}
                 />
 

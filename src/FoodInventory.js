@@ -12,8 +12,8 @@ class FoodInventory extends Component{
                 <FoodInventoryList currentUser={this.props.currentUser}/>
             </div>
         );
+        
     }
-
 }
 
 export default FoodInventory;

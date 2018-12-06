@@ -5,8 +5,21 @@ class QuantitySortButton extends Component{
         this.props.updateSort("quantity");
     }
     render(){
+        let classList = "btn btn-light";
+        /*
+            if(this.props.sortStyle === "quantity"){
+                if(this.props.ascending){
+                    classList += "btn-secondary";
+                    console.log("")
+                }else{
+                    classList += "btn-light";
+                }
+            }else{
+                classList += "btn-warning";
+            }
+        */
         return(
-            <button className = "btn btn-light" onClick={this.clickHandler}>Quantity</button>
+            <button className={classList} onClick={this.clickHandler}>Quantity</button>
         );
     }
 }

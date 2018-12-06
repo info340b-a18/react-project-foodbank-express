@@ -114,8 +114,8 @@ class FoodInventoryList extends Component{
         return (
 
         <div className="container">
-            <NameSortButton updateSort={this.updateSort}/>
-            <QuantitySortButton updateSort={this.updateSort}/>
+            <NameSortButton sortStyle={this.state.sortStyle} ascending = {this.state.ascending} updateSort={this.updateSort}/>
+            <QuantitySortButton sortStyle={this.state.sortStyle} ascending = {this.state.ascending} updateSort={this.updateSort}/>
             {foodItems}
         </div>);
     }
@@ -141,6 +141,9 @@ class FoodItem extends Component {
     }
     postUpdatedQuantity(e){
         this.props.update(this.props.food.text, this.props.food.id, this.state.updateQuantity);
+        this.setState({
+            updateQuantity: 0
+        });
     }
 
     render() {
