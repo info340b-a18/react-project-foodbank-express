@@ -10,7 +10,9 @@ body {
 * {
     box-sizing: border-box;
 }
-
+body h1 {
+    font-size: 2rem;
+}
 .app-page {
     display: flex;
     flex-direction: column;
@@ -103,8 +105,8 @@ section {
     text-align: center;
 }
 /* Style for first section (welcome section) of main page */
-.main-page .welcome .welcome-photo img {
-    width: 100%;
+.main-page .welcome .welcome-photo img{
+    max-width: 100%;
 }
 
 .welcome {
@@ -118,9 +120,8 @@ section {
 
 .welcome-text {
     position: absolute;
-    top: 30%;
-    margin-left: 1rem;    
-    font-size: 1.3rem;
+    top: 50%;
+    left: 35%;    
 }
 
 .welcome-text p {
@@ -344,6 +345,8 @@ form button {
     font-weight: bold;
 }
 @media only screen and (min-width: 598px) {
+    
+
     .intro-card, .foodwaste-card {
         display: flex;
         flex-direction: row;
@@ -405,79 +408,99 @@ form button {
     .topnav a.icon {
         display: none;
     }
-    .welcome .welcome-text {
-        font-size: 2rem;
-        top: 50%;
-        margin-left: 1.5rem;
+
+
+}
+@media only screen and (min-width: 840px) {
+    .main-page .welcome .welcome-photo{
+        text-align: center;
     }
-   
+    section {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .foodwaste-container, .foodbank-container {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1500px) {
+    body h1 {
+        font-size: 2.5rem;
+    }
+    p {
+        font-size: 2rem;
+    }
     .topnav #myLinks {
         padding-right: 1.5rem;
     }
-    .introduction, .foodwaste {
+    .intro-content-container, .foodwaste {
         display: flex;
         flex-direction: row;
     }
-    .introduction .intro-logo {
+    .introduction .intro-logo-div {
         flex: 1;
         margin: auto;
         text-align: center;
         
     }
   
-    .introduction .intro-content-container {
+    .introduction .intro-text-div {
         flex: 2;
         margin-right: 3rem;
     }
-    body .introduction .intro-content-container .intro-h1 {
-        text-align: center;
+    body .introduction .intro-text-div .intro-h1 {
+        text-align: left;
+        margin-left: 1rem;
     }
-    .introduction .intro-content-container .intro-h1, .intro-p {
+    .introduction .intro-text-div .intro-h1, .intro-p {
         text-align: left;
         margin-bottom: 2rem;
     }
 
-    .foodwaste .foodwaste-card {
+    .foodwaste .foodwaste-container {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        flex: 1;
-        align-items: center;
-        margin-right: 3rem;
     }
-    .foodwaste .foodwaste-card .card {
-        height: 20%;
-    }
+ 
     .foodwaste .description {
         flex: 1;
     }
     .foodwaste .description h1 {
-        text-align: center;
+        text-align: left;
         margin-left: 3rem;
     }
     .foodwaste .description p {
         margin-left: 3rem;
     }
+    .foodwaste .foodwaste-card .card p {
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
 
-    .hunger-crisis {
+    .foodwaste-card {
+        flex-wrap: wrap;
+    }
+    .foodwaste-card-div .foodwaste-card .card {
+        width: auto;
+    }
+    .hunger-container {
         display: flex;
         flex-direction: row;
     }
-    .hunger-crisis .hunger-img {
-        flex: 2;
+    .hunger-container .hunger-img-div {
+        flex: 1;
         order: 1;
         margin-left: 3rem;
     }
-    .hunger-crisis .description {
-        flex: 1;
+    .hunger-container .hunger-text-div {
+        flex: 2;
         order: 2;
     }
-    .hunger-crisis .description h1 {
-        text-align: center;
-        margin-right: 3rem;
+    .hunger-container .description h1 {
+        text-align: left;
+        margin-left: 1rem;
     }
 
     .foodbank .description p {
@@ -485,22 +508,25 @@ form button {
         margin-right: 3rem;
     }
 
-    #mission {
+    .mission-content {
         display: flex;
         flex-direction: row;
     }
-    #mission .mission-content .description h1 {
+    .mission-content .description h1 {
         text-align: left;
         margin-left: 3rem;
     }
-    #mission .mission-content .description p {
+    .mission-content .description p {
         margin-left: 3rem;
     }
-    #mission .mission-content, #mission .mission-img {
-        flex: 1;
+    .mission-content .mission-text-div {
+        flex: 2;
     }
-    #mission .mission-img {
-        margin-right: 3rem; 
+    .mission-content .mission-img {
+        flex: 1;
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
     }
     .app-button {
         margin-left: 3rem; 
@@ -517,5 +543,8 @@ form button {
     }
     .about-us-container {
         margin-left: 5rem;
+    }
+    .row-bottom p {
+        font-size: 0.75rem;
     }
 }
