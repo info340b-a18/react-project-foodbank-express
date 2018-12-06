@@ -47,6 +47,8 @@ export class MapContainer extends Component {
     handleZipChange(e) {
       this.setState({zipcode: e.target.value});
     }
+
+
     
     //Displays the information window when you click the marker
     onMarkerClick = (props, marker, e) =>

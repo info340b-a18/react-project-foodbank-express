@@ -115,7 +115,6 @@ class SignUpApp extends Component {
           </div>
         );
       }
-  
       return (
         <div>
           {this.state.errorMessage &&
