@@ -39,7 +39,7 @@ class FoodInventoryBox extends Component{
     let user = this.props.currentUser; //the current user (convenience)
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row py-3">
           <div className="col pl-4 pl-lg-1">
             <form>
@@ -47,11 +47,6 @@ class FoodInventoryBox extends Component{
                 value={this.state.foodName} 
                 onChange={(e) => this.updateFoodName(e)}
                 />
-
-              {/* Only show this if the post length is > 140 */}
-              {this.state.foodName.length > 30 &&
-                <small className="form-text">30 character limit!</small>
-              }
               
               <input type="number"  className="form-control mb-2" placeholder="What's the quantity?"
                 value={this.state.initialInventory}

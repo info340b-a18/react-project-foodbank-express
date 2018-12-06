@@ -24,6 +24,7 @@
     "react-scroll-effects": "^1.0.13",
     "react-scrollable-anchor": "^0.6.1",
     "react-waypoint": "^8.1.0",
+    "react-wordcloud": "git+https://github.com/chrisrzhou/react-wordcloud.git",
     "reactstrap": "^6.5.0",
     "waypoints": "^4.0.1"
   },
