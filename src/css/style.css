@@ -419,6 +419,10 @@ body .dropdown-item:hover {
 @media only screen and (min-width: 840px) {
     .main-page .welcome .welcome-photo{
         text-align: center;
+        width: 100%
+    }
+    .welcome-photo {
+        background: linear-gradient(to right, #b0e0e6, lightpink);
     }
     section {
         margin-left: 10%;
