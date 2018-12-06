@@ -4,6 +4,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import WelcomeHeader from './components/WelcomeHeader';
+import FoodInventory from './FoodInventory.js';
+
 
 // import ChirpBox from './components/chirper/ChirpBox';
 // import ChirperHeader from './components/chirper/ChirperHeader';
@@ -113,6 +115,7 @@ class SignUpApp extends Component {
                     </button>
                     }
                 </WelcomeHeader>
+                <FoodInventory currentUser={this.state.user} />
           </div>
         );
       }
