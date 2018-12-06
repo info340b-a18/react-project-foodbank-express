@@ -116,7 +116,6 @@ class FoodInventory extends Component{
             <div>
                 <FoodWordCloud
                     foods={this.state.foods}
-                    currentUser={this.props.currentUser}
                     />
                 <FoodInventoryBox bankKey={this.bankKey}/>
                 <FoodInventoryList foods={this.state.foods}
@@ -126,6 +125,7 @@ class FoodInventory extends Component{
                     updateSort={this.updateSort}
                     delete={this.deleteFoodItem}
                     currentUser={this.props.currentUser}
+                    isUserView={false}
                     />
             </div>
         );

@@ -57,6 +57,7 @@ class FoodInventoryBox extends Component{
                   disabled={this.state.foodName.length === 0 || this.state.foodName.length > 20}
                   onClick={(e) => this.postFood(e)} 
                   >
+                  Add
                   {/*<i className="fas fa-plus" aria-hidden="true"></i>*/}
                 </button> 					
               </div>

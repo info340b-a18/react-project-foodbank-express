@@ -36,7 +36,6 @@ class App extends Component {
         this.banksRef = firebase.database().ref('banks');
         this.banksRef.on('value', (snapshot) => {
             //this.setState({bankNames: snapshot.val(), loading: false});
-            console.log(snapshot.val());
             this.setState({bankNames: snapshot.val(), loading: false});
         })
 
@@ -55,7 +54,6 @@ class App extends Component {
 
     render() {
         if (!this.state.loading) {
-            console.log(this.state.bankNames);
             return (
                 <div>
                     <div>
