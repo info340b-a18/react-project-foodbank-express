@@ -449,7 +449,7 @@ class Steps extends Component {
                                 </div>
                                 <div className="intro-content-container">
                                 <div className="intro-h1">
-                                    <h1>Step 3:  Reserve Timeslot</h1>
+                                    <h1>Step 3:  Reserve Timeslot (Coming soon)</h1>
                                 </div>
                                 <div className="intro-p">
                                     <p>After being selected, the food bank will receive your information about food donation.</p>

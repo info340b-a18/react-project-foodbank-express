@@ -32,6 +32,7 @@ class SignUpApp extends Component {
     //A callback function for registering new users
     handleSignUp(email, password, handle, avatar) {
       this.setState({errorMessage:null}); //clear any old errors\
+      var bankInfo = {};
       /* TODO: sign up user here */
       firebase.auth().createUserWithEmailAndPassword(email, password) 
         .then((userCredentials) => {
@@ -49,12 +50,12 @@ class SignUpApp extends Component {
             this.setState({errorMessage: error.message});
             console.log(error.message);
           });
+          bankInfo = {
+            id: user.uid,
+            handle: handle,
+            email: email
+          };
         });
-      
-      var bankInfo = {
-        handle: handle,
-        email: email
-      };
 
       let banksRef = firebase.database().ref('banks');
       banksRef.push({bankInfo});
