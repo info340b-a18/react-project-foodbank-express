@@ -56,7 +56,7 @@ class SignUpApp extends Component {
         email: email
       };
 
-      let banksRef = firebase.database().ref('banksTest');
+      let banksRef = firebase.database().ref('banks');
       banksRef.push({bankInfo});
     }
   

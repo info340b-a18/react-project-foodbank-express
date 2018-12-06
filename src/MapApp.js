@@ -29,7 +29,7 @@ class MapApp extends Component {
     componentDidMount() {
         //let bankNames = [];
         this._isMounted = true;
-        this.banksRef = firebase.database().ref('banksTest');
+        this.banksRef = firebase.database().ref('banks');
         this.banksRef.on('value', (snapshot) => {
             this.setState({bankNames: snapshot.val(), loading: false});
         })
@@ -39,6 +39,20 @@ class MapApp extends Component {
     componentWillUnmount() {
         this.banksRef.off();
         this._isMounted = false;
+    }
+
+    resolveAfter2Seconds(p) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(p);
+            }, 2000);
+        });
+    }
+
+    async resolveBankDetails() {
+        var x = await this.resolveAfter2Seconds(this.bankDetails);
+        this.bankDetails = x;
+        console.log(this.bankDetails);
     }
 
     render() {
@@ -85,7 +99,29 @@ class MapApp extends Component {
                         }
                     })
             }
-
+            //this.resolveBankDetails();
+            // if (this.bankDetails.length > 0) {
+            //     return(
+            //         <div>
+            //             <MapContainer  bankLists = {this.bankDetails}
+            //                 banks = {this.props.banks}
+            //                 activeBanks = {this.bankDetails}
+            //                 zipGeo={{lat:47.6062, lng:-122.3321}}
+            //                 zoom={12} />
+            //             {/* <MapContainer  bankLists = {this.state.bankDetails}
+            //                 banks = {this.props.banks}
+            //                 activeBanks = {this.state.bankDetails}
+            //                 zipGeo={{lat:47.6062, lng:-122.3321}}
+            //                 zoom={12} /> */}
+            //         </div>
+            //     );
+            // } else {
+            //     return (
+            //         <div className="text-center">
+            //             <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+            //         </div>
+            //     )
+            // }
             return(
                 <div>
                     <MapContainer  bankLists = {this.bankDetails}
