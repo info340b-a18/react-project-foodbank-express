@@ -56,6 +56,10 @@ body h1 {
     border: 2px solid black;
 }
 
+.check {
+    padding: 5rem 1rem;
+}
+
 #nav-title {
     color: lightpink;
     padding: 1rem 1rem;
@@ -319,6 +323,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+
 form label {
     font-size: 1rem;
     font-family: 'Roboto Slab', serif;
@@ -329,7 +334,7 @@ form button {
 }
 
 #zipcodeInput {
-    width: 50%;
+    width: 100%;
 }
 
 #foodbankList {
@@ -386,7 +391,7 @@ body .dropdown-item:hover {
         margin-right: 2rem;
     }
     #zipcodeInput {
-        width: 30%;
+        width: 50%;
     }
     .topnav {
         display: flex;

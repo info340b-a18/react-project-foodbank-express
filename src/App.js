@@ -19,35 +19,75 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import MapApp from './MapApp.js';
 import SignInApp from './SignInApp';
 import SignUpapp from './SignUpApp';
+import UserBankInfoPage from './UserBankInfoPage';
+import firebase from 'firebase/app';
+
 
 import {Route, Link, Switch, Redirect} from 'react-router-dom'
+import WelcomeHeader from './components/WelcomeHeader';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {bankNames: [], loading: true}
+    }
+
+    componentWillMount() {
+        this.banksRef = firebase.database().ref('banks');
+        this.banksRef.on('value', (snapshot) => {
+            //this.setState({bankNames: snapshot.val(), loading: false});
+            console.log(snapshot.val());
+            this.setState({bankNames: snapshot.val(), loading: false});
+        })
+
+        // let banksKeys = Object.keys(this.state.bankNames);
+        // let bankNames = banksKeys.map((key) => {
+        //     let bank = this.state.bankNames[key];
+        //     bank.key = key;
+        //     return bank.bankInfo.handle;
+        // });
+    }
+
+    componentWillUnmount() {
+        this.banksRef.off();
+    }
+
+
     render() {
-        return (
-            <div>
+        if (!this.state.loading) {
+            console.log(this.state.bankNames);
+            return (
                 <div>
-                    <header>
-                        <NavMenu />
-                    </header>
+                    <div>
+                        <header>
+                            <NavMenu />
+                        </header>
 
-                    <Switch>
-                        <Route exact path='/' component={HomePage} />
-                        <Route path='/app' render={(routerProps) => (
-                            <MapApp banks={Object.keys(data)} />
-                        )} />
-                        <Route path='/signup' component={SignUpapp} />
-                        <Route path='/signin' component={SignInApp} />
-                        <Redirect to='/'/>
-                    </Switch>
+                        <Switch>
+                            <Route exact path='/' component={HomePage} />
+                            <Route path='/app' render={(routerProps) => (
+                                <MapApp bankNames={this.state.bankNames} />
+                            )} />
+                            <Route path='/signup' component={SignUpapp} />
+                            <Route path='/signin' component={SignInApp} />
+                            <Route path='/info/:foodBank' component={UserBankInfoPage} />
+                            <Redirect to='/'/>
+                        </Switch>
+                    </div>
+
+                    <footer>
+                        <Footer />
+                    </footer>
+                    
                 </div>
-
-                <footer>
-                    <Footer />
-                </footer>
-                
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div className="text-center">
+                    <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+                </div>
+            )
+        }
     }
 }
 

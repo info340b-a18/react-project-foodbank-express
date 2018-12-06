@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SignUpForm from './components/signup/SignUpForm';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 import WelcomeHeader from './components/WelcomeHeader';
 
 // import ChirpBox from './components/chirper/ChirpBox';
@@ -49,6 +50,14 @@ class SignUpApp extends Component {
             console.log(error.message);
           });
         });
+      
+      var bankInfo = {
+        handle: handle,
+        email: email
+      };
+
+      let banksRef = firebase.database().ref('banks');
+      banksRef.push({bankInfo});
     }
   
     //A callback function for logging in existing users
@@ -106,7 +115,6 @@ class SignUpApp extends Component {
           </div>
         );
       }
-  
       return (
         <div>
           {this.state.errorMessage &&

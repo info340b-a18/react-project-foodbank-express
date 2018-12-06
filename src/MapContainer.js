@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, DropdownItem, Button} from 'reactstrap';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import getBankNames from './utils/getBankNames';
 import WordCloud from 'react-d3-cloud/lib/WordCloud';
 import data from './make-data/bank_words.json';
@@ -27,6 +28,7 @@ export class MapContainer extends Component {
             activeMarker: {},           //Shows the active marker upon click
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
             bankLists: props.bankLists, //Json file containing information about the foodBanks
+            selectedBank: undefined, 
             bank_words: [],             //Current words to create word cloud from
             zipcode: "98105",           //Default zipcode to search for in the map
             isMounted: false,           //Check if Mounted
@@ -46,11 +48,14 @@ export class MapContainer extends Component {
     handleZipChange(e) {
       this.setState({zipcode: e.target.value});
     }
+
+
     
     //Displays the information window when you click the marker
     onMarkerClick = (props, marker, e) =>
       this.setState({
         selectedPlace: props,
+        selectedBank: props.bankInfo,
         activeMarker: marker,
         showingInfoWindow: true
     });
@@ -62,7 +67,7 @@ export class MapContainer extends Component {
       var bank_words = data[bank];
       bankLists.forEach(b => {
         if (b.result.name === bank) {
-          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14, dropdownActive: bank});
+          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14, selectedBank: b, dropdownActive: bank});
         }
       });
     }
@@ -79,7 +84,13 @@ export class MapContainer extends Component {
           updatedGeo = b.result.geometry.location;
         }
       });
-      this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+
+      if (matchedBanks.length > 0) { 
+        this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+      } else {
+        alert("No FoodBanks match the given zip code. Please try again.")
+      }
+      
     }
     
     //Remove the information window when the close button is
@@ -96,6 +107,7 @@ export class MapContainer extends Component {
     render() {
         var markers = [];
         var key = 0;
+        console.log(this.state.activeBanks);
         //For all banks in activeBanks retrieve their necessary information 
         //and render them on the map and store the information from activeBanks
         //in the information window
@@ -120,6 +132,7 @@ export class MapContainer extends Component {
 
             //Create the marker on the map and store the collected information
             let curMarker = <Marker key = {key}
+            bankInfo={this.state.activeBanks[i]}
             position={this.state.activeBanks[Object.keys(this.state.activeBanks)[i]].result.geometry.location}
             onClick={this.onMarkerClick}
             name={this.state.activeBanks[i].result.name}
@@ -176,9 +189,19 @@ export class MapContainer extends Component {
                       <div className="bankDropList">
                         <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} dropdownActive={this.state.dropdownActive}/>
                       </div>
-                      <div className="cloud">
-                        <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                      {/* <div className="check">
+                        <Button outline color="info">
+                          Check what they need
+                        </Button>
+                      </div> */}
+
+                      <div>
+                        <InfoButton bank={this.state.selectedBank}/>
                       </div>
+
+                      {/* <div className="cloud">
+                        <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                      </div> */}
                     </div>
                   </div>
                   <div className="map">
@@ -222,7 +245,7 @@ class BankList extends Component {
     })
     return (
       <div id="foodbankList" className="col-9">
-        <h2>Select Bank to See its Most Wanted Food</h2>
+        <h2>Select Bank</h2>
         <UncontrolledDropdown>
           <DropdownToggle caret>
             {this.props.dropdownActive}
@@ -234,6 +257,41 @@ class BankList extends Component {
       </div>
     )
   }
+}
+
+class InfoButton extends Component {
+  constructor(props){
+    super(props);
+    this.state = {redirect: false};
+  }
+
+  handleClick() {
+    this.setState({redirect: true});
+  }
+
+  render() {
+      let bank = this.props.bank;
+       if (!bank) {
+        return (
+          <div className="check">
+            <Button outline color="info" disabled>
+              Check what they need
+            </Button>
+          </div>
+        )
+      } else {
+        if (this.state.redirect) {
+          return <Redirect push to={'/info/'+ bank.key} />
+        }
+        return (
+          <div className="check" onClick={() => this.handleClick()}>
+            <Button outline color="info">
+              Check what they need
+            </Button>
+          </div>
+        );
+      }
+    }
 }
 
 export default GoogleApiWrapper({
