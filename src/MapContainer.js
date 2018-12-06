@@ -61,9 +61,11 @@ export class MapContainer extends Component {
       var bank_words = data[bank];
       bankLists.forEach(b => {
         if (b.result.name === bank) {
-          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14});
+          this.setState({activeBanks: [b], zipGeo: b.result.geometry.location, zoom: 14});
         }
       });
+
+      
     }
 
     //Reset the map and filter the activeBanks to list
@@ -78,7 +80,13 @@ export class MapContainer extends Component {
           updatedGeo = b.result.geometry.location;
         }
       });
-      this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+
+      if (matchedBanks.length > 0) { 
+        this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+      } else {
+        alert("No FoodBanks match the given zip code. Please try again.")
+      }
+      
     }
     
     //Remove the information window when the close button is
@@ -95,12 +103,14 @@ export class MapContainer extends Component {
     render() {
         var markers = [];
         var key = 0;
+
         //For all banks in activeBanks retrieve their necessary information 
         //and render them on the map and store the information from activeBanks
         //in the information window
         for (let i=0; i<Object.keys(this.state.activeBanks).length; i++) {
             let opening, curMon, curTue, curWed, curThu, curFri, curSat, curSun = "";
             //Get the opening hours of the bank if it has any
+            console.log(this.state.activeBanks[i]);
             if(this.state.activeBanks[i].result['opening_hours']) {
                 curMon = this.state.activeBanks[i].result['opening_hours']['weekday_text'][0];
                 curTue = this.state.activeBanks[i].result['opening_hours']['weekday_text'][1];
@@ -175,9 +185,15 @@ export class MapContainer extends Component {
                       <div className="bankDropList">
                         <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
                       </div>
-                      <div className="cloud">
-                        <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                      <div className="check">
+                        <Button outline color="info">
+                          Check what they need
+                        </Button>
                       </div>
+
+                      {/* <div className="cloud">
+                        <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
+                      </div> */}
                     </div>
                   </div>
                   <div className="map">
@@ -223,7 +239,7 @@ class BankList extends Component {
     })
     return (
       <div id="foodbankList" className="col-9">
-        <h2>Select Bank to See its Most Wanted Food</h2>
+        <h2>Select Bank</h2>
         <UncontrolledDropdown>
           <DropdownToggle caret>
             Select

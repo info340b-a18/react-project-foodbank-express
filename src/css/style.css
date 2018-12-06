@@ -54,6 +54,10 @@ body {
     border: 2px solid black;
 }
 
+.check {
+    padding: 5rem 1rem;
+}
+
 #nav-title {
     color: lightpink;
     padding: 1rem 1rem;

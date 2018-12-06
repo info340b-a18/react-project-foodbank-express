@@ -20,9 +20,17 @@ import MapApp from './MapApp.js';
 import SignInApp from './SignInApp';
 import SignUpapp from './SignUpApp';
 
+
+
 import {Route, Link, Switch, Redirect} from 'react-router-dom'
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {banks: []}
+    }
+
+
     render() {
         return (
             <div>
