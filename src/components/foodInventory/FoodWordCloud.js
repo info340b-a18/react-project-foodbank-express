@@ -8,7 +8,7 @@ export default class FoodWordCloud extends Component {
     return (
       <div class="container-fluid">
         <div class="jumbotron">
-          <div className="d-flex justify-content-center">
+          <div className="                  ">
             <div style={{width: 600, height: 400}}>
               <ReactWordCloud
                 words={this.props.foods}
