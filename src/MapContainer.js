@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, Button} from 'reactstrap';
+import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, DropdownItem, Button} from 'reactstrap';
 import getBankNames from './utils/getBankNames';
 import WordCloud from 'react-d3-cloud/lib/WordCloud';
 import data from './make-data/bank_words.json';
@@ -33,7 +33,8 @@ export class MapContainer extends Component {
             banks: props.banks,         //List of all banks rendered
             activeBanks: props.bankLists, //A copy of banklists that displays all the banks rendered with their relevant json information
             zipGeo: props.zipGeo,       //Coordinates for the current zipcode
-            zoom: props.zoom            //Zoom for the map
+            zoom: props.zoom,           //Zoom for the map
+            dropdownActive: "Select"
         };
     }
 
@@ -61,7 +62,7 @@ export class MapContainer extends Component {
       var bank_words = data[bank];
       bankLists.forEach(b => {
         if (b.result.name === bank) {
-          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14});
+          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14, dropdownActive: bank});
         }
       });
     }
@@ -173,7 +174,7 @@ export class MapContainer extends Component {
                     </div>
                     <div className="drop-list">
                       <div className="bankDropList">
-                        <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
+                        <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} dropdownActive={this.state.dropdownActive}/>
                       </div>
                       <div className="cloud">
                         <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
@@ -206,11 +207,9 @@ export class MapContainer extends Component {
 class BankButton extends Component {
   render() {
     return (
-      <li>
-        <Button onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
+        <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
           {this.props.bank}
-        </Button>
-      </li>
+        </DropdownItem>
     )
   }
 }
@@ -226,7 +225,7 @@ class BankList extends Component {
         <h2>Select Bank to See its Most Wanted Food</h2>
         <UncontrolledDropdown>
           <DropdownToggle caret>
-            Select
+            {this.props.dropdownActive}
           </DropdownToggle>
           <DropdownMenu className="dropdownlists">
             {bankList}
