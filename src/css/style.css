@@ -344,6 +344,11 @@ form button {
 .infoTitle {
     font-weight: bold;
 }
+body .dropdown-item:hover {
+    background-color: lightpink;
+
+}
+
 @media only screen and (min-width: 598px) {
     
 
@@ -423,8 +428,28 @@ form button {
         margin-left: 10%;
         margin-right: 10%;
     }
-}
 
+}
+@media only screen and (min-width: 909px) {
+    .footer-container .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .footer-container .about-us-container, .contact-us-container {
+        flex: 1;
+    }
+    .contact-us-container {
+        margin-top: 4rem;
+    }
+    .about-us-container {
+        margin-left: 5rem;
+    }
+    .row-bottom p {
+        font-size: 0.75rem;
+    }
+    
+
+}
 @media only screen and (min-width: 1500px) {
     body h1 {
         font-size: 2.5rem;
@@ -531,20 +556,18 @@ form button {
     .app-button {
         margin-left: 3rem; 
     }
-    .footer-container .row {
-        display: flex;
-        flex-direction: row;
+  
+
+    .infowindow p{
+        font-size: 1rem;
     }
-    .footer-container .about-us-container, .contact-us-container {
-        flex: 1;
+
+    body .mapApp .map {
+        margin-left: 2rem;
+        flex: 2;
     }
-    .contact-us-container {
-        margin-top: 4rem;
+    body .mapApp.form-dropdown {
+        flex: 2;
     }
-    .about-us-container {
-        margin-left: 5rem;
-    }
-    .row-bottom p {
-        font-size: 0.75rem;
-    }
+
 }

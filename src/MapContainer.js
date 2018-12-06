@@ -207,7 +207,7 @@ export class MapContainer extends Component {
 class BankButton extends Component {
   render() {
     return (
-        <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
+        <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} >
           {this.props.bank}
         </DropdownItem>
     )
