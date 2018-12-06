@@ -43,7 +43,7 @@ class FoodInventoryBox extends Component{
         <div className="row py-3">
           <div className="col pl-4 pl-lg-1">
             <form>
-              <input name="foodName" className="form-control mb-2" placeholder="What's the foodName" 
+              <input name="foodName" className="form-control mb-2" placeholder="What's the food name?" 
                 value={this.state.foodName} 
                 onChange={(e) => this.updateFoodName(e)}
                 />
@@ -53,12 +53,12 @@ class FoodInventoryBox extends Component{
                 <small className="form-text">30 character limit!</small>
               }
               
-              <input type="number"  className="form-control mb-2" placeholder="quantity?"
+              <input type="number"  className="form-control mb-2" placeholder="What's the quantity?"
                 value={this.initialInventory}
                 onChange={(e) => this.updateInitialInventory(e)}
                 />
 
-              <div className="text-right">
+              <div className="text-center">
                 {/* Disable if invalid post length */}
                 <button className="btn btn-primary" 
                   disabled={this.state.foodName.length === 0 || this.state.foodName.length > 20}

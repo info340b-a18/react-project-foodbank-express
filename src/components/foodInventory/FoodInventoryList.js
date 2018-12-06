@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import Food from './Food'
+import SortBar from '../../FoodInventorySort.js';
 //import Time from 'react-time';
 
 class FoodInventoryList extends Component{
@@ -95,22 +96,26 @@ class FoodItem extends Component {
     render() {
       let food = this.props.food;
       return (
-        <div className="row py-4 bg-white border">
-          <div className="col pl-4 pl-lg-1">
+        <div className = "container-fluid">
+        <div className="row py-2 bg-light border">
             {/*<span className="time"><Time value={food.time} relative/></span> idk why this doesnt resolve*/}
-            <div className="food">
-                <small>{food.text}</small></div>
-            <div className="foodQuantity">          
-              <small>{food.num}</small>
+            <div className="col-2 food">
+                <large>{food.text}</large></div>
+            <div className="col-2 foodQuantity">          
+              <medium>{food.num}</medium>
             </div>
-                <input type="number" className="" placeholder="new #"
+                <div className = "col-8 text-right">
+                <div className="col-xs-2">
+                <input type="number" className = "form-control-sm" placeholder="new #"
                     value={this.state.updateQuantity}
                     onChange={(e) => this.updateNewQuantity(e)}
                 />
-                <button onClick={(e) => this.postUpdatedQuantity(e)}>update<i className="fas fa-paper-plane"></i></button>
-                <button onClick={(e) => this.deleteFoodItem(e)}>delete<i className="icon-remove"></i></button>
-          </div>
-        </div>      
+                </div>
+                <button className = "btn btn-light btn-sm" onClick={(e) => this.postUpdatedQuantity(e)}><span><img src={require('../../img/refresh.png')} width="20" height= "20"/></span></button>
+                <button className = "btn btn-light btn-sm" onClick={(e) => this.deleteFoodItem(e)}><span><img src={require('../../img/remove.png')} width="20" height= "20"/></span></button>
+                </div>
+        </div> 
+        </div>
       );
     }
   }
