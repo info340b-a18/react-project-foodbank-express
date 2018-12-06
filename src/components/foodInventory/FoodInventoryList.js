@@ -2,34 +2,50 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import Food from './Food'
-import SortBar from '../../FoodInventorySort.js';
+import {NameSortButton, QuantitySortButton} from "../../utils/button";
 //import Time from 'react-time';
 
 class FoodInventoryList extends Component{
     constructor(props){
         super(props);
         this.state = {
-            foods:[]
+            foods:[],
+            ascending: true,
+            sortedFoods: [],
+            sortStyle: "null",
+            filtered: false,
+            filteredFoods: []
         };
     }
 
     componentDidMount(){
         this.foodsRef = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods`);
         this.foodsRef.on("value", (snapshot)=>{
-          this.setState({foods: snapshot.val()});
+            let snapShotVal = snapshot.val()
+            let foods = Object.keys(snapShotVal).map((key) => {
+                let foodObj = snapShotVal[key];
+                foodObj.id = key;
+                return foodObj;
+            }); 
+            this.setState({foods: foods});
         });
     }
     
-      componentWillUnmount(){
-        this.foodsRef.off("value", (snapshot)=>{
-          this.setState({foods: snapshot.val()});
+    componentWillUnmount(){
+        this.foodsRef.on("value", (snapshot)=>{
+            let snapShotVal = snapshot.val()
+            let foods = Object.keys(snapShotVal).map((key) => {
+                let foodObj = snapShotVal[key];
+                foodObj.id = key;
+                return foodObj;
+            }); 
+            this.setState({foods: foods});
         });
     }
 
     deleteFoodItem = (foodid) => {
         let food = firebase.database().ref(`banks/${this.props.currentUser.displayName}/foods/${foodid}`);
         food.set(null);
-
     }
 
     updateQuantity = (name, foodid, n) => {
@@ -37,7 +53,7 @@ class FoodInventoryList extends Component{
         quantity.set(new Food(name, n));
     }
     
-    updateSort = (type) => {
+    updateSort = (style) => {
         let array = [...this.state.foods];
 
         if(style === this.state.sortStyle){
@@ -45,15 +61,14 @@ class FoodInventoryList extends Component{
             array.reverse();
             this.setState({
                 foods: array,
-                best: !this.state.best
+                ascending: !this.state.ascending
             });
-        }
-        else{
-            switch(this.state.sortStyle){
+        }else{
+            switch(style){
                 case "quantity":
                     array.sort((a,b)=> (a.num - b.num))
                     break;
-                case "alphabetically":
+                case "name":
                     array.sort(function(a, b){
                         if(a.text < b.text) { return -1; }
                         if(a.text > b.text) { return 1; }
@@ -62,36 +77,25 @@ class FoodInventoryList extends Component{
                     break;
                 default:
                     alert("unknown sort");
-
+                    console.log(style);
             }
         }
         this.setState({
             foods: array,
             sortStyle: style, 
-            best: true
+            ascending: true
         });
 
     }
 
-    /* sort by date? or 
-    sort(){
-
-    }*/
-    
     //add sort functions by quantity, and food name
     //we can add a filter function here as well
     render(){
         if(!this.state.foods) return null; //if no chirps, don't display
         /* TODO: produce a list of `<ChirpItems>` to render */
-        let foodObjects = Object.keys(this.state.foods).map((key) => {
-            let foodObj = this.state.foods[key];
-            foodObj.id = key;
-            return foodObj;
-        });
         //foodObjects.sort((itemA, itemB)=> itemB.quantity - itemA.time);
         //foodObjects.filter......
-
-        let foodItems = foodObjects.map((obj)=>{
+        let foodItems = this.state.foods.map((obj)=>{
             return(
                 <FoodItem key={obj.id} food={obj} 
                 update={this.updateQuantity}
@@ -103,7 +107,8 @@ class FoodInventoryList extends Component{
         return (
 
         <div className="container">
-            {/*}<SortBar updateSort = {this.}</SortBar>{*/}
+            <NameSortButton updateSort={this.updateSort}/>
+            <QuantitySortButton updateSort={this.updateSort}/>
             {foodItems}
         </div>);
     }
@@ -135,24 +140,25 @@ class FoodItem extends Component {
       let food = this.props.food;
       return (
         <div className = "container-fluid">
-        <div className="row py-2 bg-light border">
-            {/*<span className="time"><Time value={food.time} relative/></span> idk why this doesnt resolve*/}
-            <div className="col-2 food">
-                <large>{food.text}</large></div>
-            <div className="col-2 foodQuantity">          
-              <medium>{food.num}</medium>
-            </div>
+            <div className="row py-2 bg-light border">
+                {/*<span className="time"><Time value={food.time} relative/></span> idk why this doesnt resolve*/}
+                <div className="col-2 food">
+                    <small>{food.text}</small>
+                </div>
+                <div className="col-2 foodQuantity">          
+                    <small>{food.num}</small>
+                </div>
                 <div className = "col-8 text-right">
-                <div className="col-xs-2">
-                <input type="number" className = "form-control-sm" placeholder="new #"
-                    value={this.state.updateQuantity}
-                    onChange={(e) => this.updateNewQuantity(e)}
-                />
-                </div>
-                <button className = "btn btn-light btn-sm" onClick={(e) => this.postUpdatedQuantity(e)}><span><img src={require('../../img/refresh.png')} width="20" height= "20"/></span></button>
-                <button className = "btn btn-light btn-sm" onClick={(e) => this.deleteFoodItem(e)}><span><img src={require('../../img/remove.png')} width="20" height= "20"/></span></button>
-                </div>
-        </div> 
+                    <div className="col-xs-2">
+                        <input type="number" className = "form-control-sm" placeholder="new #"
+                            value={this.state.updateQuantity}
+                            onChange={(e) => this.updateNewQuantity(e)}
+                        />
+                    </div>
+                    <button className = "btn btn-light btn-sm" onClick={(e) => this.postUpdatedQuantity(e)}><span><img src={require('../../img/refresh.png')} width="20" height= "20"/></span></button>
+                    <button className = "btn btn-light btn-sm" onClick={(e) => this.deleteFoodItem(e)}><span><img src={require('../../img/remove.png')} width="20" height= "20"/></span></button>
+                </div> 
+            </div>
         </div>
       );
     }

@@ -11,4 +11,15 @@ class QuantitySortButton extends Component{
     }
 }
 
-export {QuantitySortButton}
+class NameSortButton extends Component{
+    clickHandler = () => {
+        this.props.updateSort("name");
+    }
+    render(){
+        return(
+            <button className = "btn btn-light" onClick={this.clickHandler}>name</button>
+        );
+    }
+}
+
+export {QuantitySortButton, NameSortButton};
