@@ -16,13 +16,16 @@ Contributions:
     * Filter current map as according to user input
     * Generate word cloud based on User Input
     * Handle user authentication
-2. Stanley
+2. Zhuo
     * Create the functioning Google Map
     * Retrieve information from Google Map API for list of banks
     * Render map with banks
     * Create the pop up information window
     * Style the application window
     * Included overall html/css, google maps window, and zipcode from stage-2
+    * Imported JSON to firebase database
+    * Style dropdown menu interactions
+    * Style sign-in and sign-out pages
 3. Yodae
 4. Naved
 
