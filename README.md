@@ -34,9 +34,14 @@ Contributions:
         *foodInventoryList update/remove data functionality
     *help with bootstrap with sign in and sign up page.
     *updated reference path to match the rest of the webpage data. Was working on a different branch while Aman and Stanley edited the map.
-
-
 4. Naved
+    * Functionality of post sign in page
+    * Helped with dynamic food list creation page
+    * Bootstrap for 'create food list' page
+    * Responded to in-class feedback with styling for map
+    * Responded to in-class feedback with styling + functionality change for food list page
+    * Helped with food list sort feature
+    * Overall style for food list page
 
 Libraries used:
 * https://www.npmjs.com/package/react-d3-cloud
