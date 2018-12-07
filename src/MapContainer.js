@@ -276,7 +276,6 @@ class InfoButton extends Component {
 
   render() {
     let bank = this.props.bank;
-    console.log(bank);
     if (!bank) {
       return (
         <div className="check">
