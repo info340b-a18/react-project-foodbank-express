@@ -116,11 +116,14 @@ class SignUpApp extends Component {
                   </Container>
                 </Jumbotron>
               </div>
+
+              // <Redirect to='/signin' />
           );
         }
         return (
           <div>
-            {this.state.errorMessage &&
+            {
+              this.state.errorMessage &&
               <p className="alert alert-danger">{this.state.errorMessage}</p>
             }
             {content}

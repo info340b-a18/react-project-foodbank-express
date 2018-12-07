@@ -49,8 +49,6 @@ export class MapContainer extends Component {
       this.setState({zipcode: e.target.value});
     }
 
-
-    
     //Displays the information window when you click the marker
     onMarkerClick = (props, marker, e) =>
       this.setState({
@@ -146,34 +144,38 @@ export class MapContainer extends Component {
             address={curAddress}
         />;
             //Create the information window
-            let curInfoWin = <InfoWindow key={key+1}
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-            onClose={this.onClose}
-        >
-            {/* Put relevant information into the information window */}
-            <div className='infowindow'>
-            <h1>{this.state.selectedPlace.name} </h1>
-            <p><span className='infoTitle'>Address:</span><br />
-            {this.state.selectedPlace.address}<br />
-            <span className='infoTitle'>{this.state.selectedPlace.opening}</span><br />
-            {this.state.selectedPlace.monHour}<br />
-            {this.state.selectedPlace.tueHour}<br />
-            {this.state.selectedPlace.wedHour}<br />
-            {this.state.selectedPlace.thuHour}<br />
-            {this.state.selectedPlace.friHour}<br />
-            {this.state.selectedPlace.satHour}<br />
-            {this.state.selectedPlace.sunHour}
-            </p>
-            <InfoButton bank={this.state.selectedBank}/>
-           
-            </div>
-        </InfoWindow>;
+            let curInfoWin = <InfoWindow 
+              key={key+1}
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              onClose={this.onClose}>
 
-            //Store the current markers and their information window
-            markers.push(curMarker);
-            markers.push(curInfoWin);
-            key+=2;
+              {/* Put relevant information into the information window */}
+              <div className='infowindow'>
+                <h1>{this.state.selectedPlace.name} </h1>
+                <p>
+                  <span className='infoTitle'>Address:</span><br />
+                  {this.state.selectedPlace.address}<br />
+                  <span className='infoTitle'>{this.state.selectedPlace.opening}</span><br />
+                  {this.state.selectedPlace.monHour}<br />
+                  {this.state.selectedPlace.tueHour}<br />
+                  {this.state.selectedPlace.wedHour}<br />
+                  {this.state.selectedPlace.thuHour}<br />
+                  {this.state.selectedPlace.friHour}<br />
+                  {this.state.selectedPlace.satHour}<br />
+                  {this.state.selectedPlace.sunHour}
+                </p>
+              </div>
+              
+              {/* <div>
+                <InfoButton bank={this.state.selectedBank}/>
+              </div> */}
+            </InfoWindow>;
+
+          //Store the current markers and their information window
+          markers.push(curMarker);
+          markers.push(curInfoWin);
+          key+=2;
         }
         return (
                 <div className="mapApp">
@@ -196,7 +198,7 @@ export class MapContainer extends Component {
                       </div> */}
 
                       <div>
-
+                        <InfoButton bank={this.state.selectedBank}/>
                       </div>
 
                       {/* <div className="cloud">
@@ -230,9 +232,9 @@ export class MapContainer extends Component {
 class BankButton extends Component {
   render() {
     return (
-        <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} >
-          {this.props.bank}
-        </DropdownItem>
+      <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} >
+        {this.props.bank}
+      </DropdownItem>
     )
   }
 }
@@ -260,9 +262,12 @@ class BankList extends Component {
 }
 
 class InfoButton extends Component {
+
   constructor(props){
     super(props);
     this.state = {redirect: false};
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
@@ -270,28 +275,30 @@ class InfoButton extends Component {
   }
 
   render() {
-      let bank = this.props.bank;
-       if (!bank) {
-        return (
-          <div className="check">
-            <Button outline color="info" disabled>
-              Check what foods they need!
-            </Button>
-          </div>
-        )
+    let bank = this.props.bank;
+    console.log(bank);
+    if (!bank) {
+      return (
+        <div className="check">
+          <Button color="warning" disabled>
+            Please select a bank 
+          </Button>
+        </div>
+      )
+    } else {
+      if (this.state.redirect) {
+        return <Redirect push to={'/info/'+ bank.key} />
       } else {
-        if (this.state.redirect) {
-          return <Redirect push to={'/info/'+ bank.key} />
-        }
         return (
-          <div className="check" onClick={() => this.handleClick()}>
-            <Button outline color="info">
+          <div className="check" >
+            <Button onClick={this.handleClick} color="success">
               Check what foods they need!
             </Button>
           </div>
         );
       }
     }
+  }
 }
 
 export default GoogleApiWrapper({
