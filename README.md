@@ -27,6 +27,15 @@ Contributions:
     * Style dropdown menu interactions
     * Style sign-in and sign-out pages
 3. Yodae
+    * create food, foodInventory, foodInventoryList, foodInventoryBox, foodWordCloud, Component Classes(what renders on the sign in/ sign up page)
+	*use Aman's WordCloud with the foodInventory class data in foodWordCloud
+	*added sort functionalit ony the foodInventoryList
+	*foodInventoryBox push data functionality
+        *foodInventoryList update/remove data functionality
+    *help with bootstrap with sign in and sign up page.
+    *updated reference path to match the rest of the webpage data. Was working on a different branch while Aman and Stanley edited the map.
+
+
 4. Naved
 
 Libraries used:
