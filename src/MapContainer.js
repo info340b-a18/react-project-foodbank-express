@@ -164,8 +164,8 @@ export class MapContainer extends Component {
             {this.state.selectedPlace.friHour}<br />
             {this.state.selectedPlace.satHour}<br />
             {this.state.selectedPlace.sunHour}
-            <InfoButton bank={this.state.selectedBank}/>
             </p>
+            <InfoButton bank={this.state.selectedBank}/>
            
             </div>
         </InfoWindow>;
@@ -196,6 +196,7 @@ export class MapContainer extends Component {
                       </div> */}
 
                       <div>
+
                       </div>
 
                       {/* <div className="cloud">

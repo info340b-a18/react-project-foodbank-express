@@ -57,9 +57,11 @@ body h1 {
 }
 
 .check {
-    padding: 5rem 1rem;
+    text-align: center;
 }
-
+#zipcodeInput {
+    margin: 0 11rem 0 0;
+}
 #nav-title {
     color: lightpink;
     padding: 1rem 1rem;
