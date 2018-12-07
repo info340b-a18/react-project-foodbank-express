@@ -94,7 +94,7 @@ class FoodItem extends Component {
                         </div>
                         <div className = "col-8 text-right">
                             <div className="col-xs-2">
-                                <input type="number" className = "form-control-sm" placeholder="add/remove amount"
+                                <input type="number" min = "0" className = "form-control-sm" placeholder="add/remove amount"
                                     value={this.state.updateQuantity}
                                     onChange={(e) => this.updateNewQuantity(e)}
                                 />

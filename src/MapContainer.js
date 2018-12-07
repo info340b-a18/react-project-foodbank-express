@@ -164,6 +164,7 @@ export class MapContainer extends Component {
             {this.state.selectedPlace.friHour}<br />
             {this.state.selectedPlace.satHour}<br />
             {this.state.selectedPlace.sunHour}
+            <InfoButton bank={this.state.selectedBank}/>
             </p>
            
             </div>
@@ -195,7 +196,6 @@ export class MapContainer extends Component {
                       </div> */}
 
                       <div>
-                        <InfoButton bank={this.state.selectedBank}/>
                       </div>
 
                       {/* <div className="cloud">
@@ -274,7 +274,7 @@ class InfoButton extends Component {
         return (
           <div className="check">
             <Button outline color="info" disabled>
-              Check what they need
+              Check what foods they need!
             </Button>
           </div>
         )
@@ -285,7 +285,7 @@ class InfoButton extends Component {
         return (
           <div className="check" onClick={() => this.handleClick()}>
             <Button outline color="info">
-              Check what they need
+              Check what foods they need!
             </Button>
           </div>
         );
