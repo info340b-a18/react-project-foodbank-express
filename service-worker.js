@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-project-foodbank-express/precache-manifest.5a68a75f74b59e9cc650dd946e526983.js"
+  "/react-project-foodbank-express/precache-manifest.b2766aad056765f424443cbc89421e56.js"
 );
 
 workbox.clientsClaim();
