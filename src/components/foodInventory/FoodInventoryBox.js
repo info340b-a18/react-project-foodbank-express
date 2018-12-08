@@ -23,17 +23,19 @@ class FoodInventoryBox extends Component {
   }
 
   postFood(event){
-    event.preventDefault(); //don't submit
+    if(this.props.foodExists(this.state.foodName)){
+      alert("food already exists in list");
+    }else{
+      event.preventDefault(); //don't submit
     let newFood = new Food(this.state.foodName, this.state.initialInventory);
     firebase.database().ref(`banks/${this.props.bankKey}/foods`).push(newFood);
     this.setState({
         foodName:'',
         initialInventory: 0,
     }); //empty out post for next time
-
+    }
   }
 
-  //You do not need to modify this method!
   render() {
     return (
       <div className="container-fluid">
