@@ -9,7 +9,7 @@ export default class FoodWordCloud extends Component {
       <div className="container-fluid">
         <div className="jumbotron">
           <div className="d-flex justify-content-center">
-            <div style={{width: 600, height: 400}}>
+            <div style={{width: 10000, height: 500}}>
               <ReactWordCloud
                 scales={'log'}
                 spiral={'rectangular'}
