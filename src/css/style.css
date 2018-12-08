@@ -356,6 +356,26 @@ body .dropdown-item:hover {
 
 }
 
+.jumbotron .display-3 {
+    font-size: 2rem;
+}
+#root .jumbotron {
+    padding: 0;
+    text-align: center
+}
+
+#root .container {
+    width: 70%;
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+}
+
+#root .container .food{
+    margin-right: 5rem;
+ }
+ .lead .btn {
+     margin-bottom: 1rem;
+ }
 @media only screen and (min-width: 598px) {
     
 
@@ -420,8 +440,14 @@ body .dropdown-item:hover {
     .topnav a.icon {
         display: none;
     }
-
-
+    #root form .form-group .form-control{
+        width: 447px;
+        margin: none;
+    }
+    .form-inputbox .form-control {
+        width: 665px;
+        margin: auto;
+    }
 }
 @media only screen and (min-width: 840px) {
     .main-page .welcome .welcome-photo{
@@ -500,8 +526,15 @@ body .dropdown-item:hover {
         flex-direction: row;
     }
  
-    .foodwaste .description {
+    .foodwaste .foodwaste-text-div{
+        flex: 2;
+    }
+    .foodwaste .foodwaste-card-div {
         flex: 1;
+    }
+    .foodwaste .foodwaste-card-div .foodwaste-card {
+        display: flex;
+        flex-direction: column;
     }
     .foodwaste .description h1 {
         text-align: left;
@@ -581,4 +614,22 @@ body .dropdown-item:hover {
         flex: 2;
     }
 
+  
+    .signin-header {
+        width: 50%;
+        margin: auto;
+    }
+    .container-fluid .jumbotron {
+        width: 50%;
+        margin: auto;
+        margin-bottom: 1rem;
+
+    }
+    #root .container-fluid .row {
+        font-size: 2rem;
+    }
+    #root .jumbotron-fluid {
+        width: 50%;
+        margin: auto;
+    }
 }

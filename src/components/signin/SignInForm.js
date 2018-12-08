@@ -47,6 +47,7 @@ class SignInForm extends Component {
             id="email" 
             type="email" 
             name="email"
+            placeholder="Try zubin@zubin.com"
             onChange={(e) => this.handleChange(e)}
             />
         </div>
@@ -58,6 +59,7 @@ class SignInForm extends Component {
             id="password" 
             type="password"
             name="password"
+            placeholder="Type in 'password'"
             onChange={(e) => this.handleChange(e)}
             />
         </div>

@@ -40,6 +40,7 @@ class FoodInventoryBox extends Component {
         <div className="row py-3">
           <div className="col pl-4 pl-lg-1">
             <form>
+              <div className="form-inputbox">
               <input name="foodName" className="form-control mb-2" placeholder="What's the food name?" 
                 value={this.state.foodName} 
                 onChange={(e) => this.updateFoodName(e)}
@@ -49,7 +50,7 @@ class FoodInventoryBox extends Component {
                 value={this.state.initialInventory}
                 onChange={(e) => this.updateInitialInventory(e)}
                 />
-
+              </div>
               <div className="text-center">
                 {/* Disable if invalid post length */}
                 <button className="btn btn-primary" 

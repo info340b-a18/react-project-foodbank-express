@@ -71,7 +71,8 @@ class SignInApp extends Component {
       } 
       else { //if logged in, show welcome message
         content = (
-            <div>
+            <div >
+            <div className="signin-header">
                 <WelcomeHeader user={this.state.user} isUserView={false}>
                     {/* log out button is child element */}
                     {this.state.user &&
@@ -81,6 +82,8 @@ class SignInApp extends Component {
                     </button>
                     }
                 </WelcomeHeader>
+                </div>
+                
                 <FoodInventory currentUser={this.state.user} />
           </div>
         );

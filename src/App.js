@@ -447,11 +447,28 @@ class Steps extends Component {
                                 </div>
                                 <div className="intro-content-container">
                                 <div className="intro-h1">
-                                    <h1>Step 3:  Reserve Timeslot (Coming soon)</h1>
+                                    <h1>Step 3:  Check Demand</h1>
                                 </div>
                                 <div className="intro-p">
-                                    <p>After being selected, the food bank will receive your information about food donation.</p>
-                                    <p>Then, you will receive the confirmation email and your travel information or select postal service will be sent to you.</p>
+                                    <p>After being selected, the food bank will display location on map. When clicked descriptions will be shown</p>
+                                    <p>Then, you can check what kinds of food are the in demand.</p>
+                                </div>    
+                                </div>                         
+                        </section>
+                    </ScrollAnimation>
+
+                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
+                        <section className="introduction">    
+                            <div className="intro-logo">
+                                    <img src={numberFour} alt="number four" />
+                                </div>
+                                <div className="intro-content-container">
+                                <div className="intro-h1">
+                                    <h1>Step 4:  Input Food</h1>
+                                </div>
+                                <div className="intro-p">
+                                    <p>As food bank, you can sign up and creat your own demands</p>
+                                    <p>After signing up, edit your demand. Your demand will be shown after being selected.</p>
                                 </div>    
                                 </div>                         
                         </section>
