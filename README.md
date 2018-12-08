@@ -3,7 +3,7 @@
 FoodBank Express is an application that is designed for finding FoodBanks all over the Seattle area.
 
 This application allows you to search for FoodBanks near you, and search for specific FoodBanks in Seattle
-and find information about them.
+and find information about them. Also allows for FoodBanks to sign up and post what foods they are in need of so contributors know what to donate to them.
 
 Contributions:
 
