@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, Button} from 'reactstrap';
+import { UncontrolledDropdown, Form, DropdownToggle, Label, Input, DropdownMenu, DropdownItem, Button} from 'reactstrap';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import getBankNames from './utils/getBankNames';
 import WordCloud from 'react-d3-cloud/lib/WordCloud';
 import data from './make-data/bank_words.json';
@@ -27,13 +28,15 @@ export class MapContainer extends Component {
             activeMarker: {},           //Shows the active marker upon click
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
             bankLists: props.bankLists, //Json file containing information about the foodBanks
+            selectedBank: undefined, 
             bank_words: [],             //Current words to create word cloud from
             zipcode: "98105",           //Default zipcode to search for in the map
             isMounted: false,           //Check if Mounted
             banks: props.banks,         //List of all banks rendered
             activeBanks: props.bankLists, //A copy of banklists that displays all the banks rendered with their relevant json information
             zipGeo: props.zipGeo,       //Coordinates for the current zipcode
-            zoom: props.zoom            //Zoom for the map
+            zoom: props.zoom,           //Zoom for the map
+            dropdownActive: "Select"
         };
     }
 
@@ -45,11 +48,12 @@ export class MapContainer extends Component {
     handleZipChange(e) {
       this.setState({zipcode: e.target.value});
     }
-    
+
     //Displays the information window when you click the marker
     onMarkerClick = (props, marker, e) =>
       this.setState({
         selectedPlace: props,
+        selectedBank: props.bankInfo,
         activeMarker: marker,
         showingInfoWindow: true
     });
@@ -61,7 +65,7 @@ export class MapContainer extends Component {
       var bank_words = data[bank];
       bankLists.forEach(b => {
         if (b.result.name === bank) {
-          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14});
+          this.setState({activeBanks: [b], bank_words: convertWords(bank_words), zipGeo: b.result.geometry.location, zoom: 14, selectedBank: b, dropdownActive: bank});
         }
       });
     }
@@ -78,7 +82,13 @@ export class MapContainer extends Component {
           updatedGeo = b.result.geometry.location;
         }
       });
-      this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+
+      if (matchedBanks.length > 0) { 
+        this.setState({activeBanks: matchedBanks, zipGeo: updatedGeo, zoom: 14});
+      } else {
+        alert("No FoodBanks match the given zip code. Please try again.")
+      }
+      
     }
     
     //Remove the information window when the close button is
@@ -119,6 +129,7 @@ export class MapContainer extends Component {
 
             //Create the marker on the map and store the collected information
             let curMarker = <Marker key = {key}
+            bankInfo={this.state.activeBanks[i]}
             position={this.state.activeBanks[Object.keys(this.state.activeBanks)[i]].result.geometry.location}
             onClick={this.onMarkerClick}
             name={this.state.activeBanks[i].result.name}
@@ -133,33 +144,38 @@ export class MapContainer extends Component {
             address={curAddress}
         />;
             //Create the information window
-            let curInfoWin = <InfoWindow key={key+1}
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-            onClose={this.onClose}
-        >
-            {/* Put relevant information into the information window */}
-            <div className='infowindow'>
-            <h1>{this.state.selectedPlace.name} </h1>
-            <p><span className='infoTitle'>Address:</span><br />
-            {this.state.selectedPlace.address}<br />
-            <span className='infoTitle'>{this.state.selectedPlace.opening}</span><br />
-            {this.state.selectedPlace.monHour}<br />
-            {this.state.selectedPlace.tueHour}<br />
-            {this.state.selectedPlace.wedHour}<br />
-            {this.state.selectedPlace.thuHour}<br />
-            {this.state.selectedPlace.friHour}<br />
-            {this.state.selectedPlace.satHour}<br />
-            {this.state.selectedPlace.sunHour}
-            </p>
-           
-            </div>
-        </InfoWindow>;
+            let curInfoWin = <InfoWindow 
+              key={key+1}
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              onClose={this.onClose}>
 
-            //Store the current markers and their information window
-            markers.push(curMarker);
-            markers.push(curInfoWin);
-            key+=2;
+              {/* Put relevant information into the information window */}
+              <div className='infowindow'>
+                <h1>{this.state.selectedPlace.name} </h1>
+                <p>
+                  <span className='infoTitle'>Address:</span><br />
+                  {this.state.selectedPlace.address}<br />
+                  <span className='infoTitle'>{this.state.selectedPlace.opening}</span><br />
+                  {this.state.selectedPlace.monHour}<br />
+                  {this.state.selectedPlace.tueHour}<br />
+                  {this.state.selectedPlace.wedHour}<br />
+                  {this.state.selectedPlace.thuHour}<br />
+                  {this.state.selectedPlace.friHour}<br />
+                  {this.state.selectedPlace.satHour}<br />
+                  {this.state.selectedPlace.sunHour}
+                </p>
+              </div>
+              
+              {/* <div>
+                <InfoButton bank={this.state.selectedBank}/>
+              </div> */}
+            </InfoWindow>;
+
+          //Store the current markers and their information window
+          markers.push(curMarker);
+          markers.push(curInfoWin);
+          key+=2;
         }
         return (
                 <div className="mapApp">
@@ -173,11 +189,21 @@ export class MapContainer extends Component {
                     </div>
                     <div className="drop-list">
                       <div className="bankDropList">
-                        <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} />
+                        <BankList resetMapDropdownCallback={(e, bank) => this.resetMapDropdown(e, bank, this.state.bankLists)} banks={getBankNames(this.state.bankLists)} dropdownActive={this.state.dropdownActive}/>
                       </div>
-                      <div className="cloud">
+                      {/* <div className="check">
+                        <Button outline color="info">
+                          Check what they need
+                        </Button>
+                      </div> */}
+
+                      <div>
+                        <InfoButton bank={this.state.selectedBank}/>
+                      </div>
+
+                      {/* <div className="cloud">
                         <WordCloud  width={400} height = {300} data={this.state.bank_words} fontSizeMapper={fontSizeMapper} rotate={rotate}/>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="map">
@@ -206,11 +232,9 @@ export class MapContainer extends Component {
 class BankButton extends Component {
   render() {
     return (
-      <li>
-        <Button onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} className="card">
-          {this.props.bank}
-        </Button>
-      </li>
+      <DropdownItem onClick={(e) => this.props.resetMapDropdownCallback(e, this.props.bank)} >
+        {this.props.bank}
+      </DropdownItem>
     )
   }
 }
@@ -223,10 +247,10 @@ class BankList extends Component {
     })
     return (
       <div id="foodbankList" className="col-9">
-        <h2>Select Bank to See its Most Wanted Food</h2>
+        <h2>Select Bank</h2>
         <UncontrolledDropdown>
           <DropdownToggle caret>
-            Select
+            {this.props.dropdownActive}
           </DropdownToggle>
           <DropdownMenu className="dropdownlists">
             {bankList}
@@ -234,6 +258,45 @@ class BankList extends Component {
         </UncontrolledDropdown>
       </div>
     )
+  }
+}
+
+class InfoButton extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {redirect: false};
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({redirect: true});
+  }
+
+  render() {
+    let bank = this.props.bank;
+    if (!bank) {
+      return (
+        <div className="check">
+          <Button color="warning" disabled>
+            Please select a bank 
+          </Button>
+        </div>
+      )
+    } else {
+      if (this.state.redirect) {
+        return <Redirect push to={'/info/'+ bank.key} />
+      } else {
+        return (
+          <div className="check" >
+            <Button onClick={this.handleClick} color="success">
+              Check what foods they need!
+            </Button>
+          </div>
+        );
+      }
+    }
   }
 }
 

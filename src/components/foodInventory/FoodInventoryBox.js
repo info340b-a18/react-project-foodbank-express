@@ -4,7 +4,7 @@ import 'firebase/database';
 import Food from './Food'
 //should we download module specific css?
 
-class FoodInventoryBox extends Component{
+class FoodInventoryBox extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -28,8 +28,7 @@ class FoodInventoryBox extends Component{
     }else{
       event.preventDefault(); //don't submit
     let newFood = new Food(this.state.foodName, this.state.initialInventory);
-    firebase.database().ref(`banks/${this.props.bankKey}/foods`)//need to update this with the right path
-    .push(newFood);
+    firebase.database().ref(`banks/${this.props.bankKey}/foods`).push(newFood);
     this.setState({
         foodName:'',
         initialInventory: 0,

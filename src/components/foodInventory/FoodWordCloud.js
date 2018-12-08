@@ -6,11 +6,14 @@ export default class FoodWordCloud extends Component {
   
   render() {
     return (
-      <div class="container-fluid">
-        <div class="jumbotron">
-          <div className="                  ">
-            <div style={{width: 600, height: 400}}>
+      <div className="container-fluid">
+        <div className="jumbotron">
+          <div className="d-flex justify-content-center">
+            <div style={{width: 10000, height: 500}}>
               <ReactWordCloud
+                scales={'log'}
+                spiral={'rectangular'}
+                tooltipEnabled={true}
                 words={this.props.foods}
                 wordCountKey={"num"}
                 wordKey={"text"}
@@ -19,7 +22,6 @@ export default class FoodWordCloud extends Component {
           </div>
         </div>
       </div>
-      
     );
   }
 }
