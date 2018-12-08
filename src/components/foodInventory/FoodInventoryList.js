@@ -21,7 +21,6 @@ class FoodInventoryList extends Component{
                     <FoodItem key={obj.id} food={obj} isUserView={this.props.isUserView}/>
                 )
             }
-
         })
 
         if (!this.props.isUserView) {
@@ -60,17 +59,20 @@ class FoodItem extends Component {
         console.log("deleting", this.props.food.id);
         this.props.delete(this.props.food.id);
     }
+
     postUpdatedQuantity(e){
         this.props.update(this.props.food.text, this.props.food.id, parseInt(this.state.updateQuantity) + parseInt(this.props.food.num));
         this.setState({
             updateQuantity: 0
         });
     }
+
     updateSubtractQuantity(event){
         this.setState({
             updateQuantity: event.target.value,
         });
     }
+    
     postSubtractQuantity(e){
         this.props.update(this.props.food.text, this.props.food.id, parseInt(this.props.food.num) - parseInt(this.state.updateQuantity));
         this.setState({

@@ -40,7 +40,7 @@ class FoodInventory extends Component{
                     let snapShotVal = snapshot.val()
                     if(snapShotVal === null){
                         this.setState({foods: []});
-                    }else{
+                    } else {
                         let foods = Object.keys(snapShotVal).map((key) => {
                             let foodObj = snapShotVal[key];
                             foodObj.id = key;
@@ -115,9 +115,7 @@ class FoodInventory extends Component{
         return(
 
             <div>
-                <FoodWordCloud
-                    foods={this.state.foods}
-                    />
+                <FoodWordCloud foods={this.state.foods}/>
                 <FoodInventoryBox bankKey={this.bankKey}/>
                 <FoodInventoryList foods={this.state.foods}
                     sortStyle={this.state.sortStyle}
@@ -127,7 +125,7 @@ class FoodInventory extends Component{
                     delete={this.deleteFoodItem}
                     currentUser={this.props.currentUser}
                     isUserView={false}
-                    />
+                />
             </div>
         );
         
