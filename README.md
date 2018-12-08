@@ -6,6 +6,8 @@ and find information about them.
 Contributions:
 
 1. Aman
+    * Organize team
+    * Overall conceptual design of application
     * Convert html/css/js to React
     * Add animations to home page
     * Create the fake word cloud data
@@ -16,6 +18,7 @@ Contributions:
     * Filter current map as according to user input
     * Generate word cloud based on User Input
     * Handle user authentication
+    * Create the "user-view" buttons and functionality from the map page
 2. Zhuo
     * Create the functioning Google Map
     * Retrieve information from Google Map API for list of banks
