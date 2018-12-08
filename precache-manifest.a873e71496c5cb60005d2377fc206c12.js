@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/react-project-foodbank-express/static/media/connect.ea92a6d1.png"
   },
   {
-    "revision": "0290c5f9ac94e80800cb",
-    "url": "/react-project-foodbank-express/static/css/main.22f97f29.chunk.css"
+    "revision": "702c95060b42e3c19c2a",
+    "url": "/react-project-foodbank-express/static/css/main.d166c11b.chunk.css"
   },
   {
-    "revision": "6e81a74e675ee95896fd",
-    "url": "/react-project-foodbank-express/static/js/1.6e81a74e.chunk.js"
+    "revision": "d4d079e0890971589c5f",
+    "url": "/react-project-foodbank-express/static/js/1.d4d079e0.chunk.js"
   },
   {
     "revision": "1ef362a84156f5322ae1",
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/react-project-foodbank-express/static/media/groceryIcon.aa9c69ef.png"
   },
   {
-    "revision": "0290c5f9ac94e80800cb",
-    "url": "/react-project-foodbank-express/static/js/main.0290c5f9.chunk.js"
+    "revision": "702c95060b42e3c19c2a",
+    "url": "/react-project-foodbank-express/static/js/main.702c9506.chunk.js"
   },
   {
     "revision": "daf56bcb4125d560cb628d8c3b9ab040",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/react-project-foodbank-express/static/media/trash.79ada70d.png"
   },
   {
-    "revision": "04edd16e34825604e9ada76b86b8358d",
+    "revision": "c33e9e75e1ebd1b59ce413c3c2eb4a1d",
     "url": "/react-project-foodbank-express/index.html"
   }
 ];
