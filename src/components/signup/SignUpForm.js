@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; //import React Component
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import avatarSignUp from '././public/img/no-user-pic.png'
 
 import '../SignUpForm.css'; //load module CSS
 
@@ -29,7 +30,7 @@ class SignUpForm extends Component {
   //handle signUp button
   handleSignUp(event) {
     event.preventDefault(); //don't submit
-    let avatar = this.state.avatar || 'public/img/no-user-pic.png'; //default to local pic
+    let avatar = this.state.avatar || {avatarSignUp}; //default to local pic
     this.props.signUpCallback(this.state.email, this.state.password, this.state.handle, avatar);
   }
 
@@ -76,7 +77,7 @@ class SignUpForm extends Component {
 
         {/* avatar */}
         <div className="form-group">
-          <img className="avatar" src={this.state.avatar || 'public/img/no-user-pic.png'} alt="avatar preview" />
+          <img className="avatar" src={this.state.avatar || {avatarSignUp}} alt="avatar preview" />
           <label htmlFor="avatar">Avatar Image URL</label>
           <input className="form-control" 
             id="avatar" 
