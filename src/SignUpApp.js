@@ -55,8 +55,8 @@ class SignUpApp extends Component {
             return user;
           }).catch(function(error) {
             // An error happened.
-            this.setState({errorMessage: error.message});
             console.log(error.message);
+            this.setState({errorMessage: error.message});
           });
         });
 
