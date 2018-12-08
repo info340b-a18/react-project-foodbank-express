@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; //import React Component
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import avatarSignUp from '././public/img/no-user-pic.png'
+import avatarSignUp from '../no-user-pic.png'
 
 import '../SignUpForm.css'; //load module CSS
 
