@@ -3,6 +3,8 @@ import SignInForm from './components/signin/SignInForm';
 import WelcomeHeader from './components/WelcomeHeader';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import FoodInventory from './FoodInventory.js';
+
 // import ChirpBox from './components/chirper/ChirpBox';
 // import ChirperHeader from './components/chirper/ChirperHeader';
 // import ChirpList from './components/chirper/ChirpList';
@@ -70,7 +72,7 @@ class SignInApp extends Component {
       else { //if logged in, show welcome message
         content = (
             <div>
-                <WelcomeHeader user={this.state.user}>
+                <WelcomeHeader user={this.state.user} isUserView={false}>
                     {/* log out button is child element */}
                     {this.state.user &&
                     <button className="btn btn-warning" 
@@ -79,6 +81,7 @@ class SignInApp extends Component {
                     </button>
                     }
                 </WelcomeHeader>
+                <FoodInventory currentUser={this.state.user} />
           </div>
         );
       }

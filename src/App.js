@@ -19,35 +19,73 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import MapApp from './MapApp.js';
 import SignInApp from './SignInApp';
 import SignUpapp from './SignUpApp';
+import UserBankInfoPage from './UserBankInfoPage';
+import firebase from 'firebase/app';
+
 
 import {Route, Link, Switch, Redirect} from 'react-router-dom'
+import WelcomeHeader from './components/WelcomeHeader';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {bankNames: [], loading: true}
+    }
+
+    componentWillMount() {
+        this.banksRef = firebase.database().ref('banks');
+        this.banksRef.on('value', (snapshot) => {
+            //this.setState({bankNames: snapshot.val(), loading: false});
+            this.setState({bankNames: snapshot.val(), loading: false});
+        })
+
+        // let banksKeys = Object.keys(this.state.bankNames);
+        // let bankNames = banksKeys.map((key) => {
+        //     let bank = this.state.bankNames[key];
+        //     bank.key = key;
+        //     return bank.bankInfo.handle;
+        // });
+    }
+
+    componentWillUnmount() {
+        this.banksRef.off();
+    }
+
+
     render() {
-        return (
-            <div>
+        if (!this.state.loading) {
+            return (
                 <div>
-                    <header>
-                        <NavMenu />
-                    </header>
+                    <div>
+                        <header>
+                            <NavMenu />
+                        </header>
 
-                    <Switch>
-                        <Route exact path='/' component={HomePage} />
-                        <Route path='/app' render={(routerProps) => (
-                            <MapApp banks={Object.keys(data)} />
-                        )} />
-                        <Route path='/signup' component={SignUpapp} />
-                        <Route path='/signin' component={SignInApp} />
-                        <Redirect to='/'/>
-                    </Switch>
+                        <Switch>
+                            <Route exact path='/' component={HomePage} />
+                            <Route path='/app' render={(routerProps) => (
+                                <MapApp bankNames={this.state.bankNames} />
+                            )} />
+                            <Route path='/signup' component={SignUpapp} />
+                            <Route path='/signin' component={SignInApp} />
+                            <Route path='/info/:foodBank' component={UserBankInfoPage} />
+                            <Redirect to='/'/>
+                        </Switch>
+                    </div>
+
+                    <footer>
+                        <Footer />
+                    </footer>
+                    
                 </div>
-
-                <footer>
-                    <Footer />
-                </footer>
-                
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div className="text-center">
+                    <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+                </div>
+            )
+        }
     }
 }
 
@@ -173,14 +211,15 @@ class Introduction extends Component {
     render() {
         return (
             <div>
-                <div className="intro-content-container">
                     {/* Animate when the user scrolls nearby */}
                     <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={400}>
-                        <div>
+                    <div className="intro-content-container">
+                        <div className="intro-logo-div">
                             <div className="intro-logo animate-box">
                                 <img src={logo} alt="foodBank logo" />
                             </div>
-
+                        </div>
+                        <div className="intro-text-div">
                             <div className="intro-h1 animate-box">
                                 <h1>Welcome to FoodBank Express</h1>
                             </div>
@@ -192,10 +231,8 @@ class Introduction extends Component {
                                     and fight against food waste and hunger!
                                 </p>
                             </div> 
-                        </div>
-                    </ScrollAnimation>
-                    <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
-                        <div className="intro-card">
+                        
+                        <div className="intro-card animate-box">
                             <div className="card">
                                 <img className="card-img-top" src={groceryIcon} alt="Grocery Icon" />
                                 <div className="card-body">
@@ -215,9 +252,10 @@ class Introduction extends Component {
                                     <p className="card-text">Minimize Donation Gap</p>
                                 </div>
                             </div> 
+                        </div>
                         </div>     
+                        </div>
                     </ScrollAnimation>  
-                </div>
             </div>
         )
     }
@@ -227,7 +265,8 @@ class Introduction extends Component {
 class FoodWaste extends Component {
     render() {
         return (
-            <div>            
+            <div className="foodwaste-container">
+            <div className="foodwaste-text-div">            
                 <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={700}>
                     <div>
                         <div className="description">
@@ -244,30 +283,33 @@ class FoodWaste extends Component {
                         </div>
                     </div>
                 </ScrollAnimation>
+            </div>
+            <div className="foodwaste-card-div">    
                 <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                     <div>
                         <div className="foodwaste-card">
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">1/3</h5>
+                                    <h3 className="card-title">1/3</h3>
                                     <p className="card-text">of all food produced globally goes to waste</p>
                                 </div>
                             </div>
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">1.3 billion tons</h5>
+                                    <h3 className="card-title">1.3 billion tons</h3>
                                     <p className="card-text">of food are thrown away without being eaten</p>
                                 </div>
                             </div>
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">The 3rd largest</h5>
+                                    <h3 className="card-title">The 3rd largest</h3>
                                     <p className="card-text">emitter of greenhouse gases is food waste</p>
                                 </div>
                             </div>     
                         </div>
                     </div>
                 </ScrollAnimation>
+            </div>
             </div>
         ) 
     }
@@ -277,8 +319,8 @@ class FoodWaste extends Component {
 class HungerCrisis extends Component {
     render() {
         return(
-            
-                <div>
+            <div className="hunger-container">
+                <div className="hunger-text-div">
                     <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <div className="description">
                             <h1>Hunger Crisis</h1>    
@@ -291,13 +333,15 @@ class HungerCrisis extends Component {
                             </p>
                         </div>
                     </ScrollAnimation>
-
+                </div>
+                <div className="hunger-img-div">
                     <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                         <div className="hunger-img">
                             <img src={foodInsecurity} alt="food insecurity percentage"/>
                         </div>
                     </ScrollAnimation>
                 </div>
+            </div>    
         )
     }
 }
@@ -306,6 +350,7 @@ class HungerCrisis extends Component {
 class FoodBankDescription extends Component {
     render() {
         return (
+            <div className="foodbank-container">
             <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                 <div className="description">
                     <h1>Food Banks</h1>
@@ -324,6 +369,7 @@ class FoodBankDescription extends Component {
                     </p>
                 </div>
             </ScrollAnimation>
+            </div>
         )
     }
 }
@@ -334,6 +380,7 @@ class MissionStatement extends Component {
         return(
             <ScrollAnimation animateOnce={true} animateIn="fadeIn" offset={600}>
                 <div className="mission-content">
+                    <div className="mission-text-div">
                     <div className="description">
                         <h1>Our Mission</h1>
                         <p>Our mission is to help the people who want to contribute to the effort and donate surplus food, 
@@ -343,6 +390,7 @@ class MissionStatement extends Component {
                     </div>
                     <div className="app-button">
                         <Link to='/app' className="learnMore-button" >Learn More</Link>
+                    </div>
                     </div>
                     <div className="mission-img">
                         <img src={homelessfood} alt="people eating food" />
@@ -399,7 +447,7 @@ class Steps extends Component {
                                 </div>
                                 <div className="intro-content-container">
                                 <div className="intro-h1">
-                                    <h1>Step 3:  Reserve Timeslot</h1>
+                                    <h1>Step 3:  Reserve Timeslot (Coming soon)</h1>
                                 </div>
                                 <div className="intro-p">
                                     <p>After being selected, the food bank will receive your information about food donation.</p>

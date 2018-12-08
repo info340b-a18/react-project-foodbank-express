@@ -10,7 +10,9 @@ body {
 * {
     box-sizing: border-box;
 }
-
+body h1 {
+    font-size: 2rem;
+}
 .app-page {
     display: flex;
     flex-direction: column;
@@ -54,6 +56,12 @@ body {
     border: 2px solid black;
 }
 
+.check {
+    padding: 2rem 1rem;
+}
+#zipcodeInput {
+    margin: 0 11rem 0 0;
+}
 #nav-title {
     color: lightpink;
     padding: 1rem 1rem;
@@ -103,8 +111,8 @@ section {
     text-align: center;
 }
 /* Style for first section (welcome section) of main page */
-.main-page .welcome .welcome-photo img {
-    width: 100%;
+.main-page .welcome .welcome-photo img{
+    max-width: 100%;
 }
 
 .welcome {
@@ -118,9 +126,8 @@ section {
 
 .welcome-text {
     position: absolute;
-    top: 30%;
-    margin-left: 1rem;    
-    font-size: 1.3rem;
+    top: 50%;
+    left: 35%;    
 }
 
 .welcome-text p {
@@ -318,6 +325,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+
 form label {
     font-size: 1rem;
     font-family: 'Roboto Slab', serif;
@@ -328,7 +336,7 @@ form button {
 }
 
 #zipcodeInput {
-    width: 50%;
+    width: 100%;
 }
 
 #foodbankList {
@@ -343,7 +351,14 @@ form button {
 .infoTitle {
     font-weight: bold;
 }
+body .dropdown-item:hover {
+    background-color: lightpink;
+
+}
+
 @media only screen and (min-width: 598px) {
+    
+
     .intro-card, .foodwaste-card {
         display: flex;
         flex-direction: row;
@@ -378,7 +393,7 @@ form button {
         margin-right: 2rem;
     }
     #zipcodeInput {
-        width: 30%;
+        width: 50%;
     }
     .topnav {
         display: flex;
@@ -405,106 +420,28 @@ form button {
     .topnav a.icon {
         display: none;
     }
-    .welcome .welcome-text {
-        font-size: 2rem;
-        top: 50%;
-        margin-left: 1.5rem;
-    }
-   
+
+
 }
-
-@media only screen and (min-width: 992px) {
-    .topnav #myLinks {
-        padding-right: 1.5rem;
-    }
-    .introduction, .foodwaste {
-        display: flex;
-        flex-direction: row;
-    }
-    .introduction .intro-logo {
-        flex: 1;
-        margin: auto;
+@media only screen and (min-width: 840px) {
+    .main-page .welcome .welcome-photo{
         text-align: center;
-        
+        width: 100%
     }
-  
-    .introduction .intro-content-container {
-        flex: 2;
-        margin-right: 3rem;
+    .welcome-photo {
+        background: linear-gradient(to right, #b0e0e6, lightpink);
     }
-    body .introduction .intro-content-container .intro-h1 {
-        text-align: center;
+    section {
+        margin-left: 10%;
+        margin-right: 10%;
     }
-    .introduction .intro-content-container .intro-h1, .intro-p {
-        text-align: left;
-        margin-bottom: 2rem;
-    }
-
-    .foodwaste .foodwaste-card {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex: 1;
-        align-items: center;
-        margin-right: 3rem;
-    }
-    .foodwaste .foodwaste-card .card {
-        height: 20%;
-    }
-    .foodwaste .description {
-        flex: 1;
-    }
-    .foodwaste .description h1 {
-        text-align: center;
-        margin-left: 3rem;
-    }
-    .foodwaste .description p {
-        margin-left: 3rem;
+    .foodwaste-container, .foodbank-container {
+        margin-left: 10%;
+        margin-right: 10%;
     }
 
-    .hunger-crisis {
-        display: flex;
-        flex-direction: row;
-    }
-    .hunger-crisis .hunger-img {
-        flex: 2;
-        order: 1;
-        margin-left: 3rem;
-    }
-    .hunger-crisis .description {
-        flex: 1;
-        order: 2;
-    }
-    .hunger-crisis .description h1 {
-        text-align: center;
-        margin-right: 3rem;
-    }
-
-    .foodbank .description p {
-        margin-left: 3rem;
-        margin-right: 3rem;
-    }
-
-    #mission {
-        display: flex;
-        flex-direction: row;
-    }
-    #mission .mission-content .description h1 {
-        text-align: left;
-        margin-left: 3rem;
-    }
-    #mission .mission-content .description p {
-        margin-left: 3rem;
-    }
-    #mission .mission-content, #mission .mission-img {
-        flex: 1;
-    }
-    #mission .mission-img {
-        margin-right: 3rem; 
-    }
-    .app-button {
-        margin-left: 3rem; 
-    }
+}
+@media only screen and (min-width: 909px) {
     .footer-container .row {
         display: flex;
         flex-direction: row;
@@ -518,4 +455,130 @@ form button {
     .about-us-container {
         margin-left: 5rem;
     }
+    .row-bottom p {
+        font-size: 0.75rem;
+    }
+    
+
+}
+@media only screen and (min-width: 1500px) {
+    body h1 {
+        font-size: 2.5rem;
+    }
+    p {
+        font-size: 2rem;
+    }
+    .topnav #myLinks {
+        padding-right: 1.5rem;
+    }
+    .intro-content-container, .foodwaste {
+        display: flex;
+        flex-direction: row;
+    }
+    .introduction .intro-logo-div {
+        flex: 1;
+        margin: auto;
+        text-align: center;
+        
+    }
+  
+    .introduction .intro-text-div {
+        flex: 2;
+        margin-right: 3rem;
+    }
+    body .introduction .intro-text-div .intro-h1 {
+        text-align: left;
+        margin-left: 1rem;
+    }
+    .introduction .intro-text-div .intro-h1, .intro-p {
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    .foodwaste .foodwaste-container {
+        display: flex;
+        flex-direction: row;
+    }
+ 
+    .foodwaste .description {
+        flex: 1;
+    }
+    .foodwaste .description h1 {
+        text-align: left;
+        margin-left: 3rem;
+    }
+    .foodwaste .description p {
+        margin-left: 3rem;
+    }
+    .foodwaste .foodwaste-card .card p {
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+
+    .foodwaste-card {
+        flex-wrap: wrap;
+    }
+    .foodwaste-card-div .foodwaste-card .card {
+        width: auto;
+    }
+    .hunger-container {
+        display: flex;
+        flex-direction: row;
+    }
+    .hunger-container .hunger-img-div {
+        flex: 1;
+        order: 1;
+        margin-left: 3rem;
+    }
+    .hunger-container .hunger-text-div {
+        flex: 2;
+        order: 2;
+    }
+    .hunger-container .description h1 {
+        text-align: left;
+        margin-left: 1rem;
+    }
+
+    .foodbank .description p {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+    .mission-content {
+        display: flex;
+        flex-direction: row;
+    }
+    .mission-content .description h1 {
+        text-align: left;
+        margin-left: 3rem;
+    }
+    .mission-content .description p {
+        margin-left: 3rem;
+    }
+    .mission-content .mission-text-div {
+        flex: 2;
+    }
+    .mission-content .mission-img {
+        flex: 1;
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .app-button {
+        margin-left: 3rem; 
+    }
+  
+
+    .infowindow p{
+        font-size: 1rem;
+    }
+
+    body .mapApp .map {
+        margin-left: 2rem;
+        flex: 2;
+    }
+    body .mapApp.form-dropdown {
+        flex: 2;
+    }
+
 }
