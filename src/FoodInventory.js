@@ -59,6 +59,15 @@ class FoodInventory extends Component{
         this.foodsRef.off();
     }
 
+    foodAlreadyExists = (name) => {
+        for(let i = 0; i < this.state.foods.length; i++){
+            if(this.state.foods[i].text === name){
+                return true;
+            }
+        }
+        return false;
+    }
+
     deleteFoodItem = (foodid) => {
         let food = firebase.database().ref(`banks/${this.bankKey}/foods/${foodid}`);
         food.set(null);
@@ -118,7 +127,7 @@ class FoodInventory extends Component{
                     foods={this.state.foods}
                     currentUser={this.props.currentUser}
                     />
-                <FoodInventoryBox bankKey={this.bankKey}/>
+                <FoodInventoryBox foodExists={this.foodAlreadyExists} bankKey={this.bankKey}/>
                 <FoodInventoryList foods={this.state.foods}
                     sortStyle={this.state.sortStyle}
                     ascending={this.state.ascending} 
