@@ -61,7 +61,18 @@ class FoodItem extends Component {
         this.props.delete(this.props.food.id);
     }
     postUpdatedQuantity(e){
-        this.props.update(this.props.food.text, this.props.food.id, this.state.updateQuantity);
+        this.props.update(this.props.food.text, this.props.food.id, parseInt(this.state.updateQuantity) + parseInt(this.props.food.num));
+        this.setState({
+            updateQuantity: 0
+        });
+    }
+    updateSubtractQuantity(event){
+        this.setState({
+            updateQuantity: event.target.value,
+        });
+    }
+    postSubtractQuantity(e){
+        this.props.update(this.props.food.text, this.props.food.id, parseInt(this.props.food.num) - parseInt(this.state.updateQuantity));
         this.setState({
             updateQuantity: 0
         });
@@ -83,13 +94,14 @@ class FoodItem extends Component {
                         </div>
                         <div className = "col-8 text-right">
                             <div className="col-xs-2">
-                                <input type="number" className = "form-control-sm" placeholder="new #"
+                                <input type="number" min = "0" className = "form-control-sm" placeholder="add/remove amount"
                                     value={this.state.updateQuantity}
                                     onChange={(e) => this.updateNewQuantity(e)}
                                 />
                             </div>
-                            <button className = "btn btn-light btn-sm" onClick={(e) => this.postUpdatedQuantity(e)}><span><img src={require('../../img/refresh.png')} width="20" height= "20"/></span></button>
-                            <button className = "btn btn-light btn-sm" onClick={(e) => this.deleteFoodItem(e)}><span><img src={require('../../img/remove.png')} width="20" height= "20"/></span></button>
+                            <button className = "btn btn-light btn-sm" onClick={(e) => this.postUpdatedQuantity(e)}><span><img src={require('../../img/plus.png')} width="20" height= "20"/></span></button>
+                            <button className = "btn btn-light btn-sm" onClick={(e) => this.postSubtractQuantity(e)}><span><img src={require('../../img/subtract.png')} width="20" height= "20"/></span></button>
+                            <button className = "btn btn-light btn-sm" onClick={(e) => this.deleteFoodItem(e)}><span><img src={require('../../img/trash.png')} width="20" height= "20"/></span></button>
                         </div> 
                     </div>
                 </div>

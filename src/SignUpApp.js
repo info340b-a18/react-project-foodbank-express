@@ -6,7 +6,7 @@ import 'firebase/database';
 import WelcomeHeader from './components/WelcomeHeader';
 import FoodInventory from './FoodInventory.js';
 import {Route, Link, Switch, Redirect} from 'react-router-dom';
-import { Jumbotron, Container } from 'reactstrap';
+import { Button, Jumbotron, Container } from 'reactstrap';
 
 
 
@@ -18,7 +18,9 @@ import { Jumbotron, Container } from 'reactstrap';
 class SignUpApp extends Component {
     constructor(props){
       super(props);
-      this.state = {loading: true};
+      this.state = {loading: true, redirect:false};
+
+      this.goToFoodBankPage = this.goToFoodBankPage.bind(this);
     }
   
     componentDidMount() {
@@ -66,6 +68,10 @@ class SignUpApp extends Component {
         let banksRef = firebase.database().ref('banks');
         banksRef.push({bankInfo});
     }
+
+    goToFoodBankPage() {
+      this.setState({redirect:true});
+    }
   
     //A callback function for logging in existing users
     // handleSignIn(email, password) {
@@ -105,22 +111,31 @@ class SignUpApp extends Component {
               />
             </div>
           );
-        } 
-        else { //if logged in, show welcome message
-          console.log(this.state.user);
-          content = (
-              <div>
-                <Jumbotron fluid>
-                  <Container fluid>
-                    <h1 className="display-3">You have been signed up!</h1>
-                  </Container>
-                </Jumbotron>
-              </div>
-          );
+        } else { //if logged in, show welcome message
+          if (!this.state.redirect) {
+            console.log(this.state.user);
+            content = (
+                <div>
+                  <Jumbotron fluid>
+                    <Container fluid>
+                      <h1 className="display-3">You have been signed up!</h1>
+                      <p className="lead">Click below to go to your home page.</p>
+                      <p className="lead">
+                        <Button onClick={this.goToFoodBankPage} color="primary">Go to home page</Button>
+                      </p>
+                    </Container>
+  
+                  </Jumbotron>
+                </div>
+            );
+          } else {
+            content = (<Redirect to='signin' />);
+          }
         }
         return (
           <div>
-            {this.state.errorMessage &&
+            {
+              this.state.errorMessage &&
               <p className="alert alert-danger">{this.state.errorMessage}</p>
             }
             {content}
