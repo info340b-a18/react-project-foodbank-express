@@ -32,6 +32,7 @@ Contributions:
     * Imported JSON to firebase database
     * Style dropdown menu interactions
     * Style sign-in and sign-out pages
+    * Convert html/css/js to React
 3. Yodae
     * create food, foodInventory, foodInventoryList, foodInventoryBox, foodWordCloud, Component Classes(what renders on the sign in/ sign up page)
 	*use Aman's WordCloud with the foodInventory class data in foodWordCloud
